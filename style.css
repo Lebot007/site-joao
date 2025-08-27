@@ -1,0 +1,55 @@
+/* Arquivo atualizado para evitar conflitos com Tailwind e estilos inline
+   - Remove regras globais que sobrescreviam h1/p e padding do body
+   - Adiciona pequenos ajustes de responsividade para iPad / mobile
+   - Mantém compatibilidade com o design existente em desktop
+*/
+
+/* Evita overflow horizontal desagradável */
+html, body {
+	overflow-x: hidden;
+}
+
+/* Garante que âncoras rolem corretamente quando há nav fixa no topo */
+section {
+	scroll-margin-top: 5rem; /* compensa a altura da navbar fixa */
+}
+
+/* Desativa efeito parallax em telas menores / touch (iOS e Android têm problemas com background-attachment: fixed) */
+@media (max-width: 1024px) {
+	.parallax {
+		background-attachment: scroll !important;
+		background-position: center;
+	}
+}
+
+/* Imagens sempre responsivas */
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Neutraliza estilos antigos de .card caso exista (escopo seguro) */
+.card {
+	max-width: 100%;
+	margin: 0 auto;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	background: transparent;
+	box-shadow: none;
+}
+
+/* Ajustes no menu mobile para garantir largura correta */
+#mobileMenu {
+	left: 0;
+	right: 0;
+}
+
+/* Dicas de toque para botões/links */
+a, button {
+	touch-action: manipulation;
+}
+
+/* Se necessário, adicione aqui estilos adicionais específicos e bem escopados
+   em vez de regras globais que afetam componentes Tailwind */
