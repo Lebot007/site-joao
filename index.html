@@ -3,83 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>João Vitor Alves Rodrigues | Desenvolvedor de Tecnologia</title>
-    <meta name="description" content="João Vitor Alves Rodrigues - Desenvolvedor de Tecnologia. Especialista em desenvolvimento de software e manutenção de sistemas.">
-    <!-- Open Graph / Social -->
-    <meta property="og:title" content="João Vitor Alves Rodrigues | Desenvolvedor de Tecnologia">
-    <meta property="og:description" content="Desenvolvedor de tecnologia com foco em soluções inovadoras e manutenção de sistemas.">
-    <meta property="og:image" content="joao_imagem.png">
+    <meta name="description" content="Supplies - Locação e suporte de impressoras Samsung (M4020, M4070). Vendas de toners originais e compatíveis. Atendimento via WhatsApp +55 31 99645-6583.">
+    <meta name="theme-color" content="#0b63c6">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Supplies - Locação de Impressoras Samsung">
+    <meta property="og:description" content="Locação e suporte para impressoras Samsung (M4020, M4070). Toners originais e compatíveis.">
+    <meta property="og:image" content="favicon.svg">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <!-- Preload main profile image for faster paint -->
-    <link rel="preload" as="image" href="joao_imagem.png">
+    <title>Supplies - Locação de Impressoras Samsung</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="icon" type="image/png" href="maleta.png">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #3b82f6;
-            --primary-dark: #2563eb;
-            --secondary: #10b981;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --glass: rgba(15, 23, 42, 0.7);
-            --glass-light: rgba(15, 23, 42, 0.5);
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
-            overflow-x: hidden;
-        }
-        
-        .hero-text {
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
-        
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Aumenta opacidade do menu mobile específico (não altera outras glass-card) */
-        #mobileMenu {
-            background: rgba(15, 23, 42, 0.92); /* antes era var(--glass) = 0.7 */
-        }
-        
-        .skill-bar {
-            height: 8px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1);
+    :root { --vh: 1vh; }
+    /* Global fixes to avoid mobile overflow/white stripe */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; width: 100%; overflow-x: hidden; }
+    img { max-width: 100%; height: auto; display: block; }
+    .printer-model {
+            width: 100%;
+            height: 400px;
+            position: relative;
             overflow: hidden;
         }
         
-        .skill-progress {
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-            transition: width 1.5s ease-in-out;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
         }
         
-        .hover-effect {
-            transition: all 0.3s ease;
+        .service-card:hover .overlay {
+            opacity: 1;
         }
         
-        .hover-effect:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .rotate-3d {
+            animation: rotate3d 15s infinite linear;
+        }
+        
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            transform: scale(1.1);
         }
         
         .parallax {
@@ -88,750 +94,311 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
-        
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease;
-        }
-        
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding-left: 2.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0.5rem;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-        }
-        
-        .timeline-dot {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-        
-        .btn-gradient {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            background-size: 200% auto;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-gradient::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .btn-gradient:hover::before {
-            left: 100%;
-        }
-        
-        .btn-gradient:hover {
-            background-position: right center;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-        /* Corrige quebra de layout por emails longos em telas pequenas */
-        .break-email {
-            overflow-wrap: anywhere;
-            word-break: break-word;
-            hyphens: auto;
-            display: inline-block; /* ajuda em alguns containers do tailwind */
-            max-width: 100%;
-        }
-        
-        /* 3D Card Effect */
-        .card-3d {
-            perspective: 1000px;
-            transform-style: preserve-3d;
-        }
-        
-        .card-3d:hover .card-content {
-            transform: rotateY(5deg) rotateX(5deg);
-        }
-        
-        .card-content {
-            transition: transform 0.3s ease;
-            transform-style: preserve-3d;
+        /* Responsive tweaks */
+        @media (max-width: 1024px) {
+            .printer-model { height: 300px; }
+            .overlay { background: rgba(0,0,0,0.6); }
+            .text-4xl { font-size: 2rem; }
         }
 
-        /* Utility: screen-reader only (acessibilidade) */
-        .sr-only {
-            position: absolute !important;
-            width: 1px !important;
-            height: 1px !important;
-            padding: 0 !important;
-            margin: -1px !important;
-            overflow: hidden !important;
-            clip: rect(0, 0, 0, 0) !important;
-            white-space: nowrap !important;
-            border: 0 !important;
+        /* Tablet landscape tweaks (768-1024) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            section#home { height: 70vh; }
+            .service-card { min-height: 420px; }
+            .text-4xl { font-size: 2.25rem; }
         }
 
-        /* Respeita preferências de reduzir movimento */
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+        @media (max-width: 640px) {
+            .printer-model { height: 220px; }
+            .whatsapp-float { width: 52px; height: 52px; bottom: 24px; right: 16px; font-size: 26px; }
+            .text-4xl { font-size: 1.5rem; }
+            .container { padding-left: 1rem; padding-right: 1rem; }
         }
-
-        /* Skip-link: visível apenas quando focado */
-        .skip-link {
-            position: absolute;
-            left: 1rem;
-            top: 1rem;
-            background: rgba(2,6,23,0.9);
-            color: #fff;
-            padding: 0.5rem 0.75rem;
-            border-radius: 6px;
-            z-index: 99999;
-            transform: translateY(-0.5rem);
-            opacity: 0;
-            transition: opacity 0.18s ease, transform 0.18s ease;
+        /* Parallax fallback: avoid fixed background on smaller screens (iOS/Android issues) */
+        @media (max-width: 1024px) {
+            .parallax { background-attachment: scroll; }
         }
-
-        .skip-link:focus {
-            opacity: 1;
-            transform: translateY(0);
-            outline: none;
-            box-shadow: 0 6px 20px rgba(2,6,23,0.6);
-        }
-
-        /* Acessibilidade: foco visível claro para navegação por teclado */
-        a:focus-visible, button:focus-visible, .btn-gradient:focus-visible {
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(59,130,246,0.22); /* azul suave */
-            border-radius: 9999px;
-        }
-
-        /* Melhor contraste e leve feedback no botão principal */
-        .btn-gradient:hover {
-            filter: brightness(1.04);
-            transform: translateY(-2px);
-        }
-
-        .btn-gradient:active {
-            transform: translateY(0);
-        }
-
-        /* Efeitos 3D sutis (aplicados somente em dispositivos com hover e telas maiores)
-           - Mantém desempenho e aplica apenas quando faz sentido (notebooks/desktop)
-        */
-        @media (hover: hover) and (min-width: 1024px) {
-            .card-3d {
-                perspective: 1200px; /* aumenta levemente para 3D mais suave */
-            }
-
-            .card-3d .card-content {
-                transform-origin: center center;
-                transition: transform 0.35s cubic-bezier(.22,.9,.34,1), box-shadow 0.35s ease;
-            }
-
-            .card-3d:hover .card-content {
-                /* pequena elevação 3D combinada com rotação já existente */
-                transform: translateZ(10px) rotateY(4deg) rotateX(2deg);
-                box-shadow: 0 20px 50px rgba(2,6,23,0.45);
-            }
-
-            /* Eleva sutilmente imagem de perfil durante hover para reforçar 3D */
-            .flip-front > div {
-                transition: transform 0.35s ease, box-shadow 0.35s ease;
-            }
-
-            .flip-container:hover .flip-front > div {
-                transform: translateZ(18px);
-                box-shadow: 0 10px 30px rgba(2,6,23,0.35);
-            }
-
-            /* Pequeno destaque para ícones técnicos ao hover */
-            .tech-icon { will-change: transform; }
-            .flip-container:hover .tech-icon { transform: translateY(-6px) translateZ(6px); }
-        }
-
-        /* Ajustes específicos para a seção "Qualificações Adicionais" em telas maiores
-           - Mantém a animação, mas afasta levemente o conteúdo da borda durante o hover
-           - Adiciona transform-origin e um pequeno translate para não colar o ícone na borda
-        */
-        @media (min-width: 1024px) {
-            .additional-quals {
-                /* garante que o hover-effect não reduza o espaçamento visual */
-                padding: 2rem; /* igual a p-8 (32px) mas reforçado para navegadores que calculem diferente em hover */
-            }
-
-            .additional-quals .card-content {
-                transform-origin: left center;
-                transition: transform 0.28s cubic-bezier(.22,.9,.34,1), box-shadow 0.28s ease, padding 0.28s ease;
-            }
-
-            /* Ao passar o mouse, aplica a mesma rotação 3D mas também translada levemente para direita
-               Isso evita que ícones colidam com a borda em telas tipo notebook sem remover o efeito */
-            .additional-quals:hover .card-content {
-                transform: rotateY(4deg) rotateX(2deg) translateX(6px);
-            }
-
-            /* Também suaviza o deslocamento do ícone e cria um pequeno gap à esquerda */
-            .additional-quals .fas {
-                transition: transform 0.28s ease, margin 0.28s ease;
-            }
-
-            .additional-quals:hover .fas {
-                transform: translateX(2px);
-            }
-        }
-        
-        /* Section Overlays */
-        .section-overlay {
-            position: relative;
-        }
-        
-        .section-overlay::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
-            z-index: -1;
-        }
-        
-        /* Particle Background */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .particles {
-            pointer-events: none; /* não interferem em cliques */
-            will-change: transform, opacity;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(59,130,246,0.9), rgba(16,185,129,0.6) 60%, rgba(59,130,246,0) 100%);
-            box-shadow: 0 6px 20px rgba(59,130,246,0.16), inset 0 0 6px rgba(255,255,255,0.02);
-            filter: blur(0.6px);
-            mix-blend-mode: screen;
-            opacity: 0.85;
-            animation: float 20s infinite linear;
-            will-change: transform, opacity;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.75;
-            }
-            100% {
-                transform: translateY(-900px) translateX(900px) rotate(540deg) scale(0.9);
-                opacity: 0;
-            }
-        }
-        /* Flip photo 3D (front/back) - ativa somente em dispositivos com hover */
-        .flip-container {
-            perspective: 1200px;
-            display: inline-block;
-            position: relative;
-        }
-
-        .flip-inner {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.95s cubic-bezier(.22,.9,.34,1), box-shadow 0.6s ease;
-            transform-style: preserve-3d;
-            position: relative;
-            border-radius: 9999px;
-            will-change: transform;
-        }
-
-        .flip-front,
-        .flip-back {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: inherit;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .flip-back {
-            transform: rotateY(180deg) translateZ(0);
-            background: linear-gradient(135deg, rgba(2,6,23,0.78), rgba(15,23,42,0.9));
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
-            padding: 1rem;
-        }
-
-        .flip-back-inner {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 0.6rem;
-            color: rgba(255,255,255,0.95);
-        }
-
-        .tech-icons {
-            display: flex;
-            gap: 0.6rem;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tech-icon {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.85);
-            opacity: 0.95;
-            transform: translateY(0);
-            transition: transform 0.4s ease, color 0.3s ease;
-        }
-
-        .flip-container:hover .tech-icon { transform: translateY(-4px); }
-
-        .code-snippet {
-            width: 80%;
-            max-width: 260px;
-            background: rgba(2,6,23,0.25);
-            border-radius: 8px;
-            padding: 8px 10px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;
-            font-size: 12px;
-            color: #cbd5e1;
-            box-shadow: 0 6px 18px rgba(2,6,23,0.35);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .code-snippet .line {
-            height: 14px;
-            overflow: hidden;
-            white-space: nowrap;
-            display: block;
-            margin: 3px 0;
-        }
-
-        .code-snippet .line span {
-            display: inline-block;
-            transform-origin: left center;
-            width: 0;
-            opacity: 0.9;
-        }
-
-        /* Tipagem suave: diferentes durações e delays para cada linha */
-        .code-snippet .l1 span { animation: typing 0.8s steps(24) 0.12s forwards; color: #60a5fa; }
-        .code-snippet .l2 span { animation: typing 0.9s steps(28) 0.28s forwards; color: #34d399; }
-        .code-snippet .l3 span { animation: typing 1.0s steps(30) 0.48s forwards; color: #fca5a5; }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        .code-snippet .cursor {
-            position: absolute;
-            right: 12px;
-            bottom: 8px;
-            width: 6px;
-            height: 14px;
-            background: linear-gradient(180deg, #60a5fa, #10b981);
-            border-radius: 2px;
-            animation: blink 1s steps(2) infinite;
-            opacity: 0.9;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; transform: translateY(0); }
-            50% { opacity: 0.2; transform: translateY(-2px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Ativa flip apenas em dispositivos com suporte a hover para não afetar touch */
-        @media (hover: hover) and (pointer: fine) {
-            .flip-container:hover .flip-inner {
-                transform: rotateY(180deg) translateZ(0);
-                box-shadow: 0 18px 40px rgba(2,6,23,0.45);
-            }
-        }
+    /* Use CSS variable --vh to set hero height precisely on mobile */
+    section#home { height: calc(var(--vh, 1vh) * 100); overflow: hidden; }
+    /* Reveal animation used by IntersectionObserver */
+    .reveal { opacity: 1 !important; transform: translateY(0) !important; transition: opacity 400ms ease-out, transform 400ms ease-out; }
+    .skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+    .skip-link:focus { left: 0; top: 0; width: auto; height: auto; background: #fff; color: #000; padding: 8px 12px; z-index: 60; }
+    a:focus-visible { outline: 3px solid rgba(11,99,198,0.5); outline-offset: 2px; }
+    /* Hero particles canvas */
+    #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    /* ensure hero content stays above canvas */
+    #home .container { position: relative; z-index: 10; }
     </style>
 </head>
-<body class="antialiased">
-    <!-- Skip link para acessibilidade -->
-    <a href="#home" class="skip-link sr-only">Pular para o conteúdo</a>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-spinner"></div>
-    </div>
+<body class="bg-gray-100 font-sans">
+    <a href="#home" class="skip-link sr-only focus:not-sr-only">Ir para o conteúdo</a>
+
+    <noscript>
+        <div class="bg-yellow-100 text-yellow-800 p-2 text-center">Algumas funcionalidades podem ficar limitadas sem JavaScript. Para melhor experiência, habilite JavaScript.</div>
+    </noscript>
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/553196456583?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Supplies%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <!-- Navigation -->
-    <nav class="glass-card fixed w-full z-50 top-0 py-4 px-6 shadow-lg">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-white hover:text-blue-400 transition-colors">
-                <span class="text-blue-400">J</span>oão <span class="text-blue-400">V</span>itor
-            </a>
-            
-            <div class="hidden md:flex space-x-8">
-                <a href="#home" class="nav-link text-white hover:text-blue-400">Início</a>
-                <a href="#about" class="nav-link text-white hover:text-blue-400">Sobre</a>
-                <a href="#skills" class="nav-link text-white hover:text-blue-400">Habilidades</a>
-                <a href="#education" class="nav-link text-white hover:text-blue-400">Formação</a>
-                <a href="#contact" class="nav-link text-white hover:text-blue-400">Contato</a>
+    <nav class="bg-blue-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-print text-blue-900 text-2xl"></i>
+                    </div>
+                    <span class="font-bold text-xl">Supplies</span>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-blue-300 transition">Home</a>
+                    <a href="#services" class="hover:text-blue-300 transition">Serviços</a>
+                    <a href="#products" class="hover:text-blue-300 transition">Produtos</a>
+                    <a href="#about" class="hover:text-blue-300 transition">Sobre</a>
+                    <a href="#contact" class="hover:text-blue-300 transition">Contato</a>
+                </div>
             </div>
             
-            <button class="md:hidden text-white focus:outline-none" id="menuToggle" aria-controls="mobileMenu" aria-expanded="false" aria-label="Abrir menu">
-                <i class="fas fa-bars text-xl"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-    <div class="md:hidden hidden glass-card absolute top-full left-0 w-full py-4 px-6 shadow-lg" id="mobileMenu" aria-hidden="true" role="menu">
-            <div class="flex flex-col space-y-4">
-        <a href="#home" role="menuitem" class="text-white hover:text-blue-400 transition-colors">Início</a>
-        <a href="#about" role="menuitem" class="text-white hover:text-blue-400 transition-colors">Sobre</a>
-        <a href="#skills" role="menuitem" class="text-white hover:text-blue-400 transition-colors">Habilidades</a>
-        <a href="#education" role="menuitem" class="text-white hover:text-blue-400 transition-colors">Formação</a>
-        <a href="#contact" role="menuitem" class="text-white hover:text-blue-400 transition-colors">Contato</a>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <a href="#home" class="block py-2 hover:bg-blue-800 px-4 rounded">Home</a>
+                <a href="#services" class="block py-2 hover:bg-blue-800 px-4 rounded">Serviços</a>
+                <a href="#products" class="block py-2 hover:bg-blue-800 px-4 rounded">Produtos</a>
+                <a href="#about" class="block py-2 hover:bg-blue-800 px-4 rounded">Sobre</a>
+                <a href="#contact" class="block py-2 hover:bg-blue-800 px-4 rounded">Contato</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-emerald-900/30 z-0"></div>
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 z-0 parallax"></div>
+    <section id="home" class="relative h-screen flex items-center justify-center bg-gray-900 overflow-hidden">
+        <canvas id="hero-canvas" aria-hidden="true"></canvas>
+        <div class="container mx-auto px-4 z-10 relative">
+                <div class="max-w-3xl mx-auto text-center bg-black bg-opacity-70 p-8 rounded-xl">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">Especialistas em Impressoras <span class="text-blue-400">Samsung</span></h1>
+                <p class="text-xl text-gray-300 mb-8">Locação e suporte para os modelos M4020 e M4070. Venda de toners originais e compatíveis.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://wa.me/553196456583?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20planos%20de%20loca%C3%A7%C3%A3o%20de%20impressoras." target="_blank" rel="noopener noreferrer" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition transform hover:scale-105" aria-label="Abrir WhatsApp">
+                        <i class="fab fa-whatsapp mr-2"></i> WhatsApp: +55 31 99645-6583
+                    </a>
+                </div>
+            </div>
+        </div>
         
-        <!-- Particles Background -->
-        <div class="particles" id="heroParticles"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 py-20 z-10 relative reveal">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left">
-                    <h1 class="text-4xl md:text-6xl font-bold mb-6 hero-text">
-                        <span class="text-blue-400">João Vitor</span> Alves Rodrigues
-                    </h1>
-                    <h2 class="text-2xl md:text-3xl font-semibold mb-8 text-blue-300 hero-text">
-                        Desenvolvedor de Tecnologia
-                    </h2>
-                    <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto lg:mx-0 text-gray-300">
-                        Especialista em desenvolvimento de software e manutenção de sistemas com foco em soluções inovadoras e eficientes.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#contact" class="btn-gradient text-white font-semibold py-3 px-8 rounded-full inline-block">
-                            Contate-me
-                        </a>
-                        <a href="./Curriculo%20Jo%C3%A3o%20Vitor.pdf" download="Curriculo João Vitor.pdf" class="glass-card text-white font-semibold py-3 px-8 rounded-full inline-flex items-center justify-center hover-effect">
-                            <i class="fas fa-download mr-2"></i> Baixar Currículo
-                        </a>
+        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+            <a href="#services" class="text-white text-4xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nossos <span class="text-blue-600">Serviços</span></h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Especializados em locação e manutenção de impressoras Samsung, oferecemos serviços de qualidade com garantia.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="service-card bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                    <div class="relative h-48 overflow-hidden">
+                    <img src="m4020.jpg" loading="lazy"
+                        alt="Impressora Samsung M4020" class="w-full h-full object-cover">
+                        <div class="overlay">
+                                    <a href="https://wa.me/553196456583?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20loca%C3%A7%C3%A3o%20da%20Samsung%20M4020." target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full inline-block transition">
+                                Saiba Mais
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Locação Samsung M4020</h3>
+                        <p class="text-gray-600 mb-4">Planos de locação flexíveis para a impressora Samsung M4020, com suporte técnico e manutenção inclusa.</p>
+                        <div class="flex items-center text-yellow-500 mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="text-gray-600 ml-2">(45 avaliações)</span>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="flex justify-center relative">
-                    <div class="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 floating flip-container">
-                        <div class="flip-inner" style="border-radius:9999px;">
-                            <div class="flip-front" style="background: linear-gradient(135deg, #3b82f6, #10b981);">
-                                <div class="w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-full bg-[url('joao_imagem.png')] bg-cover bg-center" aria-hidden="true"></div>
-                                <!-- Imagem acessível para leitores de tela -->
-                                <img src="joao_imagem.png" alt="Foto de João Vitor" class="sr-only">
-                            </div>
-                            <div class="flip-back">
-                                <div class="flip-back-inner">
-                                    <div class="tech-icons" aria-hidden="true">
-                                        <i class="fab fa-html5 tech-icon" title="HTML5"></i>
-                                        <i class="fab fa-css3-alt tech-icon" title="CSS3"></i>
-                                        <i class="fab fa-js tech-icon" title="JavaScript"></i>
-                                        <i class="fab fa-node tech-icon" title="Node.js"></i>
-                                    </div>
-                                    <div class="code-snippet" aria-hidden="true">
-                                        <div class="line l1"><span>&lt;div class=\"app\"&gt;</span></div>
-                                        <div class="line l2"><span>  fetch('/api/data').then(res =&gt; res.json())</span></div>
-                                        <div class="line l3"><span>  .then(data =&gt; render(data));</span></div>
-                                        <div class="cursor" aria-hidden="true"></div>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Service 2 -->
+                <div class="service-card bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                    <div class="relative h-48 overflow-hidden">
+                    <img src="m4070.jpg" loading="lazy"
+                        alt="Impressora Samsung M4070" class="w-full h-full object-cover">
+                        <div class="overlay">
+                            <a href="https://wa.me/553196456583?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20loca%C3%A7%C3%A3o%20da%20Samsung%20M4070." target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full inline-block transition">
+                                Saiba Mais
+                            </a>
                         </div>
                     </div>
-                    <div class="absolute -bottom-4 -right-4 md:-bottom-8 md:-right-8 w-32 h-32 bg-blue-500/20 rounded-full z-0"></div>
-                    <div class="absolute -top-4 -left-4 md:-top-8 md:-left-8 w-24 h-24 bg-emerald-500/20 rounded-full z-0"></div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Locação Samsung M4070</h3>
+                        <p class="text-gray-600 mb-4">Planos de locação e aluguel para a impressora Samsung M4070 com contrato mensal e suporte técnico.</p>
+                        <div class="flex items-center text-yellow-500 mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span class="text-gray-600 ml-2">(32 avaliações)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="manutencao.jpg" loading="lazy"
+                             alt="Manutenção Preventiva" class="w-full h-full object-cover">
+                        <div class="overlay">
+                            <a href="https://wa.me/553196456583?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20sobre%20planos%20de%20loca%C3%A7%C3%A3o%20com%20manuten%C3%A7%C3%A3o%20preventiva." target="_blank" rel="noopener noreferrer" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full inline-block transition">
+                                Saiba Mais
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">Locação com Manutenção Preventiva</h3>
+                        <p class="text-gray-600 mb-4">Planos de locação que incluem manutenções preventivas periódicas para manter sua operação sem interrupções.</p>
+                        <div class="flex items-center text-yellow-500 mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="text-gray-600 ml-2">(28 avaliações)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Info Section -->
+    <section id="products" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Toners para Impressoras <span class="text-blue-600">Samsung</span></h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Comercializamos toners originais e compatíveis para locação e venda, especialmente para os modelos M4020 e M4070.</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Toners Originais</h3>
+                        <p class="text-gray-600 mb-4">
+                            Garantia de qualidade e desempenho com produtos originais Samsung.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span>Alta qualidade de impressão</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span>Maior rendimento</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span>Garantia Samsung</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Toners Compatíveis</h3>
+                        <p class="text-gray-600 mb-4">
+                            Excelente custo-benefício com qualidade comprovada.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span>Preço mais acessível</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span>Testados e aprovados</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <span>Garantia Supplies</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="#contact" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition transform hover:scale-105">
+                        Entre em contato para mais informações
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-gradient-to-b from-slate-900 to-slate-800 relative overflow-hidden section-overlay">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 relative">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-blue-400">Sobre Mim</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center reveal">
-                <div class="glass-card p-8 rounded-2xl hover-effect card-3d">
-                    <div class="card-content">
-                        <h3 class="text-2xl font-bold mb-6 text-blue-400">Perfil Profissional</h3>
-                        <p class="text-gray-300 mb-6">
-                            Técnico em Manutenção de Impressoras com sólida experiência na manutenção preventiva e corretiva de impressoras, atuando no diagnóstico, reparo e configuração de equipamentos diversos.
-                        </p>
-                        <p class="text-gray-300 mb-6">
-                            Amplo conhecimento técnico abrangendo desde impressoras de pequeno porte (laser) para uso doméstico ou corporativo, até equipamentos de grande porte e multifuncionais industriais.
-                        </p>
-                        <p class="text-gray-300">
-                            Experiência prática, garantindo soluções eficientes e otimização do desempenho dos equipamentos.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="glass-card p-8 rounded-2xl hover-effect card-3d">
-                    <div class="card-content">
-                        <h3 class="text-2xl font-bold mb-6 text-blue-400">Informações Pessoais</h3>
-                        <ul class="space-y-4">
-                            <li class="flex items-start">
-                                <i class="fas fa-user text-blue-400 mt-1 mr-4"></i>
-                                <div>
-                                    <span class="font-semibold text-gray-300">Nome:</span>
-                                    <span class="text-gray-400 ml-2">João Vitor Alves Rodrigues</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-briefcase text-blue-400 mt-1 mr-4"></i>
-                                <div>
-                                    <span class="font-semibold text-gray-300">Profissão:</span>
-                                    <span class="text-gray-400 ml-2">Desenvolvedor de Tecnologia</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-phone text-blue-400 mt-1 mr-4"></i>
-                                <div>
-                                    <span class="font-semibold text-gray-300">Telefone:</span>
-                                    <span class="text-gray-400 ml-2">(31) 98204-3087</span>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-envelope text-blue-400 mt-1 mr-4"></i>
-                                <div>
-                                    <span class="font-semibold text-gray-300">Email:</span>
-                                    <a href="mailto:joaovitoralvesrodrigues891@gmail.com" class="text-gray-400 ml-2 break-email" aria-label="Enviar email para joão vitor">joaovitoralvesrodrigues891@gmail.com</a>
-                                </div>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-globe text-blue-400 mt-1 mr-4"></i>
-                                <div>
-                                    <span class="font-semibold text-gray-300">Website:</span>
-                                    <span class="text-gray-400 ml-2">lebot007.github.io/site-joao</span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-slate-900 relative overflow-hidden section-overlay">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 relative">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-blue-400">Habilidades Técnicas</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                <div class="glass-card p-8 rounded-2xl hover-effect card-3d">
-                    <div class="card-content">
-                        <h3 class="text-2xl font-bold mb-6 text-blue-400">Habilidades Profissionais</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Trabalho em equipe</span>
-                                    <span class="text-blue-400">95%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 95%"></div>
-                                </div>
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Sobre a <span class="text-blue-600">Supplies</span></h2>
+                    <div class="w-20 h-1 bg-blue-600 mb-6"></div>
+                    <p class="text-gray-600 mb-6">
+                        A Supplies é especializada em locação e manutenção de impressoras Samsung, com foco nos modelos M4020 e M4070. 
+                        Nossa equipe técnica possui mais de 10 anos de experiência no mercado, garantindo serviços de qualidade e peças originais.
+                    </p>
+                    <p class="text-gray-600 mb-8">
+                        Além dos serviços técnicos, comercializamos toners originais e compatíveis com a melhor relação custo-benefício do mercado, 
+                        sempre priorizando a satisfação dos nossos clientes.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center bg-blue-50 px-4 py-3 rounded-lg">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-check-circle text-blue-600"></i>
                             </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Liderança</span>
-                                    <span class="text-blue-400">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 85%"></div>
-                                </div>
+                            <span class="font-semibold">Garantia em todos os serviços</span>
+                        </div>
+                        <div class="flex items-center bg-blue-50 px-4 py-3 rounded-lg">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <i class="fas fa-truck text-blue-600"></i>
                             </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Pensamento criativo</span>
-                                    <span class="text-blue-400">90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Resolução de problemas</span>
-                                    <span class="text-blue-400">92%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 92%"></div>
-                                </div>
-                            </div>
+                            <span class="font-semibold">Entrega rápida</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="glass-card p-8 rounded-2xl hover-effect card-3d">
-                    <div class="card-content">
-                        <h3 class="text-2xl font-bold mb-6 text-blue-400">Habilidades Técnicas</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Programação</span>
-                                    <span class="text-blue-400">88%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 88%"></div>
-                                </div>
+                    <div class="lg:w-1/2 relative">
+                    <div class="bg-blue-600 rounded-xl overflow-hidden shadow-2xl floating">
+                    <img src="sobre.jpg" 
+                        alt="Equipe Supplies" class="w-full h-auto object-cover">
+                    </div>
+                    
+                    <div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-xl shadow-lg hidden md:block">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-4 rounded-full mr-4">
+                                <i class="fas fa-headset text-blue-600 text-2xl"></i>
                             </div>
                             <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Manutenção de impressoras</span>
-                                    <span class="text-blue-400">96%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 96%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Desenvolvimento web</span>
-                                    <span class="text-blue-400">82%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 82%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h3 class="text-2xl font-bold mt-10 mb-6 text-blue-400">Idiomas</h3>
-                        <div class="space-y-6">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Português</span>
-                                    <span class="text-blue-400">100%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 100%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-300">Inglês</span>
-                                    <span class="text-blue-400">50%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" style="width: 50%"></div>
-                                </div>
+                                <h4 class="font-bold text-gray-800">Suporte Especializado</h4>
+                                <p class="text-gray-600 text-sm">Atendimento personalizado</p>
                             </div>
                         </div>
                     </div>
@@ -840,396 +407,328 @@
         </div>
     </section>
 
-    <!-- Education & Certifications Section -->
-    <section id="education" class="py-20 bg-gradient-to-b from-slate-800 to-slate-900 relative overflow-hidden section-overlay">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 relative">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-blue-400">Formação & Certificações</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto"></div>
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-900 text-white parallax" style="background-image: url('final.jpg');">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">O que dizem <span class="text-blue-400">nossos clientes</span></h2>
+                <div class="w-20 h-1 bg-blue-400 mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto">Avaliações reais de clientes que utilizaram nossos serviços e produtos.</p>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 reveal">
-                <!-- Education -->
-                <div class="glass-card p-8 rounded-2xl hover-effect card-3d">
-                    <div class="card-content">
-                        <h3 class="text-2xl font-bold mb-8 text-blue-400 flex items-center">
-                            <i class="fas fa-graduation-cap mr-4"></i> Formação Acadêmica
-                        </h3>
-                        
-                        <div class="space-y-8">
-                            <div class="timeline-item">
-                                <div class="timeline-dot">
-                                    <i class="fas fa-university text-xs text-white"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl font-bold text-white mb-1">Ciência da Computação</h4>
-                                    <p class="text-blue-400 mb-2">Instituto Una Barreiro (Cursando)</p>
-                                    <ul class="text-gray-300 space-y-2 list-disc list-inside">
-                                        <li>Desenvolvimento de Software e Aplicações</li>
-                                        <li>Programação em Linguagens Modernas</li>
-                                        <li>Banco de Dados e Sistemas</li>
-                                        <li>Análise e Projeto de Sistemas</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <div class="timeline-dot">
-                                    <i class="fas fa-school text-xs text-white"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl font-bold text-white mb-1">Ensino Médio</h4>
-                                    <p class="text-blue-400 mb-2">Escola Estadual Cecília Meireles (2021-2024)</p>
-                                    <ul class="text-gray-300 space-y-2 list-disc list-inside">
-                                        <li>Formação Geral Completa</li>
-                                        <li>Base Sólida em Ciências Exatas</li>
-                                        <li>Desenvolvimento de Habilidades Analíticas</li>
-                                        <li>Preparação para Ensino Superior</li>
-                                    </ul>
-                                </div>
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-800 bg-opacity-80 rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center text-yellow-400 mr-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Certifications -->
-                <div class="glass-card p-8 rounded-2xl hover-effect card-3d">
-                    <div class="card-content">
-                        <h3 class="text-2xl font-bold mb-8 text-blue-400 flex items-center">
-                            <i class="fas fa-certificate mr-4"></i> Certificações & Cursos
-                        </h3>
-                        
-                        <div class="space-y-8">
-                            <div class="timeline-item">
-                                <div class="timeline-dot">
-                                    <i class="fas fa-laptop-code text-xs text-white"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl font-bold text-white mb-1">PHP 8 (Desenvolvimento Web)</h4>
-                                    <p class="text-blue-400 mb-2">Udemy, Dezembro 2024</p>
-                                    <ul class="text-gray-300 space-y-2 list-disc list-inside">
-                                        <li>Desenvolvimento de aplicações web dinâmicas</li>
-                                        <li>Orientação a objetos em PHP</li>
-                                        <li>Integração com banco de dados MySQL</li>
-                                        <li>Criação de sistemas web responsivos</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <div class="timeline-dot">
-                                    <i class="fas fa-language text-xs text-white"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl font-bold text-white mb-1">Curso de Inglês</h4>
-                                    <p class="text-blue-400 mb-2">Academia de Inglês Washington (2017-2019)</p>
-                                    <ul class="text-gray-300 space-y-2 list-disc list-inside">
-                                        <li>Desenvolvimento oral e escrita em nível intermediário</li>
-                                        <li>Gramática e vocabulário técnico</li>
-                                        <li>Preparação para ambiente profissional</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="timeline-item">
-                                <div class="timeline-dot">
-                                    <i class="fas fa-language text-xs text-white"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl font-bold text-white mb-1">Curso de Inglês</h4>
-                                    <p class="text-blue-400 mb-2">Achieve Languages, Dezembro 2024</p>
-                                    <ul class="text-gray-300 space-y-2 list-disc list-inside">
-                                        <li>Conversação intermediária e pronúncia</li>
-                                        <li>Inglês técnico para área de tecnologia</li>
-                                        <li>Certificação de proficiência</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Nova certificação adicionada -->
-                            <div class="timeline-item">
-                                <div class="timeline-dot">
-                                    <i class="fas fa-shield text-xs text-white"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-xl font-bold text-white mb-1">Segurança de Endpoint</h4>
-                                    <p class="text-blue-400 mb-2">Cisco • 2024/2025</p>
-                                    <ul class="text-gray-300 space-y-2 list-disc list-inside">
-                                        <li>Fundamentos de segurança cibernética.</li>
-                                        <li>Proteção de dispositivos e redes corporativas</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Additional Qualifications -->
-            <div class="glass-card p-8 rounded-2xl mt-12 hover-effect card-3d reveal additional-quals">
-                <div class="card-content">
-                    <h3 class="text-2xl font-bold mb-6 text-blue-400 flex items-center">
-                        <i class="fas fa-star mr-4"></i> Qualificações Adicionais
-                    </h3>
+                    <p class="text-gray-300 mb-6 italic">"Contratamos a locação de uma Samsung M4020 com manutenção incluída e o atendimento da Supplies foi excelente. A solução manteve nossa operação sem interrupções."</p>
                     <div class="flex items-center">
-                        <i class="fas fa-id-card text-blue-400 text-2xl mr-4"></i>
-                        <span class="text-gray-300">CNH Categoria B - Disponibilidade para deslocamentos e trabalho externo</span>
+                        <div class="w-12 h-12 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                            <img src="m4020.jpg" alt="Cliente" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Carlos Silva</h4>
+                            <p class="text-sm text-gray-400">Empresa ABC</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-800 bg-opacity-80 rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center text-yellow-400 mr-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">"Comprei toner compatível para minha M4070 e estou muito satisfeita. A qualidade da impressão é ótima e o preço muito abaixo do mercado. Recomendo a Supplies para todos que precisam de produtos para impressora."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                            <img src="m4070.jpg" alt="Cliente" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Ana Oliveira</h4>
+                            <p class="text-sm text-gray-400">Escritório Contábil</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-800 bg-opacity-80 rounded-xl p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="flex items-center text-yellow-400 mr-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">"Contratei o serviço de manutenção preventiva para nossas 5 impressoras M4020 e foi a melhor decisão. Reduzimos em 80% os problemas que tínhamos antes. Equipe muito profissional e atenciosa."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 mr-4 overflow-hidden">
+                            <img src="manutencao.jpg" alt="Cliente" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Roberto Santos</h4>
+                            <p class="text-sm text-gray-400">Escola Municipal</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-slate-900 relative overflow-hidden section-overlay">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 relative">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-blue-400">Entre em Contato</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto"></div>
+    <!-- Contact Section (Informational only) -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Contato</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-6"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Somente informações de contato. Para falar conosco, utilize o WhatsApp ou ligue para o número abaixo.</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal">
-                <div class="glass-card p-8 rounded-2xl hover-effect text-center card-3d">
-                    <div class="card-content">
-                        <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-phone text-blue-400 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-white">Telefone</h3>
-                        <p class="text-gray-400">(31) 98204-3087</p>
-                    </div>
+
+            <div class="max-w-2xl mx-auto text-center">
+                <div class="bg-gray-50 rounded-xl p-8 shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Telefone</h3>
+                    <p class="text-gray-700 text-lg mb-6"><a href="tel:+5531996456583" class="text-gray-800 font-semibold">+55 31 99645-6583</a></p>
+                    <a href="https://wa.me/553196456583?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20planos%20de%20loca%C3%A7%C3%A3o%20e%20venda%20de%20toners." target="_blank" class="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition" aria-label="Abrir WhatsApp">
+                        <i class="fab fa-whatsapp mr-2"></i> Abrir WhatsApp
+                    </a>
                 </div>
-                
-                <div class="glass-card p-8 rounded-2xl hover-effect text-center card-3d">
-                    <div class="card-content">
-                        <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-envelope text-blue-400 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-white">Email</h3>
-                        <p class="text-gray-400"><a href="mailto:joaovitoralvesrodrigues891@gmail.com" class="break-email" aria-label="Enviar email para joão vitor">joaovitoralvesrodrigues891@gmail.com</a></p>
-                    </div>
-                </div>
-                
-                <div class="glass-card p-8 rounded-2xl hover-effect text-center card-3d">
-                    <div class="card-content">
-                        <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-globe text-blue-400 text-2xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 text-white">Website</h3>
-                        <span class="text-gray-400">lebot007.github.io/site-joao</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-16 reveal">
-                <a href="./Curriculo%20Jo%C3%A3o%20Vitor.pdf" download="Curriculo João Vitor.pdf" class="btn-gradient text-white font-semibold py-3 px-8 rounded-full inline-flex items-center hover-effect">
-                    <i class="fas fa-download mr-2"></i> Baixar Currículo
-                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 py-12 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-2xl font-bold text-white mb-6 md:mb-0">
-                    <span class="text-blue-400">J</span>oão <span class="text-blue-400">V</span>itor
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                            <i class="fas fa-print text-blue-900 text-2xl"></i>
+                        </div>
+                        <span class="font-bold text-xl">Supplies</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Especialistas em locação e manutenção de impressoras Samsung, com foco nos modelos M4020 e M4070.</p>
+                    <!-- social links removed as requested -->
                 </div>
                 
-                <div class="flex space-x-6">
-                    <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-alves-rodrigues-15534830a/" class="text-gray-400 hover:text-blue-400 transition-colors">
-                        <i class="fab fa-linkedin-in text-xl"></i>
-                    </a>
-                    <a href="https://github.com/Lebot007" class="text-gray-400 hover:text-blue-400 transition-colors">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Links Rápidos</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-white transition">Serviços</a></li>
+                        <li><a href="#products" class="text-gray-400 hover:text-white transition">Produtos</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">Sobre</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Serviços</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Locação M4020</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Locação M4070</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Planos com Manutenção</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Venda de Toners</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Suporte e Cobertura</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Contato</h4>
+                    <p class="text-gray-400 mb-4">Telefone: <strong><a href="tel:+5531996456583" class="text-gray-200 underline">+55 31 99645-6583</a></strong></p>
+                    <p class="text-gray-400">WhatsApp: <a href="https://wa.me/553196456583?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Supplies%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer" class="text-gray-200 underline">Abrir conversa</a></p>
                 </div>
             </div>
             
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500">
-                <p>&copy; 2024 João Vitor Alves Rodrigues. Todos os direitos reservados.</p>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p id="footer-year" class="text-gray-400 mb-4 md:mb-0">© <span id="year">2023</span> Supplies. Todos os direitos reservados.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">Termos de Serviço</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">Política de Privacidade</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Loading screen (com checagem de existência)
-        window.addEventListener('load', function() {
-            const loading = document.getElementById('loadingScreen');
-            if (!loading) return;
-            setTimeout(function() {
-                loading.style.opacity = '0';
-                setTimeout(function() {
-                    loading.style.display = 'none';
-                }, 500);
-            }, 1000);
+        <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            menu.classList.toggle('hidden');
         });
 
-        // Mobile menu toggle (defensivo) + ARIA
-        const menuToggleBtn = document.getElementById('menuToggle');
-        if (menuToggleBtn) {
-            menuToggleBtn.addEventListener('click', function() {
-                const menu = document.getElementById('mobileMenu');
-                if (!menu) return;
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
 
-                const isHidden = menu.classList.toggle('hidden');
-                // atualiza atributos ARIA
-                menu.setAttribute('aria-hidden', String(isHidden));
-                menuToggleBtn.setAttribute('aria-expanded', String(!isHidden));
-                // atualiza label do botão para leitores de tela
-                menuToggleBtn.setAttribute('aria-label', isHidden ? 'Abrir menu' : 'Fechar menu');
-            });
-        }
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
 
-        // Close mobile menu when clicking a link (defensivo)
-        const mobileMenuLinks = document.querySelectorAll('#mobileMenu a');
-        if (mobileMenuLinks && mobileMenuLinks.length) {
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    const mobileMenu = document.getElementById('mobileMenu');
-                    if (mobileMenu) {
+                if (targetElement) {
+                    window.scrollTo({ top: targetElement.offsetTop - 80, behavior: 'smooth' });
+
+                    // Close mobile menu if open and sync aria state
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    const mobileBtn = document.getElementById('mobile-menu-button');
+                    if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
-                        mobileMenu.setAttribute('aria-hidden', 'true');
+                        if(mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
                     }
-                    if (menuToggleBtn) {
-                        menuToggleBtn.setAttribute('aria-expanded', 'false');
-                        menuToggleBtn.setAttribute('aria-label', 'Abrir menu');
+                }
+            });
+        });
+
+        // Lightweight reveal on scroll using IntersectionObserver
+        document.addEventListener('DOMContentLoaded', function() {
+            const revealElements = document.querySelectorAll('.service-card, .service-card img, .bg-blue-600 img, .bg-gray-800 img');
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal');
+                        io.unobserve(entry.target);
                     }
                 });
+            }, { threshold: 0.12 });
+
+            revealElements.forEach(el => {
+                el.classList.add('opacity-0', 'translate-y-6');
+                io.observe(el);
             });
+        });
+    // Set footer year dynamically
+    (function(){ const y = new Date().getFullYear(); const el = document.getElementById('year'); if(el) el.textContent = y; })();
+    </script>
+    <script>
+    // Fix mobile 100vh issue and avoid right-side white stripe
+    (function(){
+        function setVh(){
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', vh + 'px');
+        }
+        setVh();
+        window.addEventListener('resize', () => { clearTimeout(window._vhResize); window._vhResize = setTimeout(setVh, 120); });
+
+        // prevent subpixel rounding causing right-side white stripe
+        document.documentElement.style.overflowX = 'hidden';
+        document.body.style.overflowX = 'hidden';
+        const hero = document.getElementById('home');
+        if(hero) hero.style.minWidth = '100%';
+    })();
+    </script>
+    <script>
+    // Enhanced particles for hero background (more visible, themed color)
+    (function(){
+        const canvas = document.getElementById('hero-canvas');
+        if(!canvas) return;
+
+        // Respect reduced motion
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if(prefersReduced) { canvas.style.display = 'none'; return; }
+
+        const ctx = canvas.getContext('2d');
+        const deviceRatio = window.devicePixelRatio || 1;
+
+        // compute size using bounding rect to ensure full coverage, and use CSS var --vh for mobile 100vh issues
+        function setSize(){
+            const rect = canvas.getBoundingClientRect();
+            const w = Math.max(1, Math.floor(rect.width));
+            const h = Math.max(1, Math.floor(rect.height));
+            canvas.width = Math.max(1, Math.floor(w * deviceRatio));
+            canvas.height = Math.max(1, Math.floor(h * deviceRatio));
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.setTransform(deviceRatio,0,0,deviceRatio,0,0);
+            return {w,h};
         }
 
-        // Scroll reveal animation
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            if (!reveals || reveals.length === 0) return;
+        // particle system state
+        let state = { particles: [], w: 0, h: 0, isMobile: false };
 
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const rect = reveals[i].getBoundingClientRect();
-                if (!rect) continue;
-                const elementTop = rect.top;
-                const elementVisible = 150;
+        function rand(min, max){ return Math.random()*(max-min)+min }
+        const color = { r: 157, g: 209, b: 255 };
 
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                } else {
-                    reveals[i].classList.remove('active');
+        function initParticles(w,h){
+            state.isMobile = window.innerWidth < 640;
+            // density based on area, with a min/max cap
+            const area = w*h;
+            const base = Math.min(120, Math.max(36, Math.floor(area / 16000))); // tuned density
+            const count = state.isMobile ? Math.max(base, 48) : base;
+            state.particles = [];
+            for(let i=0;i<count;i++){
+                state.particles.push({ x: rand(0,w), y: rand(0,h), r: rand(0.9,2.6), vx: rand(-0.36,0.36), vy: rand(-0.12,0.12), alpha: rand(0.28,0.85) });
+            }
+        }
+
+        let rafId = null;
+        function resizeAndReinit(){
+            const size = setSize(); state.w = size.w; state.h = size.h; initParticles(state.w, state.h);
+        }
+
+        // Observe size changes precisely
+        const ro = new ResizeObserver(() => { clearTimeout(window._heroResize); window._heroResize = setTimeout(resizeAndReinit, 80); });
+        ro.observe(canvas);
+
+        // Initialize
+        resizeAndReinit();
+
+        function draw(){
+            const w = state.w, h = state.h;
+            ctx.clearRect(0,0,w,h);
+
+            // move & draw particles
+            for(let i=0;i<state.particles.length;i++){
+                const p = state.particles[i];
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < -10) p.x = w + 10;
+                if(p.x > w + 10) p.x = -10;
+                if(p.y < -10) p.y = h + 10;
+                if(p.y > h + 10) p.y = -10;
+
+                ctx.beginPath();
+                ctx.fillStyle = `rgba(${color.r},${color.g},${color.b},${p.alpha})`;
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+                ctx.fill();
+            }
+
+            // connecting lines
+            const maxDist = state.isMobile ? 120 : 180;
+            for(let i=0;i<state.particles.length;i++){
+                for(let j=i+1;j<state.particles.length;j++){
+                    const a = state.particles[i]; const b = state.particles[j];
+                    const dx = a.x-b.x, dy = a.y-b.y;
+                    const dist = Math.sqrt(dx*dx+dy*dy);
+                    if(dist < maxDist){
+                        const alpha = (1 - dist/maxDist) * 0.18;
+                        ctx.strokeStyle = `rgba(${color.r},${color.g},${color.b},${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+                    }
                 }
             }
+
+            rafId = requestAnimationFrame(draw);
         }
 
-        window.addEventListener('scroll', reveal, { passive: true });
-        reveal(); // Initialize
-        
-        // Smooth scrolling for anchor links
-        // Smooth scrolling for anchor links (com checagens)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (!targetId || targetId === '#') return;
-                const targetElement = document.querySelector(targetId);
-                if (!targetElement) return;
-
-                e.preventDefault();
-                const rect = targetElement.getBoundingClientRect();
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                const targetPosition = rect.top + scrollTop - 80;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Animate skill bars on scroll
-        function animateSkillBars() {
-            const skillBars = document.querySelectorAll('.skill-progress');
-            const skillsSection = document.getElementById('skills');
-            if (!skillsSection || !skillBars || skillBars.length === 0) return;
-
-            const sectionTop = skillsSection.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-
-            if (sectionTop < windowHeight - 200) {
-                skillBars.forEach(bar => {
-                    const width = bar.getAttribute('style') || bar.style.width || '';
-                    // extrai largura se estiver no style
-                    let match = width.match(/width:\s*([^;]+);?/i);
-                    let w = (match && match[1]) ? match[1] : bar.style.width || '';
-                    if (!w) return;
-                    bar.style.width = '0';
-                    setTimeout(() => {
-                        bar.style.width = w;
-                    }, 100);
-                });
-
-                // Remove event listener after animation
-                window.removeEventListener('scroll', animateSkillBars);
-            }
-        }
-
-        window.addEventListener('scroll', animateSkillBars, { passive: true });
-        
-        // Create particles for hero section (defensivo)
-        function createParticles() {
-            const container = document.getElementById('heroParticles');
-            if (!container) return;
-
-            // Respeita preferência do usuário por reduzir movimentos
-            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-            // Limpa partículas existentes (se houver)
-            container.innerHTML = '';
-
-            const w = window.innerWidth || document.documentElement.clientWidth;
-            // Ajusta densidade conforme tamanho da tela — mais visível em notebooks/desktops, leve em mobile
-            let particleCount;
-            if (w < 768) particleCount = 18;      // celulares
-            else if (w < 1024) particleCount = 28; // tablets
-            else if (w < 1280) particleCount = 40; // notebooks menores
-
-            else particleCount = 100;              // desktops / notebooks maiores (mais cheio)
-
-            // Cap máximo para evitar uso excessivo de CPU
-            const maxCount = Math.min(particleCount, 120);
-
-            for (let i = 0; i < maxCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-
-                // Random size (mantém variedade)
-                const size = Math.random() * 10 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-
-                // Random position
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-
-                // Random animation duration and delay with small parallax variance
-                const base = Math.random() * 14 + 8;
-                const variance = (Math.random() - 0.5) * 6; // small speed variation
-                const duration = Math.max(6, base + variance);
-                particle.style.animationDuration = `${duration}s`;
-                const delay = Math.random() * 6;
-                particle.style.animationDelay = `${delay}s`;
-
-                // Variação de opacidade para profundidade visual
-                const opacity = 0.15 + Math.random() * 0.6;
-                particle.style.background = `rgba(59,130,246,${opacity})`;
-
-                container.appendChild(particle);
-            }
-        }
-        
-        // Initialize particles (somente se suportado)
-        try { createParticles(); } catch (e) { console.warn('Particles init failed', e); }
+        draw();
+    })();
     </script>
 </body>
 </html>
