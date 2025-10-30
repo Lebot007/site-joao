@@ -335,6 +335,75 @@
         */
         #education .glass-card {
             padding: 2.5rem; /* ~40px, levemente maior que p-8 (32px) para mais folga */
+            overflow: hidden; /* evita que animações/elementos filhos ultrapassem a borda do card */
+        }
+
+        /* Em mobile, permitir que o próprio section #education seja overflow: visible
+           para evitar que os cards sejam cortados pela borda da viewport. Mantemos
+           overflow:hidden nos próprios cards para que animações internas não vazem.
+        */
+        @media (max-width: 767px) {
+            #education {
+                overflow: visible; /* evita corte do card na viewport mobile */
+                padding-bottom: 2.5rem; /* garante folga inferior quando o card está próximo ao fim da tela */
+            }
+        }
+
+        /* Regras adicionais para mobile: reduzimos/ desativamos animações dentro de #education
+           para evitar que textos e elementos se movam para fora do cartão ou sejam cortados.
+           Também permitimos overflow:visible nos cards em mobile (para evitar corte), mas
+           removemos transforms/animations que causavam movimento excessivo.
+        */
+        @media (max-width: 767px) {
+            /* Permite que o conteúdo interno seja visível (sem cortar) */
+            #education .glass-card {
+                overflow: visible; /* mostra conteúdo em mobile para evitar corte */
+            }
+
+            /* Desativa animações/transforms internas que podem deslocar texto */
+            #education .reveal,
+            #education .reveal.active,
+            #education .card-content,
+            #education .flip-inner,
+            #education .flip-front,
+            #education .flip-back {
+                transition: none !important;
+                animation: none !important;
+                transform: none !important;
+            }
+
+            /* Remove efeitos flutuantes e partículas que possam movimentar conteúdo */
+            #education .floating { animation: none !important; }
+
+            /* Suaviza sombras e offsets que podem parecer exagerados em telas pequenas */
+            #education .glass-card { box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+
+            /* Garante espaçamento inferior extra para evitar corte ao final da viewport */
+            body { padding-bottom: 1.5rem; }
+        }
+
+        /* Evita scroll horizontal em mobile causado por overflow visível
+           - força overflow-x:hidden na raíz e limita largura dos cards
+           - touch-action: pan-y prioriza rolagem vertical (impede arrastar horizontal)
+        */
+        @media (max-width: 767px) {
+            html, body {
+                overflow-x: hidden !important;
+                touch-action: pan-y; /* evita arrastar horizontalmente */
+            }
+
+            /* Garante que cards e containers não excedam a largura da viewport */
+            #education, #education .max-w-7xl, #education .glass-card {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                left: 0 !important;
+                right: 0 !important;
+            }
+
+            /* Protege partículas e overlays de gerar overflow horizontal */
+            #education .particles, #education .section-overlay, #education > .particles {
+                overflow-x: hidden !important;
+            }
         }
 
         /* Ajustes específicos para a seção "Qualificações Adicionais" em telas maiores
