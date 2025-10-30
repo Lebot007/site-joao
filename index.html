@@ -329,6 +329,14 @@
             .flip-container:hover .tech-icon { transform: translateY(-6px) translateZ(6px); }
         }
 
+        /* Ajustes específicos para a seção de Educação/Certificações
+           - Garante que os cards sigam o tamanho do conteúdo (não estiquem igualmente)
+           - Aumenta levemente o padding interno para evitar que o texto fique colado à borda
+        */
+        #education .glass-card {
+            padding: 2.5rem; /* ~40px, levemente maior que p-8 (32px) para mais folga */
+        }
+
         /* Ajustes específicos para a seção "Qualificações Adicionais" em telas maiores
            - Mantém a animação, mas afasta levemente o conteúdo da borda durante o hover
            - Adiciona transform-origin e um pequeno translate para não colar o ícone na borda
@@ -850,7 +858,7 @@
                 <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-emerald-500 mx-auto"></div>
             </div>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 reveal items-start">
                 <!-- Education -->
                 <div class="glass-card p-8 rounded-2xl hover-effect card-3d">
                     <div class="card-content">
@@ -944,6 +952,21 @@
                                         <li>Conversação intermediária e pronúncia</li>
                                         <li>Inglês técnico para área de tecnologia</li>
                                         <li>Certificação de proficiência</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot">
+                                    <i class="fas fa-award text-xs text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-white mb-1">Ciência da Computação de Harvard (CC50)</h4>
+                                    <p class="text-blue-400 mb-2">Emitido eletronicamente por Fundação Estudar • 2025</p>
+                                    <ul class="text-gray-300 space-y-2 list-disc list-inside">
+                                        <li>Aulas em C, Python, SQL, JavaScript, HTML &amp; CSS.</li>
+                                        <li>Pensar algoritmicamente e resolver problemas de programação de forma eficiente.</li>
+                                        <li>Algoritmos, estruturas de dados, segurança, engenharia de software e desenvolvimento web.</li>
                                     </ul>
                                 </div>
                             </div>
