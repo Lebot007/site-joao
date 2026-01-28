@@ -133,9 +133,20 @@ document.querySelectorAll('.contact-channel').forEach((el, idx) => {
     observer.observe(el);
 });
 
-document.querySelectorAll('.project-card, .experience-item, .tech-category').forEach(el => {
+document.querySelectorAll('.project-card').forEach(el => {
     el.style.opacity = '0';
     el.dataset.animation = 'fadeInUp';
+    observer.observe(el);
+});
+
+document.querySelectorAll('.experience-item').forEach(el => {
+    el.dataset.animation = 'slideInLeftStagger';
+    observer.observe(el);
+});
+
+document.querySelectorAll('.tech-category').forEach(el => {
+    el.style.opacity = '0';
+    el.dataset.animation = 'techCategoryFadeIn';
     observer.observe(el);
 });
 
