@@ -1,1964 +1,526 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Lebot | Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
-    <style>
-        :root {
-            --void: #050505;
-            --blood-bright: #c41e1e;
-            --blood-glow: rgba(196, 30, 30, 0.5);
-            --bone: #EAEAEA;
-            --rize: #a855f7;
-            --player-bg: rgba(8, 2, 2, 0.72);
-            --player-border: rgba(196, 30, 30, 0.18);
-
-            /* === SISTEMA DA FLOR INTERATIVA === */
-            --flower-color: #ff2e2e;
-            --flower-glow: rgba(255, 46, 46, 0.55);
-            --flower-glow-soft: rgba(255, 46, 46, 0.25);
-            --text-accent: #ff2e2e;
-            --text-dim: #d4d4d4;
-        }
-        *, *::before, *::after { box-sizing: border-box; }
-        html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
-        body {
-            background-color: var(--void);
-            color: var(--bone);
-            font-family: 'Space Grotesk', sans-serif;
-            cursor: none;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeSpeed;
-            touch-action: manipulation;
-        }
-        .font-jp { font-family: 'Noto Serif JP', serif; }
-
-        .noise-overlay {
-            position: fixed; inset: 0; z-index: 9998; pointer-events: none;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
-        }
-        .vignette {
-            position: fixed; inset: 0; z-index: 9997; pointer-events: none;
-            background: radial-gradient(ellipse at center, transparent 30%, rgba(10,0,0,0.7) 100%);
-        }
-
-        .cursor {
-            width: 16px; height: 16px;
-            border: 2px solid var(--bone);
-            border-radius: 50%;
-            position: fixed; top: 0; left: 0;
-            pointer-events: none;
-            z-index: 10000;
-            mix-blend-mode: difference;
-            will-change: transform;
-            transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s, margin 0.2s;
-            transform: translate3d(-100px, -100px, 0);
-        }
-        .cursor.hover {
-            width: 40px; height: 40px;
-            margin: -12px 0 0 -12px;
-            background: var(--blood-bright);
-            border-color: var(--blood-bright);
-            mix-blend-mode: normal;
-            opacity: 0.85;
-        }
-
-        .rize-count {
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            z-index: 99;
-            font-family: 'Noto Serif JP', serif;
-            font-weight: 900; 
-            font-size: 1.5rem;
-            color: #c41e1e; 
-            letter-spacing: 0.05em;
-            display: flex; 
-            align-items: baseline; 
-            gap: 4px;
-            pointer-events: auto;
-            cursor: none;
-            user-select: none;
-            -webkit-user-select: none;
-            transition: filter 0.3s, opacity 0.3s, transform 0.3s ease;
-            padding: 10px 14px;
-            background: rgba(5, 2, 2, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 12px;
-            border: 1px solid rgba(196, 30, 30, 0.2);
-            will-change: transform, opacity;
-            transform: translate3d(0, 0, 0);
-        }
-        .rize-count:hover { filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 0, 0, 0.5)); }
-        .rize-count .thousand {
-            display: inline-block;
-            transform: skewX(-12deg) rotate(-3deg);
-            letter-spacing: -0.02em;
-        }
-        .rize-count .minus { opacity: 0.7; transform: translateY(-1px); }
-        .rize-count .seven {
-            display: inline-block;
-            transform: skewX(2deg) rotate(1deg);
-            font-style: italic;
-        }
-        .mobile-hint {
-            display: none;
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            color: rgba(196, 30, 30, 0.5);
-            margin-left: 6px;
-            font-weight: 400;
-        }
-
-        .music-player {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 101;
-            width: 360px;
-            max-width: calc(100vw - 40px);
-            background: var(--player-bg);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid var(--player-border);
-            border-radius: 16px;
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-            transition: 
-                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
-                left 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
-                right 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
-                width 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
-                padding 0.6s cubic-bezier(0.22, 1, 0.36, 1), 
-                opacity 0.4s ease, 
-                border-color 0.4s ease;
-            transform-origin: bottom left;
-            overflow: hidden;
-            will-change: transform, width, left;
-            transform: translate3d(0, 0, 0);
-        }
-
-        .music-player::after {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 16px;
-            box-shadow: 0 0 60px rgba(196, 30, 30, 0.25), 0 0 100px rgba(196, 30, 30, 0.08);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: -1;
-        }
-        .music-player.playing::after { opacity: 1; }
-        .music-player.playing { border-color: rgba(196, 30, 30, 0.4); }
-
-        .music-player::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(circle at top left, rgba(196, 30, 30, 0.12), transparent 60%),
-                radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.06), transparent 60%);
-            pointer-events: none;
-            opacity: 0.7;
-            z-index: 0;
-        }
-
-        .music-player > * { position: relative; z-index: 1; }
-        .player-top { display: flex; align-items: center; gap: 12px; }
-        .player-cover-wrap { position: relative; width: 52px; height: 52px; flex-shrink: 0; }
-        .player-cover {
-            width: 100%; height: 100%; border-radius: 10px; object-fit: cover;
-            background: linear-gradient(135deg, #1a0505 0%, #050000 100%);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(196, 30, 30, 0.15) inset;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
-        }
-        .music-player.playing .player-cover {
-            animation: cover-pulse 3s ease-in-out infinite;
-            box-shadow: 0 4px 16px rgba(196, 30, 30, 0.4), 0 0 0 1px rgba(196, 30, 30, 0.3) inset;
-        }
-        @keyframes cover-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-
-        .player-info { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
-        .player-track-name {
-            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 600;
-            color: var(--bone); letter-spacing: 0.01em; white-space: nowrap;
-            overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
-        }
-        .player-track-artist {
-            font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem;
-            color: rgba(234, 234, 234, 0.55); letter-spacing: 0.08em;
-            text-transform: uppercase; font-weight: 500;
-        }
-        .music-player.playing .player-track-artist { color: rgba(196, 30, 30, 0.75); }
-
-        .player-visualizer { display: flex; align-items: flex-end; gap: 2px; height: 14px; margin-left: auto; padding-right: 4px; }
-        .viz-bar {
-            width: 2.5px; background: linear-gradient(to top, var(--blood-bright), #ff4444);
-            border-radius: 1px; height: 3px; transition: height 0.15s ease; opacity: 0.4;
-        }
-        .music-player.playing .viz-bar { opacity: 1; animation: viz-bounce 1s ease-in-out infinite; }
-        .viz-bar:nth-child(1) { animation-delay: 0s; }
-        .viz-bar:nth-child(2) { animation-delay: 0.15s; }
-        .viz-bar:nth-child(3) { animation-delay: 0.3s; }
-        .viz-bar:nth-child(4) { animation-delay: 0.1s; }
-        @keyframes viz-bounce {
-            0%, 100% { height: 3px; }
-            50% { height: 14px; }
-        }
-
-        .player-progress-wrap { display: flex; flex-direction: column; gap: 6px; }
-        .player-progress-bar {
-            position: relative; width: 100%; height: 4px; background: rgba(234, 234, 234, 0.1);
-            border-radius: 2px; cursor: none; overflow: visible; transition: height 0.2s ease;
-        }
-        .player-progress-bar:hover { height: 5px; }
-        .player-progress-fill {
-            position: absolute; top: 0; left: 0; height: 100%; width: 0%;
-            background: linear-gradient(90deg, var(--blood-bright), #ff3333);
-            border-radius: 2px; transition: width 0.1s linear;
-        }
-        .player-progress-thumb {
-            position: absolute; top: 50%; left: 0%; width: 12px; height: 12px;
-            background: var(--bone); border: 2px solid var(--blood-bright); border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 0 8px rgba(196, 30, 30, 0.6); pointer-events: none;
-        }
-        .player-progress-bar:hover .player-progress-thumb,
-        .player-progress-bar.dragging .player-progress-thumb { transform: translate(-50%, -50%) scale(1); }
-
-        .player-time {
-            display: flex; justify-content: space-between; align-items: center;
-            font-family: 'Space Grotesk', sans-serif; font-size: 0.68rem;
-            color: rgba(234, 234, 234, 0.5); letter-spacing: 0.05em; font-variant-numeric: tabular-nums;
-        }
-
-        .player-controls { display: flex; align-items: center; justify-content: center; gap: 18px; }
-        .player-btn {
-            background: transparent; border: none; color: var(--bone); cursor: none;
-            display: flex; align-items: center; justify-content: center; padding: 6px;
-            transition: color 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-            -webkit-tap-highlight-color: transparent;
-        }
-        .player-btn:hover { color: var(--blood-bright); transform: scale(1.12); }
-        .player-btn:active { transform: scale(0.92); }
-        .player-btn svg { width: 18px; height: 18px; fill: currentColor; }
-
-        .player-btn-play {
-            width: 42px; height: 42px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--blood-bright), #8a0303); color: var(--bone);
-            box-shadow: 0 4px 12px rgba(196, 30, 30, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
-        }
-        .player-btn-play:hover {
-            color: var(--bone); transform: scale(1.1);
-            background: linear-gradient(135deg, #e02525, #a80808);
-            box-shadow: 0 6px 20px rgba(196, 30, 30, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
-        }
-        .player-btn-play:active { transform: scale(0.94); }
-        .player-btn-play svg { width: 16px; height: 16px; }
-
-        .player-volume-wrap { display: flex; align-items: center; gap: 8px; padding: 0 4px; }
-        .player-volume-btn {
-            background: transparent; border: none; color: rgba(234, 234, 234, 0.7); cursor: none;
-            display: flex; align-items: center; justify-content: center; padding: 4px;
-            transition: color 0.25s ease, transform 0.25s ease; -webkit-tap-highlight-color: transparent;
-        }
-        .player-volume-btn:hover { color: var(--bone); transform: scale(1.08); }
-        .player-volume-btn svg { width: 18px; height: 18px; fill: currentColor; }
-
-        .player-volume-slider {
-            flex: 1; height: 4px; background: rgba(234, 234, 234, 0.1);
-            border-radius: 2px; position: relative; cursor: none; overflow: visible;
-        }
-        .player-volume-fill {
-            position: absolute; top: 0; left: 0; height: 100%; width: 30%;
-            background: linear-gradient(90deg, var(--blood-bright), #ff3333); border-radius: 2px; transition: width 0.1s ease;
-        }
-        .player-volume-thumb {
-            position: absolute; top: 50%; left: 30%; width: 10px; height: 10px;
-            background: var(--bone); border: 2px solid var(--blood-bright); border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 0 6px rgba(196, 30, 30, 0.5); pointer-events: none;
-        }
-        .player-volume-slider:hover .player-volume-thumb,
-        .player-volume-slider.dragging .player-volume-thumb { transform: translate(-50%, -50%) scale(1); }
-
-        .music-player.collapsed { width: 72px; padding: 8px; }
-        .music-player.collapsed .player-info,
-        .music-player.collapsed .player-progress-wrap,
-        .music-player.collapsed .player-controls,
-        .music-player.collapsed .player-visualizer,
-        .music-player.collapsed .player-volume-wrap { display: none; }
-        .music-player.collapsed .player-top { justify-content: center; }
-        .music-player.collapsed .player-cover-wrap { width: 52px; height: 52px; }
-
-        .player-toggle {
-            position: absolute; top: 8px; right: 8px; width: 22px; height: 22px;
-            background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(196, 30, 30, 0.25);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            cursor: none; color: rgba(234, 234, 234, 0.7); transition: all 0.25s ease;
-            z-index: 2; -webkit-tap-highlight-color: transparent;
-        }
-        .player-toggle:hover { background: rgba(196, 30, 30, 0.25); color: var(--bone); border-color: var(--blood-bright); }
-        .player-toggle svg { width: 10px; height: 10px; fill: currentColor; transition: transform 0.3s ease; }
-        .music-player.collapsed .player-toggle svg { transform: rotate(180deg); }
-
-        .ghoul-card {
-            background: rgba(15, 5, 5, 0.75); border: 1px solid rgba(138, 3, 3, 0.35);
-            transition: border-color 0.3s, transform 0.3s; contain: layout style paint; position: relative;
-        }
-        .ghoul-card::after {
-            content: ''; position: absolute; inset: -1px; border-radius: inherit;
-            box-shadow: 0 0 20px rgba(196, 30, 30, 0.4); opacity: 0; transition: opacity 0.3s; pointer-events: none;
-        }
-        .ghoul-card:hover { border-color: #c41e1e; transform: translateY(-3px); }
-        .ghoul-card:hover::after { opacity: 1; }
-
-        .kanji-bg {
-            font-size: 45vw; color: rgba(138, 3, 3, 0.05);
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0; pointer-events: none; user-select: none;
-        }
-
-        /* ============================================
-           SISTEMA DA FLOR INTERATIVA (HIGANBANA)
-           ============================================ */
-        .higanbana-stage {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            padding: 2rem 1rem;
-            min-height: 420px;
-            justify-content: center;
-        }
-
-        .higanbana-wrap {
-            position: relative;
-            animation: float-flower 8s ease-in-out infinite;
-            cursor: none;
-            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            -webkit-tap-highlight-color: transparent;
-        }
-        .higanbana-wrap::before {
-            /* Glow primário dinâmico */
-            content: '';
-            position: absolute;
-            inset: -40px;
-            background: radial-gradient(circle, var(--flower-glow), transparent 65%);
-            border-radius: 50%;
-            z-index: -2;
-            filter: blur(30px);
-            transition: 
-                background 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-                filter 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 1.2s ease,
-                transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-            opacity: 0.75;
-            animation: glow-pulse 4s ease-in-out infinite;
-        }
-        .higanbana-wrap::after {
-            /* Glow secundário (bloom suave) */
-            content: '';
-            position: absolute;
-            inset: -80px;
-            background: radial-gradient(circle, var(--flower-glow-soft), transparent 70%);
-            border-radius: 50%;
-            z-index: -3;
-            filter: blur(60px);
-            transition: background 1.2s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.2s ease;
-            opacity: 0.5;
-        }
-
-        @keyframes float-flower {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        @keyframes glow-pulse {
-            0%, 100% { opacity: 0.65; transform: scale(1); }
-            50% { opacity: 0.95; transform: scale(1.08); }
-        }
-
-        /* Hover states */
-        .higanbana-wrap:hover {
-            transform: scale(1.08);
-        }
-        .higanbana-wrap:hover::before {
-            opacity: 1;
-            filter: blur(25px);
-            transform: scale(1.25);
-        }
-        .higanbana-wrap:hover::after {
-            opacity: 0.85;
-        }
-
-        .higanbana-wrap:active {
-            transform: scale(0.96);
-        }
-
-        .higanbana-wrap.is-transitioning {
-            animation: flower-swap-bloom 1.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .higanbana-wrap.is-transitioning::before {
-            animation: glow-burst 1.4s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        @keyframes flower-swap-bloom {
-            0% { transform: scale(1) rotate(0deg); filter: blur(0px); }
-            35% { transform: scale(1.22) rotate(8deg); filter: blur(2px) brightness(1.4); }
-            70% { transform: scale(0.95) rotate(-3deg); filter: blur(0px); }
-            100% { transform: scale(1) rotate(0deg); filter: blur(0px); }
-        }
-
-        @keyframes glow-burst {
-            0% { transform: scale(1); opacity: 0.7; filter: blur(30px); }
-            40% { transform: scale(1.8); opacity: 1; filter: blur(50px); }
-            70% { transform: scale(1.4); opacity: 0.9; filter: blur(35px); }
-            100% { transform: scale(1); opacity: 0.75; filter: blur(30px); }
-        }
-
-        .higanbana-svg {
-            width: 16rem;
-            height: 16rem;
-            transition: filter 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-            will-change: transform, filter;
-        }
-        @media (min-width: 768px) {
-            .higanbana-svg { width: 20rem; height: 20rem; }
-        }
-
-        .higanbana-petal {
-            fill: none;
-            stroke: var(--flower-color);
-            stroke-width: 1.5;
-            stroke-linecap: round;
-            transition: stroke 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .higanbana-core {
-            fill: var(--flower-color);
-            transition: fill 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        /* Indicador de "click to change" */
-        .flower-hint {
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.6rem;
-            letter-spacing: 0.4em;
-            color: rgba(212, 212, 212, 0.4);
-            text-transform: uppercase;
-            pointer-events: none;
-            transition: opacity 0.4s ease, color 0.4s ease;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-        .higanbana-wrap:hover + .flower-hint,
-        .higanbana-wrap:hover ~ .flower-hint {
-            color: var(--flower-color);
-            opacity: 1;
-        }
-
-        /* Sistema de Frases */
-        .quote-container {
-            max-width: 640px;
-            width: 100%;
-            position: relative;
-            text-align: left;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        @media (min-width: 768px) {
-            .quote-container { text-align: left; }
-        }
-
-        .quote-text {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 1.1rem;
-            line-height: 1.75;
-            color: var(--text-dim);
-            font-weight: 400;
-            margin-bottom: 1.25rem;
-            position: relative;
-            will-change: transform, opacity, filter;
-            transition: color 1s ease;
-        }
-        @media (min-width: 768px) {
-            .quote-text { font-size: 1.25rem; }
-        }
-
-        .quote-text::before {
-            content: '"';
-            font-family: 'Noto Serif JP', serif;
-            font-size: 3rem;
-            color: var(--text-accent);
-            position: absolute;
-            top: -1.5rem;
-            left: -1rem;
-            opacity: 0.4;
-            transition: color 1s ease;
-            line-height: 1;
-        }
-
-        .quote-author {
-            font-family: 'Noto Serif JP', serif;
-            font-size: 0.95rem;
-            letter-spacing: 0.15em;
-            color: var(--text-accent);
-            font-style: italic;
-            position: relative;
-            padding-left: 1.5rem;
-            will-change: transform, opacity, filter;
-            transition: color 1s ease;
-        }
-        @media (min-width: 768px) {
-            .quote-author { font-size: 1rem; }
-        }
-
-        .quote-author::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            width: 1rem;
-            height: 1px;
-            background: var(--text-accent);
-            transition: background 1s ease, width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .quote-author:hover::before {
-            width: 2rem;
-        }
-
-        /* ============================================
-           FIM DO SISTEMA DA FLOR
-           ============================================ */
-
-        .entry-overlay {
-            position: fixed; inset: 0; background: rgba(5, 5, 5, 0.95); z-index: 9999;
-            display: flex; align-items: center; justify-content: center; cursor: none;
-            transition: opacity 0.8s, visibility 0.8s; -webkit-tap-highlight-color: transparent;
-        }
-        .entry-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .entry-text {
-            font-family: 'Noto Serif JP', serif; font-size: 1.2rem; letter-spacing: 0.5em;
-            color: var(--bone); text-transform: uppercase; animation: entry-pulse 2.5s ease-in-out infinite;
-        }
-        @keyframes entry-pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
-        }
-
-        .text-readable { color: #d4d4d4; }
-        .text-readable-dim { color: #a3a3a3; }
-        .text-readable-faint { color: #737373; }
-
-        .carousel-wrapper { position: relative; width: 100%; height: 600px; user-select: none; -webkit-user-select: none; touch-action: pan-y; }
-        .carousel-stage { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .project-card {
-            position: absolute; width: 420px; max-width: 85vw; height: 540px;
-            background: linear-gradient(145deg, rgba(20, 8, 8, 0.9), rgba(10, 4, 4, 0.98));
-            border: 1px solid rgba(196, 30, 30, 0.2); border-radius: 4px;
-            display: flex; flex-direction: column; justify-content: space-between;
-            transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.7s ease;
-            cursor: none; overflow: hidden; contain: layout style paint; will-change: transform, opacity;
-        }
-        .card-bg-image {
-            position: absolute; inset: 0; background-size: cover; background-position: center top;
-            background-repeat: no-repeat; opacity: 0.55; transition: opacity 0.7s ease, transform 0.7s ease; pointer-events: none;
-        }
-        .project-card.active .card-bg-image { opacity: 0.75; transform: scale(1.05); }
-        .card-bg-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(145deg, rgba(5, 2, 2, 0.55) 0%, rgba(5, 2, 2, 0.65) 50%, rgba(5, 2, 2, 0.85) 100%);
-            pointer-events: none;
-        }
-        .card-content { position: relative; z-index: 2; padding: 40px 36px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; }
-        .project-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at top right, rgba(196, 30, 30, 0.15), transparent 60%);
-            opacity: 0; transition: opacity 0.7s ease; pointer-events: none; z-index: 1;
-        }
-        .project-card::after {
-            content: ''; position: absolute; inset: 0; border-radius: inherit;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); opacity: 0; transition: opacity 0.7s ease; pointer-events: none;
-        }
-        .project-card.active { border-color: rgba(196, 30, 30, 0.6); }
-        .project-card.active::before { opacity: 1; }
-        .project-card.active::after { opacity: 1; }
-
-        .card-kanji {
-            position: absolute; top: 20px; right: 20px; font-family: 'Noto Serif JP', serif;
-            font-weight: 900; font-size: 10rem; line-height: 1; color: rgba(196, 30, 30, 0.08);
-            pointer-events: none; transition: color 0.7s ease; z-index: 1;
-        }
-        .project-card.active .card-kanji { color: rgba(196, 30, 30, 0.22); }
-        .card-number {
-            font-family: 'Noto Serif JP', serif; font-size: 0.85rem; letter-spacing: 0.3em;
-            color: var(--blood-bright); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-        }
-        .card-number::before { content: ''; width: 24px; height: 1px; background: var(--blood-bright); }
-        .card-title {
-            font-family: 'Noto Serif JP', serif; font-size: 2.4rem; font-weight: 900;
-            color: var(--bone); margin-bottom: 6px; line-height: 1;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,1);
-        }
-        .card-subtitle {
-            font-family: 'Noto Serif JP', serif; font-size: 0.9rem; color: #ff4444;
-            letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px; font-style: italic;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.95);
-        }
-        .card-desc {
-            color: #d8d8d8; font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px; flex-grow: 1;
-            text-shadow: 0 1px 6px rgba(0,0,0,1), 0 0 2px rgba(0,0,0,0.9);
-        }
-        .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-        .card-tag {
-            font-size: 0.65rem; letter-spacing: 0.15em; padding: 4px 10px;
-            border: 1px solid rgba(196, 30, 30, 0.5); color: #e4e4e4; text-transform: uppercase;
-            border-radius: 2px; background: rgba(20, 5, 5, 0.75); backdrop-filter: blur(4px);
-        }
-        .card-footer {
-            display: flex; justify-content: space-between; align-items: center;
-            padding-top: 16px; border-top: 1px solid rgba(196, 30, 30, 0.3);
-        }
-        .card-year {
-            font-family: 'Noto Serif JP', serif; font-size: 0.85rem; color: #aaa; letter-spacing: 0.1em;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.9);
-        }
-        .card-cta {
-            display: flex; align-items: center; gap: 8px; font-size: 0.7rem; letter-spacing: 0.25em;
-            color: var(--blood-bright); text-transform: uppercase; opacity: 0; transform: translateX(-10px);
-            transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s; font-weight: 500;
-        }
-        .project-card.active .card-cta { opacity: 1; transform: translateX(0); }
-        .card-cta-arrow { width: 24px; height: 1px; background: var(--blood-bright); position: relative; }
-        .card-cta-arrow::after {
-            content: ''; position: absolute; right: 0; top: -3px; width: 7px; height: 7px;
-            border-top: 1px solid var(--blood-bright); border-right: 1px solid var(--blood-bright); transform: rotate(45deg);
-        }
-
-        .carousel-nav {
-            position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px;
-            background: rgba(10, 4, 4, 0.85); border: 1px solid rgba(196, 30, 30, 0.4); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: none; z-index: 10;
-            transition: background 0.3s, border-color 0.3s, transform 0.2s; color: var(--blood-bright);
-            -webkit-tap-highlight-color: transparent; backdrop-filter: blur(10px);
-        }
-        .carousel-nav:hover { background: rgba(196, 30, 30, 0.2); border-color: var(--blood-bright); }
-        .carousel-nav:active { transform: translateY(-50%) scale(0.92); }
-        .carousel-nav.prev { left: 20px; }
-        .carousel-nav.next { right: 20px; }
-        .carousel-nav svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
-
-        .carousel-dots { position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 5; }
-        .carousel-dot {
-            width: 6px; height: 6px; background: rgba(196, 30, 30, 0.3); border-radius: 50%; cursor: none;
-            transition: all 0.4s ease; -webkit-tap-highlight-color: transparent;
-        }
-        .carousel-dot.active { background: var(--blood-bright); width: 24px; border-radius: 3px; }
-
-        .social-card {
-            background: rgba(15, 5, 5, 0.75); border: 1px solid rgba(138, 3, 3, 0.35);
-            transition: border-color 0.3s, transform 0.3s, background 0.3s; position: relative;
-            contain: layout style paint; -webkit-tap-highlight-color: transparent;
-        }
-        .social-card::after {
-            content: ''; position: absolute; inset: -1px; border-radius: inherit;
-            box-shadow: 0 0 25px rgba(196, 30, 30, 0.4); opacity: 0; transition: opacity 0.3s; pointer-events: none;
-        }
-        .social-card:hover { border-color: #c41e1e; transform: translateY(-4px); background: rgba(25, 8, 8, 0.85); }
-        .social-card:hover::after { opacity: 1; }
-        .social-card:hover .social-icon { color: #ff3333; transform: scale(1.1); }
-        .social-icon { transition: color 0.3s, transform 0.3s; color: var(--bone); }
-        .social-label { font-size: 0.75rem; letter-spacing: 0.2em; color: #a3a3a3; text-transform: uppercase; }
-        .social-handle { font-size: 0.85rem; color: #737373; margin-top: 4px; font-family: 'Space Grotesk', sans-serif; }
-        .copied-toast {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(196, 30, 30, 0.95); color: var(--bone); padding: 8px 16px; border-radius: 4px;
-            font-size: 0.75rem; letter-spacing: 0.15em; opacity: 0; pointer-events: none;
-            transition: opacity 0.3s; z-index: 10; text-transform: uppercase;
-        }
-        .social-card.copied .copied-toast { opacity: 1; }
-
-        .kaneki-container {
-            position: fixed; right: 0; bottom: 0; height: 85vh; max-height: 700px; width: auto;
-            pointer-events: none; z-index: 9996; transform: translateX(100%);
-            transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1); display: flex;
-            align-items: flex-end; will-change: transform;
-        }
-        .kaneki-container.entering { transform: translateX(0); }
-        .kaneki-container.exiting { transform: translateX(100%); transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1); }
-        .kaneki-container img {
-            height: 100%; width: auto; max-width: 45vw; object-fit: contain; object-position: bottom;
-            -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-            filter: drop-shadow(-20px 0 40px rgba(196, 30, 30, 0.3));
-        }
-        .kaneki-container.entering img { animation: kaneki-glitch 0.3s steps(2) 1; }
-        @keyframes kaneki-glitch {
-            0%, 100% { filter: drop-shadow(-20px 0 40px rgba(196, 30, 30, 0.3)); transform: translateX(0); }
-            25% { filter: drop-shadow(-20px 0 40px rgba(196, 30, 30, 0.3)) drop-shadow(5px 0 0 rgba(255, 0, 0, 0.5)); transform: translateX(-3px); }
-            75% { filter: drop-shadow(-20px 0 40px rgba(196, 30, 30, 0.3)) drop-shadow(-5px 0 0 rgba(0, 255, 255, 0.3)); transform: translateX(3px); }
-        }
-
-        .darken-overlay {
-            position: fixed; inset: 0; background: radial-gradient(ellipse at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
-            z-index: 9994; opacity: 0; pointer-events: none; transition: opacity 1s ease;
-        }
-        .darken-overlay.active { opacity: 1; }
-
-        .glitch-overlay {
-            position: fixed; inset: 0; z-index: 9995; pointer-events: none; opacity: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(196, 30, 30, 0.04) 2px, rgba(196, 30, 30, 0.04) 4px);
-        }
-        .glitch-overlay.active { animation: glitch-flash 0.5s steps(3) 3; }
-        .glitch-overlay.active::before, .glitch-overlay.active::after {
-            content: ''; position: absolute; inset: 0; background: inherit; animation: glitch-shift 0.5s steps(2) 4;
-        }
-        .glitch-overlay.active::before { background-color: rgba(255, 0, 0, 0.06); mix-blend-mode: screen; }
-        .glitch-overlay.active::after { background-color: rgba(0, 255, 255, 0.03); mix-blend-mode: screen; }
-        @keyframes glitch-flash {
-            0%, 100% { opacity: 0; }
-            10%, 30%, 50%, 70%, 90% { opacity: 1; transform: translateX(-3px); }
-            20%, 40%, 60%, 80% { opacity: 1; transform: translateX(3px); }
-        }
-        @keyframes glitch-shift {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px) skewX(3deg); }
-            75% { transform: translateX(8px) skewX(-3deg); }
-        }
-
-        .chains-overlay { position: fixed; inset: 0; z-index: 9993; pointer-events: none; opacity: 0; transition: opacity 0.8s ease; }
-        .chains-overlay.active { opacity: 1; }
-        .chain-group { position: absolute; transform-origin: center; will-change: transform; }
-        .chain-link { fill: none; stroke: url(#chainGradient); stroke-width: 3; filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.6)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8)); }
-        .chain-link-inner { fill: none; stroke: #000; stroke-width: 1.5; opacity: 0.7; }
-        .chain-link-highlight { fill: none; stroke: #c41e1e; stroke-width: 0.8; opacity: 0.9; }
-        .chain-rust { fill: #3a0000; opacity: 0.6; }
-        .chain-tl { top: -5%; left: 15%; transform: rotate(25deg); animation: chain-sway-1 4s ease-in-out infinite; }
-        .chain-tr { top: -5%; right: 20%; transform: rotate(-20deg); animation: chain-sway-2 4.5s ease-in-out infinite; }
-        .chain-bl { bottom: -5%; left: 10%; transform: rotate(-160deg); animation: chain-sway-3 5s ease-in-out infinite; }
-        .chain-br { bottom: -5%; right: 15%; transform: rotate(165deg); animation: chain-sway-4 4.2s ease-in-out infinite; }
-        .chain-mid-l { top: 40%; left: -5%; transform: rotate(-85deg); animation: chain-sway-5 4.8s ease-in-out infinite; }
-        .chain-mid-r { top: 55%; right: -5%; transform: rotate(92deg); animation: chain-sway-6 4.3s ease-in-out infinite; }
-        @keyframes chain-sway-1 { 0%, 100% { transform: rotate(25deg) translateX(0); } 50% { transform: rotate(27deg) translateX(3px); } }
-        @keyframes chain-sway-2 { 0%, 100% { transform: rotate(-20deg) translateX(0); } 50% { transform: rotate(-22deg) translateX(-4px); } }
-        @keyframes chain-sway-3 { 0%, 100% { transform: rotate(-160deg) translateX(0); } 50% { transform: rotate(-158deg) translateX(2px); } }
-        @keyframes chain-sway-4 { 0%, 100% { transform: rotate(165deg) translateX(0); } 50% { transform: rotate(167deg) translateX(-3px); } }
-        @keyframes chain-sway-5 { 0%, 100% { transform: rotate(-85deg) translateX(0); } 50% { transform: rotate(-83deg) translateX(2px); } }
-        @keyframes chain-sway-6 { 0%, 100% { transform: rotate(92deg) translateX(0); } 50% { transform: rotate(94deg) translateX(-2px); } }
-
-        #centipede-canvas { position: fixed; inset: 0; z-index: 9997; pointer-events: none; opacity: 0; transition: opacity 0.5s ease; will-change: opacity; }
-        #centipede-canvas.active { opacity: 1; }
-
-        section { content-visibility: auto; contain-intrinsic-size: auto 100vh; }
-
-        @media (hover: none), (pointer: coarse) {
-            .cursor { display: none !important; }
-            body, a, button, .carousel-nav, .carousel-dot, .rize-count, .social-card, .project-card, .entry-overlay, .player-btn, .player-toggle, .player-progress-bar, .player-volume-btn, .player-volume-slider, .higanbana-wrap { cursor: auto !important; }
-            * { -webkit-tap-highlight-color: transparent; }
-            .ghoul-card:hover, .social-card:hover { transform: none; background: rgba(15, 5, 5, 0.75); border-color: rgba(138, 3, 3, 0.35); }
-            .ghoul-card:hover::after, .social-card:hover::after { opacity: 0; }
-            .social-card:hover .social-icon { color: var(--bone); transform: none; }
-            .rize-count:hover { filter: none; }
-            .social-card:active { transform: scale(0.97); background: rgba(25, 8, 8, 0.85); border-color: #c41e1e; }
-            .player-btn:active { transform: scale(0.9); }
-            .player-btn-play:active { transform: scale(0.9); }
-            .carousel-dot { width: 10px; height: 10px; cursor: pointer; }
-            .carousel-dot.active { width: 28px; }
-            .chain-link { stroke-width: 2.5; }
-            .chain-link-inner { stroke-width: 1.2; }
-            .player-progress-thumb { transform: translate(-50%, -50%) scale(1); }
-            .player-volume-thumb { transform: translate(-50%, -50%) scale(1); }
-            
-            /* Touch feedback para a flor */
-            .higanbana-wrap.touch-active {
-                transform: scale(1.05);
-            }
-            .higanbana-wrap.touch-active::before {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .music-player { width: 340px; padding: 12px; }
-            .player-cover-wrap { width: 50px; height: 50px; }
-            .player-btn-play { width: 38px; height: 38px; }
-        }
-
-        @media (max-width: 768px) {
-            .carousel-wrapper { height: 560px; }
-            .project-card { width: 300px; height: 520px; }
-            .card-content { padding: 28px 24px; }
-            .card-title { font-size: 1.8rem; }
-            .card-subtitle { font-size: 0.75rem; margin-bottom: 12px; }
-            .card-kanji { font-size: 7rem; }
-            .card-desc { font-size: 0.85rem; line-height: 1.55; }
-            .card-tag { font-size: 0.6rem; padding: 3px 8px; }
-            .carousel-nav.prev { left: -8px; }
-            .carousel-nav.next { right: -8px; }
-            .carousel-nav { width: 42px; height: 42px; }
-            .kaneki-container { height: 65vh; }
-            .kaneki-container img { max-width: 70vw; }
-            .mobile-hint { display: inline-block; }
-            .chain-mid-l, .chain-mid-r, .chain-bl, .chain-br { display: none; }
-
-            .music-player {
-                left: 50%;
-                right: auto;
-                bottom: 15px;
-                width: calc(100vw - 30px);
-                padding: 10px;
-                border-radius: 14px;
-                transform: translateX(-50%) translate3d(0, 0, 0);
-                transform-origin: bottom center;
-            }
-            .music-player.collapsed {
-                left: 15px;
-                transform: translateX(0) translate3d(0, 0, 0);
-                width: 72px;
-                transform-origin: bottom left;
-            }
-            .player-cover-wrap { width: 46px; height: 46px; }
-            .player-track-name { font-size: 0.88rem; }
-            .player-track-artist { font-size: 0.68rem; }
-            .player-controls { gap: 14px; }
-            .player-btn-play { width: 40px; height: 40px; }
-            
-            .rize-count {
-                position: relative;
-                bottom: auto;
-                right: auto;
-                margin-top: 2.5rem;
-                font-size: 1.1rem;
-                padding: 8px 14px;
-                opacity: 0.9;
-                background: rgba(5, 2, 2, 0.75);
-                align-self: center;
-            }
-            .rize-count-fixed-mobile {
-                display: none;
-            }
-
-            /* Mobile: flor e quote em coluna */
-            .higanbana-stage {
-                gap: 2.5rem;
-                min-height: auto;
-                padding: 1.5rem 0.5rem;
-            }
-            .quote-container {
-                text-align: center;
-                min-height: 200px;
-            }
-            .quote-text { font-size: 1rem; }
-            .quote-text::before { left: 50%; transform: translateX(-50%); top: -2rem; }
-            .quote-author { padding-left: 0; padding-top: 1rem; }
-            .quote-author::before { 
-                top: 0; 
-                left: 50%; 
-                transform: translateX(-50%); 
-                width: 2rem; 
-            }
-        }
-
-        @media (max-width: 480px) {
-            .carousel-wrapper { height: 540px; }
-            .project-card { width: 280px; height: 500px; }
-            .card-content { padding: 24px 20px; }
-            .card-title { font-size: 1.6rem; }
-            .card-kanji { font-size: 6rem; }
-            .card-number { font-size: 0.75rem; }
-            .card-number::before { width: 16px; }
-            .carousel-nav.prev { left: -4px; }
-            .carousel-nav.next { right: -4px; }
-            .carousel-nav { width: 38px; height: 38px; }
-            .carousel-nav svg { width: 16px; height: 16px; }
-
-            .music-player { left: 50%; right: auto; bottom: 10px; width: calc(100vw - 20px); padding: 8px; border-radius: 12px; gap: 8px; transform: translateX(-50%) translate3d(0, 0, 0); }
-            .music-player.collapsed { 
-                left: 10px;
-                transform: translateX(0) translate3d(0, 0, 0); 
-            }
-            .player-cover-wrap { width: 40px; height: 40px; }
-            .player-track-name { font-size: 0.82rem; }
-            .player-track-artist { font-size: 0.64rem; }
-            .player-controls { gap: 12px; }
-            .player-btn svg { width: 16px; height: 16px; }
-            .player-btn-play { width: 36px; height: 36px; }
-            .player-time { font-size: 0.62rem; }
-            .player-volume-wrap { gap: 6px; }
-            
-            .rize-count { margin-top: 2rem; font-size: 1rem; padding: 6px 12px; }
-
-            .higanbana-svg { width: 14rem; height: 14rem; }
-            .quote-text { font-size: 0.95rem; line-height: 1.65; }
-            .quote-author { font-size: 0.85rem; }
-        }
-
-        @media (max-width: 375px) {
-            section:first-of-type h2.text-7xl { font-size: 3.5rem; }
-            .higanbana-svg { width: 12rem; height: 12rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-        }
-        body.tab-hidden * { animation-play-state: paused !important; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>João Vitor Alves Rodrigues | Desenvolvedor de Tecnologia</title>
+    <meta name="description" content="Portfólio de João Vitor Alves Rodrigues - Desenvolvedor de Tecnologia especialista em software e manutenção de sistemas">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="author" content="João Vitor Alves Rodrigues">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000000' width='100' height='100'/><rect fill='%23ffffff' x='15' y='15' width='70' height='70' rx='10'/><text x='50' y='70' font-size='50' font-weight='900' fill='%23000000' text-anchor='middle'>V</text></svg>">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="entry-overlay" id="entry-overlay">
-        <div class="text-center">
-            <div class="entry-text">Click to Enter</div>
-            <div class="mt-6 text-xs text-readable-dim tracking-widest">喰</div>
+    <!-- NAVEGAÇÃO -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <span class="logo-icon">J</span>
+                <span class="logo-text">João Vitor</span>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home" class="nav-link">Início</a></li>
+                <li class="nav-item"><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li class="nav-item"><a href="#formacao" class="nav-link">Formação</a></li>
+                <li class="nav-item"><a href="#projetos" class="nav-link">Projetos</a></li>
+                <li class="nav-item"><a href="#experiencia" class="nav-link">Experiência</a></li>
+                <li class="nav-item"><a href="#contato" class="nav-link">Contato</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
 
-    <div class="noise-overlay"></div>
-    <div class="vignette"></div>
-    <div class="cursor" id="cursor"></div>
-
-    <video id="bg-video" autoplay muted loop playsinline preload="metadata" webkit-playsinline class="fixed inset-0 w-full h-full object-cover z-[-2] opacity-60">
-        <source src="video.mp4" type="video/mp4">
-    </video>
-    <div id="video-overlay" class="fixed inset-0 bg-black z-[-1]" style="opacity: 0.2;"></div>
-
-    <audio id="bg-audio" preload="metadata">
-        <source id="audio-source" src="musica.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="music-player" id="music-player">
-        <button class="player-toggle" id="player-toggle" aria-label="Toggle player">
-            <svg viewBox="0 0 12 12"><path d="M2 4L6 8L10 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="player-top">
-            <div class="player-cover-wrap">
-                <img src="music1image.jpg" alt="Album cover" class="player-cover" id="player-cover" loading="lazy">
+    <!-- SEÇÃO HOME/HERO -->
+    <section id="home" class="hero">
+        <div class="matrix-background"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Olá, sou <span class="highlight">João Vitor</span></h1>
+                <p class="hero-subtitle">Desenvolvedor de Tecnologia</p>
+                <p class="hero-description">Especialista em desenvolvimento de software e manutenção de sistemas com foco em soluções inovadoras e eficientes</p>
+                <div class="hero-buttons">
+                    <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
+                    <a href="https://wa.me/5531982043087" target="_blank" class="btn btn-secondary">Entrar em Contato</a>
+                </div>
             </div>
-            <div class="player-info">
-                <div class="player-track-name" id="player-track-name">Nuts</div>
-                <div class="player-track-artist" id="player-track-artist">Lil Peep</div>
-            </div>
-            <div class="player-visualizer">
-                <div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div><div class="viz-bar"></div>
-            </div>
-        </div>
-        <div class="player-progress-wrap">
-            <div class="player-progress-bar" id="player-progress-bar">
-                <div class="player-progress-fill" id="player-progress-fill"></div>
-                <div class="player-progress-thumb" id="player-progress-thumb"></div>
-            </div>
-            <div class="player-time">
-                <span id="player-time-current">0:00</span>
-                <span id="player-time-total">0:00</span>
+            <div class="hero-image">
+                <div class="avatar-placeholder">
+                    <img src="joao.png" alt="João Vitor Alves Rodrigues" class="profile-image">
+                </div>
             </div>
         </div>
-        <div class="player-controls">
-            <button class="player-btn" id="player-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
-            <button class="player-btn player-btn-play" id="player-play" aria-label="Play/Pause"><svg id="player-play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
-            <button class="player-btn" id="player-next" aria-label="Próxima"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+        <div class="scroll-indicator">
+            <span>Scroll para explorar</span>
+            <div class="arrow-down"></div>
         </div>
-        <div class="player-volume-wrap">
-            <button class="player-volume-btn" id="player-volume-btn" aria-label="Volume"><svg id="player-volume-icon" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button>
-            <div class="player-volume-slider" id="player-volume-slider">
-                <div class="player-volume-fill" id="player-volume-fill"></div>
-                <div class="player-volume-thumb" id="player-volume-thumb"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="darken-overlay" id="darken-overlay"></div>
-    <div class="glitch-overlay" id="glitch-overlay"></div>
-    
-    <div class="chains-overlay" id="chains-overlay">
-        <svg width="0" height="0" style="position: absolute;">
-            <defs>
-                <linearGradient id="chainGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4a0000;stop-opacity:1" /><stop offset="50%" style="stop-color:#8a0303;stop-opacity:1" /><stop offset="100%" style="stop-color:#3a0000;stop-opacity:1" /></linearGradient>
-                <filter id="chainRust"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" result="noise"/><feColorMatrix type="matrix" values="0 0 0 0 0.2 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 0" in="noise" result="rustNoise"/><feComposite operator="in" in="rustNoise" in2="SourceGraphic" result="rustTexture"/><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="rustTexture"/></feMerge></filter>
-            </defs>
-        </svg>
-        <svg class="chain-group chain-tl" width="140" height="450" viewBox="0 0 140 450"><g class="chain-link"><ellipse cx="70" cy="25" rx="18" ry="25"/><ellipse cx="70" cy="75" rx="18" ry="25"/><ellipse cx="70" cy="125" rx="18" ry="25"/><ellipse cx="70" cy="175" rx="18" ry="25"/><ellipse cx="70" cy="225" rx="18" ry="25"/><ellipse cx="70" cy="275" rx="18" ry="25"/><ellipse cx="70" cy="325" rx="18" ry="25"/><ellipse cx="70" cy="375" rx="18" ry="25"/><ellipse cx="70" cy="425" rx="18" ry="25"/></g></svg>
-        <svg class="chain-group chain-tr" width="140" height="430" viewBox="0 0 140 430"><g class="chain-link"><ellipse cx="70" cy="25" rx="17" ry="24"/><ellipse cx="70" cy="73" rx="17" ry="24"/><ellipse cx="70" cy="121" rx="17" ry="24"/><ellipse cx="70" cy="169" rx="17" ry="24"/><ellipse cx="70" cy="217" rx="17" ry="24"/><ellipse cx="70" cy="265" rx="17" ry="24"/><ellipse cx="70" cy="313" rx="17" ry="24"/><ellipse cx="70" cy="361" rx="17" ry="24"/><ellipse cx="70" cy="409" rx="17" ry="24"/></g></svg>
-        <svg class="chain-group chain-bl" width="140" height="410" viewBox="0 0 140 410"><g class="chain-link"><ellipse cx="70" cy="25" rx="18" ry="25"/><ellipse cx="70" cy="75" rx="18" ry="25"/><ellipse cx="70" cy="125" rx="18" ry="25"/><ellipse cx="70" cy="175" rx="18" ry="25"/><ellipse cx="70" cy="225" rx="18" ry="25"/><ellipse cx="70" cy="275" rx="18" ry="25"/><ellipse cx="70" cy="325" rx="18" ry="25"/><ellipse cx="70" cy="375" rx="18" ry="25"/></g></svg>
-        <svg class="chain-group chain-br" width="140" height="430" viewBox="0 0 140 430"><g class="chain-link"><ellipse cx="70" cy="25" rx="17" ry="24"/><ellipse cx="70" cy="73" rx="17" ry="24"/><ellipse cx="70" cy="121" rx="17" ry="24"/><ellipse cx="70" cy="169" rx="17" ry="24"/><ellipse cx="70" cy="217" rx="17" ry="24"/><ellipse cx="70" cy="265" rx="17" ry="24"/><ellipse cx="70" cy="313" rx="17" ry="24"/><ellipse cx="70" cy="361" rx="17" ry="24"/><ellipse cx="70" cy="409" rx="17" ry="24"/></g></svg>
-        <svg class="chain-group chain-mid-l" width="350" height="140" viewBox="0 0 350 140"><g class="chain-link"><ellipse cx="25" cy="70" rx="25" ry="18"/><ellipse cx="75" cy="70" rx="25" ry="18"/><ellipse cx="125" cy="70" rx="25" ry="18"/><ellipse cx="175" cy="70" rx="25" ry="18"/><ellipse cx="225" cy="70" rx="25" ry="18"/><ellipse cx="275" cy="70" rx="25" ry="18"/><ellipse cx="325" cy="70" rx="25" ry="18"/></g></svg>
-        <svg class="chain-group chain-mid-r" width="330" height="140" viewBox="0 0 330 140"><g class="chain-link"><ellipse cx="25" cy="70" rx="24" ry="17"/><ellipse cx="73" cy="70" rx="24" ry="17"/><ellipse cx="121" cy="70" rx="24" ry="17"/><ellipse cx="169" cy="70" rx="24" ry="17"/><ellipse cx="217" cy="70" rx="24" ry="17"/><ellipse cx="265" cy="70" rx="24" ry="17"/><ellipse cx="313" cy="70" rx="24" ry="17"/></g></svg>
-    </div>
-
-    <canvas id="centipede-canvas"></canvas>
-
-    <div class="kaneki-container" id="kaneki-container">
-        <img src="kanekituc.png" alt="" loading="lazy">
-    </div>
-
-    <section class="relative h-screen flex flex-col items-center justify-center text-center px-4">
-        <h1 class="kanji-bg font-jp" aria-hidden="true">喰</h1>
-        <h2 class="text-7xl md:text-9xl font-jp tracking-widest mb-4 relative z-10 text-bone">Lebot</h2>
-        <p class="text-sm md:text-base text-readable-dim tracking-[0.4em] uppercase relative z-10">Developer & Creator</p>
-        
-        <div class="rize-count" id="rize-count">
-            <span class="thousand">1000</span>
-            <span class="minus">-</span>
-            <span class="seven">7</span>
-            <span class="mobile-hint">HOLD</span>
-        </div>
-        
-        <div class="absolute bottom-10 text-xs text-readable-faint tracking-widest">SCROLL</div>
     </section>
 
-    <!-- ============================================
-         SEÇÃO: A MÁSCARA (SISTEMA DA FLOR INTERATIVA)
-         ============================================ -->
-    <section class="min-h-screen flex items-center justify-center px-4 md:px-20 py-20">
-        <div class="max-w-6xl w-full">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl md:text-4xl font-jp mb-4 tracking-wide" style="color: #c41e1e;">A Máscara</h3>
-                <p class="text-readable-faint text-xs tracking-[0.4em] uppercase">Fragmentos da Alma Ghoul</p>
-            </div>
-
-            <div class="higanbana-stage">
-                <div class="quote-container" id="quote-container">
-                    <p class="quote-text" id="quote-text">Carregando...</p>
-                    <p class="quote-author" id="quote-author">— </p>
+    <!-- SEÇÃO SOBRE -->
+    <section id="sobre" class="about">
+        <div class="section-container">
+            <h2 class="section-title">Sobre Mim</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-description">
+                        Técnico em Manutenção de Impressoras com sólida experiência na manutenção preventiva e corretiva de impressoras, atuando no diagnóstico, reparo e configuração de equipamentos diversos.
+                    </p>
+                    <p class="about-description">
+                        Amplo conhecimento técnico abrangendo desde impressoras de pequeno porte (laser) para uso doméstico ou corporativo, até equipamentos de grande porte e multifuncionais industriais. Experiência prática, garantindo soluções eficientes e otimização do desempenho dos equipamentos.
+                    </p>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <span class="skill-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                </svg>
+                            </span>
+                            <h4>Desenvolvimento</h4>
+                            <p>Aplicações Web, PHP 8, Linguagens Modernas</p>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 0-8.94-8.94l-3.77 3.77a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77z"></path>
+                                    <path d="M9.3 17.7a1 1 0 0 0 0-1.4L7.7 14.7a1 1 0 0 0-1.4 0l-3.77 3.77a6 6 0 0 0 8.94 8.94l3.77-3.77a1 1 0 0 0 0-1.4l-1.6-1.6a1 1 0 0 0-1.4 0l-3.77 3.77z"></path>
+                                </svg>
+                            </span>
+                            <h4>Manutenção de Sistemas</h4>
+                            <p>Impressoras, Diagnóstico e Reparo</p>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                                    <path d="M3 5v14a9 3 0 0 0 18 0V5"></path>
+                                    <path d="M3 12a9 3 0 0 0 18 0"></path>
+                                </svg>
+                            </span>
+                            <h4>Banco de Dados</h4>
+                            <p>MySQL, SQL, Sistemas</p>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                            </span>
+                            <h4>Segurança</h4>
+                            <p>Cibernética, Endpoint Protection</p>
+                        </div>
+                    </div>
                 </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Certificações</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Dedicação</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">4+</div>
+                        <div class="stat-label">Projetos</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">7+</div>
+                        <div class="stat-label">Tecnologias</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="relative flex justify-center items-center">
-                    <div class="higanbana-wrap" id="higanbana-flower" role="button" tabindex="0" aria-label="Trocar frase">
-                        <svg class="higanbana-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <g>
-                                <circle class="higanbana-core" cx="50" cy="50" r="3" opacity="0.95"/>
-                                <path class="higanbana-petal" d="M50,50 Q60,30 50,10 Q40,30 50,50" />
-                                <path class="higanbana-petal" d="M50,50 Q70,40 85,25 Q65,45 50,50" />
-                                <path class="higanbana-petal" d="M50,50 Q75,60 90,70 Q70,65 50,50" />
-                                <path class="higanbana-petal" d="M50,50 Q60,75 50,90 Q40,75 50,50" />
-                                <path class="higanbana-petal" d="M50,50 Q30,75 10,70 Q25,60 50,50" />
-                                <path class="higanbana-petal" d="M50,50 Q20,45 15,25 Q35,40 50,50" />
-                                <!-- Estames internos -->
-                                <g class="higanbana-petal" stroke-width="0.8" opacity="0.7">
-                                    <path d="M50,50 Q52,42 50,35" />
-                                    <path d="M50,50 Q58,46 62,40" />
-                                    <path d="M50,50 Q58,54 62,60" />
-                                    <path d="M50,50 Q52,58 50,65" />
-                                    <path d="M50,50 Q42,58 38,62" />
-                                    <path d="M50,50 Q42,46 38,40" />
-                                </g>
-                            </g>
+    <!-- SEÇÃO FORMAÇÃO -->
+    <section id="formacao" class="education">
+        <div class="section-container">
+            <h2 class="section-title">Formação Acadêmica</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H17.5A2.5 2.5 0 0 1 20 19.5v.5A2.5 2.5 0 0 1 17.5 22h-11A2.5 2.5 0 0 1 4 19.5v-.5z"></path>
+                            <path d="M6.5 2h11a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H5.5a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2z"></path>
                         </svg>
                     </div>
-                    <div class="flower-hint">TOQUE PARA MUDAR</div>
+                    <h3>Ciência da Computação</h3>
+                    <p class="education-institution">Instituto Una Barreiro</p>
+                    <p class="education-date">Cursando</p>
+                    <p class="education-description">
+                        Desenvolvimento de Software e Aplicações, Programação em Linguagens Modernas, 
+                        Banco de Dados e Sistemas, Análise e Projeto de Sistemas.
+                    </p>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                        </svg>
+                    </div>
+                    <h3>Ensino Médio Completo</h3>
+                    <p class="education-institution">Escola Estadual Cecília Meireles</p>
+                    <p class="education-date">2021 - 2024</p>
+                    <p class="education-description">
+                        Formação Geral Completa, Base Sólida em Ciências Exatas, 
+                        Desenvolvimento de Habilidades Analíticas e Preparação para Ensino Superior.
+                    </p>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                            <polyline points="13 2 13 9 20 9"></polyline>
+                            <path d="M9 12h6"></path>
+                            <path d="M9 16h6"></path>
+                        </svg>
+                    </div>
+                    <h3>Certificações em Tecnologia</h3>
+                    <p class="education-institution">Diversos</p>
+                    <p class="education-date">2024 - 2025</p>
+                    <p class="education-description">
+                        PHP 8, Inglês, Ciência da Computação Harvard (CC50), 
+                        Segurança de Endpoint Cisco.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="min-h-screen px-6 md:px-12 py-20 flex flex-col justify-center">
-        <div class="max-w-6xl mx-auto w-full">
-            <h3 class="text-3xl font-jp mb-4 text-center tracking-wide" style="color: #c41e1e;">O Banquete</h3>
-            <p class="text-center text-readable-faint text-sm tracking-widest uppercase mb-16">Arquivos Classificados</p>
-            <div class="carousel-wrapper" id="carousel">
-                <div class="carousel-stage" id="carousel-stage"></div>
-                <button class="carousel-nav prev" id="carousel-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-                <button class="carousel-nav next" id="carousel-next" aria-label="Próximo"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-                <div class="carousel-dots" id="carousel-dots"></div>
+    <!-- SEÇÃO CURSOS E CERTIFICAÇÕES -->
+    <section id="cursos" class="courses">
+        <div class="waves-background-courses">
+            <img src="ondas2.gif" alt="Animação de fundo" class="waves-gif">
+        </div>
+        <div class="section-container">
+            <h2 class="section-title">Cursos e Certificações</h2>
+            <div class="courses-list">
+                <div class="course-item">
+                    <div class="course-header">
+                        <h4>PHP 8 - Desenvolvimento Web</h4>
+                        <span class="course-date">Dezembro 2024</span>
+                    </div>
+                    <p class="course-provider">Udemy</p>
+                    <p class="course-skills">Skills: Desenvolvimento web dinâmico, OOP PHP, MySQL, Sistemas web responsivos</p>
+                </div>
+                <div class="course-item">
+                    <div class="course-header">
+                        <h4>Ciência da Computação de Harvard (CC50)</h4>
+                        <span class="course-date">2025</span>
+                    </div>
+                    <p class="course-provider">Fundação Estudar - Emitido eletronicamente</p>
+                    <p class="course-skills">Skills: C, Python, SQL, JavaScript, HTML & CSS, Algoritmos, Estruturas de dados</p>
+                </div>
+                <div class="course-item">
+                    <div class="course-header">
+                        <h4>Segurança de Endpoint</h4>
+                        <span class="course-date">2024/2025</span>
+                    </div>
+                    <p class="course-provider">Cisco</p>
+                    <p class="course-skills">Skills: Fundamentos de segurança cibernética, Proteção de dispositivos e redes corporativas</p>
+                </div>
+                <div class="course-item">
+                    <div class="course-header">
+                        <h4>Inglês Intermediário</h4>
+                        <span class="course-date">2024</span>
+                    </div>
+                    <p class="course-provider">Achieve Languages</p>
+                    <p class="course-skills">Skills: Conversação, pronúncia, Inglês técnico para tecnologia</p>
+                </div>
+                <div class="course-item">
+                    <div class="course-header">
+                        <h4>Inglês Intermediário</h4>
+                        <span class="course-date">2017-2019</span>
+                    </div>
+                    <p class="course-provider">Academia de Inglês Washington</p>
+                    <p class="course-skills">Skills: Oral, escrita, Gramática técnica, Preparação profissional</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="min-h-[70vh] flex flex-col items-center justify-center px-6 py-20">
-        <h3 class="text-3xl font-jp mb-4 tracking-wide text-center" style="color: #c41e1e;">Conexões</h3>
-        <p class="text-center text-readable-faint text-sm tracking-widest uppercase mb-12">Onde me encontrar</p>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5 max-w-6xl w-full">
-            <a href="https://www.instagram.com/https.jvalves/" target="_blank" rel="noopener" class="social-card rounded-sm p-6 flex flex-col items-center text-center cursor-pointer block group">
-                <svg class="social-icon w-10 h-10 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                <div class="social-label">Instagram</div><div class="social-handle">@https.jvalves</div>
-            </a>
-            <a href="https://www.twitch.tv/Lebotz_gg" target="_blank" rel="noopener" class="social-card rounded-sm p-6 flex flex-col items-center text-center cursor-pointer block group">
-                <svg class="social-icon w-10 h-10 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/></svg>
-                <div class="social-label">Twitch</div><div class="social-handle">Lebotz_gg</div>
-            </a>
-            <a href="https://www.tiktok.com/@lebot_gg" target="_blank" rel="noopener" class="social-card rounded-sm p-6 flex flex-col items-center text-center cursor-pointer block group">
-                <svg class="social-icon w-10 h-10 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1Z"/></svg>
-                <div class="social-label">TikTok</div><div class="social-handle">@lebot_gg</div>
-            </a>
-            <a href="https://open.spotify.com/user/o2fbtdnh53z6t6ca4v6wez8rz" target="_blank" rel="noopener" class="social-card rounded-sm p-6 flex flex-col items-center text-center cursor-pointer block group">
-                <svg class="social-icon w-10 h-10 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.301.42-1.02.599-1.561.3z"/></svg>
-                <div class="social-label">Spotify</div><div class="social-handle">Perfil</div>
-            </a>
-            <div class="social-card rounded-sm p-6 flex flex-col items-center text-center cursor-pointer group" id="discord-card" data-username="Lebot.gg">
-                <svg class="social-icon w-10 h-10 mb-3" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>
-                <div class="social-label">Discord</div><div class="social-handle">Lebot.gg</div><div class="copied-toast">Copiado!</div>
+    <!-- SEÇÃO PROJETOS -->
+    <section id="projetos" class="projects">
+        <div class="section-container">
+            <h2 class="section-title">Projetos Destacados</h2>
+            <p class="section-subtitle">Explore meus trabalhos mais relevantes</p>
+            
+            <div class="carousel-elegante">
+                <button class="carousel-arrow carousel-prev" aria-label="Projeto anterior">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+
+                <div class="carousel-content">
+                    <!-- Projeto 1 - SiteSupplies -->
+                    <div class="carousel-card card-with-bg" data-project="1" style="background-image: url('Projeto1.png');">
+                        <div class="card-overlay"></div>
+                        <div class="card-content">
+                            <h3>SiteSupplies</h3>
+                            <p>Site comercial focado em locação de impressoras. Interface intuitiva e profissional.</p>
+                            <div class="card-tech">
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://lebot007.github.io/SiteSupplies/" class="card-btn primary" target="_blank">Ver Projeto</a>
+                            <a href="https://github.com/Lebot007/SiteSupplies" class="card-btn secondary" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 2 - Hacker Game Site -->
+                    <div class="carousel-card card-with-bg" data-project="2" style="background-image: url('Projeto2.png');">
+                        <div class="card-overlay"></div>
+                        <div class="card-content">
+                            <h3>Hacker Game Site</h3>
+                            <p>Jogo interativo temático de hacker com desafios de programação, interface dinâmica e sistema de pontuação. Experiência imersiva e educativa para aprendizado de segurança.</p>
+                            <div class="card-tech">
+                                <span>JavaScript</span>
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://lebot007.github.io/hacker_game_site/" class="card-btn primary" target="_blank">Ver Projeto</a>
+                            <a href="https://github.com/Lebot007/hacker_game_site" class="card-btn secondary" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 3 - Controle Financeiro 2.0 -->
+                    <div class="carousel-card card-with-bg" data-project="3" style="background-image: url('Projeto3.png');">
+                        <div class="card-overlay"></div>
+                        <div class="card-content">
+                            <h3>Controle Financeiro 2.0</h3>
+                            <p>Sistema de gestão financeira completo com controle de despesas, receitas e análise de gastos. Interface intuitiva e relatórios detalhados em tempo real.</p>
+                            <div class="card-tech">
+                                <span>PHP 8</span>
+                                <span>MySQL</span>
+                                <span>JavaScript</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://lebot007.github.io/ControleFinanceiro2.0/" class="card-btn primary" target="_blank">Ver Projeto</a>
+                            <a href="https://github.com/Lebot007/ControleFinanceiro2.0" class="card-btn secondary" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- Projeto 4 - Tattoo -->
+                    <div class="carousel-card card-with-bg" data-project="4" style="background-image: url('projeto4.jpg');">
+                        <div class="card-overlay"></div>
+                        <div class="card-content">
+                            <h3>Alisson Alves Tattoo</h3>
+                            <p>Portfólio para estúdio de tatuagem com galeria de estilos (realismo, fine line, old school) e integração direta com WhatsApp.</p>
+                            <div class="card-tech">
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>Responsive</span>
+                                <span>UI/UX</span>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://lebot007.github.io/site-tattoo-alisson/" class="card-btn primary" target="_blank">Ver Projeto</a>
+                            <a href="https://github.com/Lebot007/site-tattoo-alisson" class="card-btn secondary" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-arrow carousel-next" aria-label="Próximo projeto">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Indicadores de slides -->
+            <div class="carousel-indicators-custom">
+                <button class="indicator-dot active" data-slide="1"></button>
+                <button class="indicator-dot" data-slide="2"></button>
+                <button class="indicator-dot" data-slide="3"></button>
+                <button class="indicator-dot" data-slide="4"></button>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 text-center text-readable-faint text-xs tracking-widest">
-        <p>LEBOT © <span class="font-jp" style="color: #c41e1e;">喰</span></p>
+    <!-- SEÇÃO EXPERIÊNCIA -->
+    <section id="experiencia" class="experience">
+        <div class="section-container">
+            <h2 class="section-title">Experiência Profissional</h2>
+            <div class="experience-timeline">
+                <div class="experience-item">
+                    <div class="experience-marker"></div>
+                    <div class="experience-content">
+                        <h3>Técnico em Manutenção de Impressoras</h3>
+                        <p class="experience-company">Profissional Experiente</p>
+                        <p class="experience-period">Experiência Profissional Consolidada</p>
+                        <p class="experience-description">
+                            Profissional com sólida experiência na manutenção preventiva e corretiva de impressoras, atuando no diagnóstico, reparo e configuração de equipamentos diversos. Amplo conhecimento técnico abrangendo desde impressoras de pequeno porte (laser) para uso doméstico e corporativo, até equipamentos de grande porte e multifuncionais industriais. Experiência prática, garantindo soluções eficientes e otimização do desempenho dos equipamentos.
+                        </p>
+                        <div class="experience-achievements">
+                            <span>✓ Diagnóstico e reparo de impressoras</span>
+                            <span>✓ Manutenção preventiva e corretiva</span>
+                            <span>✓ Otimização de desempenho</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="experience-marker"></div>
+                    <div class="experience-content">
+                        <h3>Estagiário</h3>
+                        <p class="experience-company">Hospital Metropolitano Doutor Célio de Castro</p>
+                        <p class="experience-period">Experiência em Gestão Hospitalar</p>
+                        <p class="experience-description">
+                            Treinamento no sistema de gestão hospitalar Tasy, levantamento de requisitos e definição de fluxos de negócio. Criar e manipular objetos de banco de dados Oracle 12g (tabelas, views, functions, procedures, triggers). Elaboração de relatórios, manuais técnicos e testes com usuários finais. Realização de treinamentos e homologação de funcionalidades.
+                        </p>
+                        <div class="experience-achievements">
+                            <span>✓ Banco de dados Oracle 12g</span>
+                            <span>✓ Sistema Tasy - gestão hospitalar</span>
+                            <span>✓ Treinamento de usuários finais</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO TECNOLOGIAS -->
+    <section id="tecnologias" class="technologies">
+        <div class="waves-background-tech">
+            <img src="ondas3.gif" alt="Animação de fundo" class="waves-gif">
+        </div>
+        <div class="section-container">
+            <h2 class="section-title">Habilidades Técnicas</h2>
+            <div class="tech-categories">
+                <div class="tech-category">
+                    <h4>Programação</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">PHP 8</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Manutenção & Hardware</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Manutenção de Impressoras</span>
+                        <span class="tech-tag">Diagnóstico</span>
+                        <span class="tech-tag">Reparo</span>
+                        <span class="tech-tag">Configuração</span>
+                        <span class="tech-tag">Impressoras Laser</span>
+                        <span class="tech-tag">Equipamentos Multifuncionais</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Desenvolvimento Web</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Aplicações Dinâmicas</span>
+                        <span class="tech-tag">Banco de Dados</span>
+                        <span class="tech-tag">Orientação a Objetos</span>
+                        <span class="tech-tag">Sistemas Responsivos</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">REST APIs</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <h4>Soft Skills</h4>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Trabalho em Equipe</span>
+                        <span class="tech-tag">Liderança</span>
+                        <span class="tech-tag">Pensamento Criativo</span>
+                        <span class="tech-tag">Resolução de Problemas</span>
+                        <span class="tech-tag">Comunicação</span>
+                        <span class="tech-tag">Planejamento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO CONTATO -->
+    <section id="contato" class="contact">
+        <div class="section-container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <p class="section-subtitle">Vamos trabalhar juntos! Escolha o melhor canal para se comunicar</p>
+            
+            <div class="contact-channels">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/5531982043087" target="_blank" class="contact-channel">
+                    <div class="channel-icon">💬</div>
+                    <h3>WhatsApp</h3>
+                    <p>Chat direto e rápido</p>
+                    <span class="channel-link">(31) 98204-3087</span>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/joão-vitor-alves-rodrigues-15534830a" target="_blank" class="contact-channel">
+                    <div class="channel-icon">💼</div>
+                    <h3>LinkedIn</h3>
+                    <p>Conecte-se profissionalmente</p>
+                    <span class="channel-link">João Vitor Alves</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/https.jvalves/" target="_blank" class="contact-channel">
+                    <div class="channel-icon">📸</div>
+                    <h3>Instagram</h3>
+                    <p>Acompanhe meus projetos</p>
+                    <span class="channel-link">@https.jvalves</span>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:joaovitoralvesrodrigues891@gmail.com" class="contact-channel">
+                    <div class="channel-icon">✉️</div>
+                    <h3>Email</h3>
+                    <p>Envie uma mensagem</p>
+                    <span class="channel-link">joaovitoralvesrodrigues891@gmail.com</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Sobre João Vitor</h4>
+                <p>Desenvolvedor de Tecnologia especialista em software e manutenção de sistemas. Comprometido com soluções inovadoras e eficientes.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#formacao">Formação</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Conecte-se</h4>
+                <div class="footer-social">
+                    <a href="https://www.linkedin.com/in/joão-vitor-alves-rodrigues-15534830a" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/lebot007" target="_blank">GitHub</a>
+                    <a href="https://lebot007.github.io/site-joao" target="_blank">Website</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="year-current">2025</span> João Vitor Alves Rodrigues - Todos os direitos reservados. Desenvolvido com ❤️</p>
+        </div>
     </footer>
 
-    <script>
-        (function() {
-            'use strict';
-            const isTouchDevice = (window.matchMedia('(hover: none)').matches) || (window.matchMedia('(pointer: coarse)').matches) || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-            const bgVideo = document.getElementById('bg-video');
-            if (bgVideo) {
-                bgVideo.addEventListener('ended', () => { bgVideo.currentTime = 0; bgVideo.play().catch(() => {}); });
-                bgVideo.play().catch(() => { document.addEventListener('click', () => bgVideo.play().catch(() => {}), { once: true }); });
-            }
-
-            const cursor = document.getElementById('cursor');
-            if (!isTouchDevice && cursor) {
-                let rafId = null, pendingX = 0, pendingY = 0;
-                document.addEventListener('mousemove', (e) => {
-                    pendingX = e.clientX - 8; pendingY = e.clientY - 8;
-                    if (!rafId) {
-                        rafId = requestAnimationFrame(() => {
-                            cursor.style.transform = `translate3d(${pendingX}px, ${pendingY}px, 0)`;
-                            rafId = null;
-                        });
-                    }
-                }, { passive: true });
-                const hoverTargets = 'a, .ghoul-card, .carousel-nav, .carousel-dot, .rize-count, .social-card, .project-card, .entry-overlay, .player-btn, .player-toggle, .player-progress-bar, .player-volume-btn, .player-volume-slider, .higanbana-wrap';
-                document.addEventListener('mouseover', (e) => { if (e.target.closest(hoverTargets)) cursor.classList.add('hover'); });
-                document.addEventListener('mouseout', (e) => { if (e.target.closest(hoverTargets)) cursor.classList.remove('hover'); });
-            } else if (cursor) { cursor.style.display = 'none'; }
-
-            const audio = document.getElementById('bg-audio');
-            const audioSource = document.getElementById('audio-source');
-            const entryOverlay = document.getElementById('entry-overlay');
-            let hasInteracted = false;
-
-            const playlist = [
-                { src: 'musica.mp3', img: 'music1image.jpg', name: 'Nuts', artist: 'Lil Peep' },
-                { src: 'musica2.mp3', img: 'music2image.jpg', name: 'CONSUME', artist: 'Chase Atlantic' },
-                { src: 'musica3.mp3', img: 'music3image.jpg', name: 'SWIM', artist: 'Chase Atlantic' }
-            ];
-            let currentTrack = 0, isPlaying = false;
-
-            const musicPlayer = document.getElementById('music-player');
-            const playerToggle = document.getElementById('player-toggle');
-            const playerCover = document.getElementById('player-cover');
-            const playerTrackName = document.getElementById('player-track-name');
-            const playerTrackArtist = document.getElementById('player-track-artist');
-            const playerPlayBtn = document.getElementById('player-play');
-            const playerPlayIcon = document.getElementById('player-play-icon');
-            const playerPrevBtn = document.getElementById('player-prev');
-            const playerNextBtn = document.getElementById('player-next');
-            const playerProgressBar = document.getElementById('player-progress-bar');
-            const playerProgressFill = document.getElementById('player-progress-fill');
-            const playerProgressThumb = document.getElementById('player-progress-thumb');
-            const playerTimeCurrent = document.getElementById('player-time-current');
-            const playerTimeTotal = document.getElementById('player-time-total');
-            const playerVolumeBtn = document.getElementById('player-volume-btn');
-            const playerVolumeIcon = document.getElementById('player-volume-icon');
-            const playerVolumeSlider = document.getElementById('player-volume-slider');
-            const playerVolumeFill = document.getElementById('player-volume-fill');
-            const playerVolumeThumb = document.getElementById('player-volume-thumb');
-
-            const ICON_PLAY = '<path d="M8 5v14l11-7z"/>';
-            const ICON_PAUSE = '<path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>';
-            const ICON_VOLUME_MUTE = '<path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16.5 12l4.5-4.5-1.41-1.41L15 10.67l-4.59-4.59L9 7.5l4.59 4.59L9 16.5l1.41 1.41L15 13.33l4.59 4.59L21 16.5 16.5 12z"/>';
-            const ICON_VOLUME_LOW = '<path d="M7 9v6h4l5 5V4l-5 5H7z"/>';
-            const ICON_VOLUME_HIGH = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
-
-            function formatTime(sec) {
-                if (!sec || isNaN(sec)) return '0:00';
-                const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
-                return `${m}:${s.toString().padStart(2, '0')}`;
-            }
-
-            function updateTrackInfo() {
-                const track = playlist[currentTrack];
-                playerCover.src = track.img;
-                playerTrackName.textContent = track.name;
-                playerTrackArtist.textContent = track.artist;
-                audioSource.src = track.src;
-                audio.load();
-                playerTimeTotal.textContent = '0:00';
-                playerTimeCurrent.textContent = '0:00';
-                playerProgressFill.style.width = '0%';
-                playerProgressThumb.style.left = '0%';
-            }
-
-            function updatePlayIcon() {
-                playerPlayIcon.innerHTML = isPlaying ? ICON_PAUSE : ICON_PLAY;
-                musicPlayer.classList.toggle('playing', isPlaying);
-            }
-            
-            function updateVolumeIcon(vol) {
-                if (vol === 0) playerVolumeIcon.innerHTML = ICON_VOLUME_MUTE;
-                else if (vol < 0.5) playerVolumeIcon.innerHTML = ICON_VOLUME_LOW;
-                else playerVolumeIcon.innerHTML = ICON_VOLUME_HIGH;
-            }
-
-            function playAudio() {
-                const p = audio.play();
-                if (p !== undefined) {
-                    p.then(() => { isPlaying = true; updatePlayIcon(); }).catch(() => {});
-                }
-            }
-
-            function pauseAudio() { audio.pause(); isPlaying = false; updatePlayIcon(); }
-            function togglePlay() { if (isPlaying) pauseAudio(); else playAudio(); }
-
-            function nextTrack() { currentTrack = (currentTrack + 1) % playlist.length; updateTrackInfo(); if (isPlaying) playAudio(); }
-            function prevTrack() { currentTrack = (currentTrack - 1 + playlist.length) % playlist.length; updateTrackInfo(); if (isPlaying) playAudio(); }
-
-            function setVolume(vol) {
-                vol = Math.max(0, Math.min(1, vol));
-                audio.volume = vol;
-                const pct = vol * 100;
-                playerVolumeFill.style.width = pct + '%';
-                playerVolumeThumb.style.left = pct + '%';
-                updateVolumeIcon(vol);
-            }
-
-            function startAudioWithFade() {
-                if (hasInteracted) return;
-                hasInteracted = true;
-                updateTrackInfo();
-                
-                audio.muted = true;
-                audio.volume = 0;
-                
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isPlaying = true;
-                        updatePlayIcon();
-                        entryOverlay.classList.add('hidden');
-                        
-                        let vol = 0;
-                        audio.muted = false;
-                        const fadeIn = setInterval(() => {
-                            vol = Math.min(vol + 0.015, 0.3);
-                            audio.volume = vol;
-                            if (vol >= 0.3) {
-                                setVolume(0.3);
-                                clearInterval(fadeIn);
-                            }
-                        }, 100);
-                    }).catch(() => {
-                        entryOverlay.classList.remove('hidden');
-                        hasInteracted = false;
-                    });
-                }
-            }
-
-            function startAudio() {
-                if (hasInteracted) return;
-                hasInteracted = true;
-                updateTrackInfo();
-                audio.muted = false;
-                setVolume(0.3);
-                
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isPlaying = true;
-                        updatePlayIcon();
-                        entryOverlay.classList.add('hidden');
-                    }).catch(() => {
-                        entryOverlay.classList.remove('hidden');
-                        hasInteracted = false;
-                    });
-                }
-            }
-
-            window.addEventListener('load', () => {
-                updateTrackInfo();
-                audio.muted = true;
-                audio.volume = 0;
-                
-                const playPromise = audio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        isPlaying = true;
-                        updatePlayIcon();
-                        entryOverlay.classList.add('hidden');
-                        
-                        let vol = 0;
-                        audio.muted = false;
-                        const fadeIn = setInterval(() => {
-                            vol = Math.min(vol + 0.015, 0.3);
-                            audio.volume = vol;
-                            playerVolumeFill.style.width = (vol * 100) + '%';
-                            if (vol >= 0.3) {
-                                setVolume(0.3);
-                                clearInterval(fadeIn);
-                            }
-                        }, 100);
-                    }).catch(() => {
-                        entryOverlay.classList.remove('hidden');
-                    });
-                }
-            }, { once: true });
-            
-            entryOverlay.addEventListener('click', () => {
-                hasInteracted = false;
-                startAudio();
-            }, { once: true });
-            entryOverlay.addEventListener('touchend', (e) => {
-                e.preventDefault();
-                hasInteracted = false;
-                startAudio();
-            }, { once: true });
-
-            playerPlayBtn.addEventListener('click', togglePlay);
-            playerNextBtn.addEventListener('click', nextTrack);
-            playerPrevBtn.addEventListener('click', prevTrack);
-            playerToggle.addEventListener('click', () => musicPlayer.classList.toggle('collapsed'));
-
-            audio.addEventListener('ended', nextTrack);
-            audio.addEventListener('loadedmetadata', () => { playerTimeTotal.textContent = formatTime(audio.duration); });
-            audio.addEventListener('timeupdate', () => {
-                if (audio.duration) {
-                    const pct = (audio.currentTime / audio.duration) * 100;
-                    playerProgressFill.style.width = pct + '%';
-                    playerProgressThumb.style.left = pct + '%';
-                    playerTimeCurrent.textContent = formatTime(audio.currentTime);
-                }
-            });
-
-            let isSeeking = false;
-            function seekTo(e) {
-                const rect = playerProgressBar.getBoundingClientRect();
-                const clientX = e.clientX ?? (e.touches && e.touches[0]?.clientX);
-                if (clientX == null) return;
-                let pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-                if (audio.duration) {
-                    audio.currentTime = pct * audio.duration;
-                    playerProgressFill.style.width = (pct * 100) + '%';
-                    playerProgressThumb.style.left = (pct * 100) + '%';
-                }
-            }
-
-            playerProgressBar.addEventListener('mousedown', (e) => { isSeeking = true; playerProgressBar.classList.add('dragging'); seekTo(e); });
-            document.addEventListener('mousemove', (e) => { if (isSeeking) seekTo(e); });
-            document.addEventListener('mouseup', () => { if (isSeeking) { isSeeking = false; playerProgressBar.classList.remove('dragging'); } });
-            playerProgressBar.addEventListener('touchstart', (e) => { isSeeking = true; playerProgressBar.classList.add('dragging'); seekTo(e); }, { passive: true });
-            playerProgressBar.addEventListener('touchmove', (e) => { if (isSeeking) seekTo(e); }, { passive: true });
-            playerProgressBar.addEventListener('touchend', () => { isSeeking = false; playerProgressBar.classList.remove('dragging'); }, { passive: true });
-
-            let isAdjustingVolume = false, lastVolume = 0.3;
-            function adjustVolume(e) {
-                const rect = playerVolumeSlider.getBoundingClientRect();
-                const clientX = e.clientX ?? (e.touches && e.touches[0]?.clientX);
-                if (clientX == null) return;
-                let pct = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
-                setVolume(pct);
-                if (pct > 0) lastVolume = pct;
-            }
-
-            playerVolumeSlider.addEventListener('mousedown', (e) => { isAdjustingVolume = true; playerVolumeSlider.classList.add('dragging'); adjustVolume(e); });
-            document.addEventListener('mousemove', (e) => { if (isAdjustingVolume) adjustVolume(e); });
-            document.addEventListener('mouseup', () => { if (isAdjustingVolume) { isAdjustingVolume = false; playerVolumeSlider.classList.remove('dragging'); } });
-            playerVolumeSlider.addEventListener('touchstart', (e) => { isAdjustingVolume = true; playerVolumeSlider.classList.add('dragging'); adjustVolume(e); }, { passive: true });
-            playerVolumeSlider.addEventListener('touchmove', (e) => { if (isAdjustingVolume) adjustVolume(e); }, { passive: true });
-            playerVolumeSlider.addEventListener('touchend', () => { isAdjustingVolume = false; playerVolumeSlider.classList.remove('dragging'); }, { passive: true });
-
-            playerVolumeBtn.addEventListener('click', () => {
-                if (audio.volume > 0) { lastVolume = audio.volume; setVolume(0); } 
-                else { setVolume(lastVolume || 0.3); }
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-                if (e.code === 'Space') { e.preventDefault(); togglePlay(); } 
-                else if (e.key === 'ArrowRight' && e.ctrlKey) nextTrack(); 
-                else if (e.key === 'ArrowLeft' && e.ctrlKey) prevTrack();
-            });
-
-            const discordCard = document.getElementById('discord-card');
-            discordCard.addEventListener('click', async (e) => {
-                e.preventDefault();
-                const username = discordCard.dataset.username;
-                try { await navigator.clipboard.writeText(username); } 
-                catch {
-                    const ta = document.createElement('textarea'); ta.value = username;
-                    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-                }
-                discordCard.classList.add('copied');
-                if (navigator.vibrate) navigator.vibrate(30);
-                setTimeout(() => discordCard.classList.remove('copied'), 1500);
-            });
-
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) document.body.classList.add('tab-hidden');
-                else {
-                    document.body.classList.remove('tab-hidden');
-                    if (isPlaying && hasInteracted && audio.paused) audio.play().catch(() => {});
-                }
-            });
-
-            const lenis = new Lenis({ duration: 1.2, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 2 });
-            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-            requestAnimationFrame(raf);
-
-            gsap.registerPlugin(ScrollTrigger);
-            gsap.to("#video-overlay", { opacity: 0.75, ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "100vh top", scrub: 0.5 } });
-
-            const projects = [
-                { kanji: '眼', num: 'DOSSIÊ 01', title: 'Ken Kaneki', subtitle: 'O Trágico · Eyepatch', desc: 'Estudante universitário transformado em meio-ghoul após o transplante de órgãos de Rize. Carrega o peso de dois mundos e a dor de uma máscara que revela mais do que esconde. Seu Kagune Rinkaku se manifesta como quatro tentáculos escarlates.', tags: ['Rinkaku', 'Meio-Ghoul', 'Anteiku', 'Aogiri', 'Dragão'], year: 'RC: 911', img: 'kanekiprofile.jpg' },
-                { kanji: '食', num: 'DOSSIÊ 02', title: 'Rize Kamishiro', subtitle: 'Binge Eater · A Gourmet', desc: 'Conhecida como "Comilona", é a ghoul cujos órgãos foram transplantados para Kaneki. Filha ilegítima de Washuu, possui um Rinkaku de poder devastador com seis tentáculos. Elegante, letal e insaciável — sua fome não conhece limites.', tags: ['Rinkaku', 'Washuu', 'Gourmet', 'Binge Eater'], year: 'RC: 872', img: 'rizeprofile.jpg' },
-                { kanji: '兎', num: 'DOSSIÊ 03', title: 'Touka Kirishima', subtitle: 'Rabbit · A Garçonete', desc: 'Garçonete da Anteiku e ghoul com codinome "Coelho". Seu Ukaku libera rajadas de cristais endurecidos, mas sacrifica resistência por velocidade explosiva. Temperamento feroz escondendo um coração que aprendeu a amar humanos.', tags: ['Ukaku', 'Anteiku', 'Rabbit', 'Koukaku Jr.'], year: 'RC: 748', img: 'toukaprofile.jpg' },
-                { kanji: '死', num: 'DOSSIÊ 04', title: 'Kishou Arima', subtitle: 'Shinigami da CCG · Ceifador', desc: 'O mais temido Investigador de Classe Especial da CCG. Conhecido como o "Deus da Morte" entre os ghouls, sua habilidade com Quinques é inigualável. Por trás dos óculos, carrega um segredo que conecta humanos e ghouls.', tags: ['CCG', 'Classe Especial', 'IXA', 'Narukami', 'V'], year: 'Q-TYPE', img: 'arimaprofile.jpg' },
-                { kanji: '梟', num: 'DOSSIÊ 05', title: 'Eto Yoshimura', subtitle: 'One-Eyed Owl · A Escritora', desc: 'Líder da Aogiri Tree e autora sob o pseudônimo Sen Takatsuki. A primeira One-Eyed natural, possui um Kakuja completo que distorce sua forma em horror. Filha do Coruja, sua revolta moldou uma era de caos em Tokyo.', tags: ['Kakuja', 'Aogiri', 'One-Eyed', 'Owl', 'Sen Takatsuki'], year: 'RC: ∞', img: 'Etoprofile.jpg' }
-            ];
-
-            const stage = document.getElementById('carousel-stage');
-            const dotsContainer = document.getElementById('carousel-dots');
-            let activeIndex = 0, isAnimating = false;
-
-            const fragment = document.createDocumentFragment();
-            projects.forEach((p, i) => {
-                const card = document.createElement('div');
-                card.className = 'project-card'; card.dataset.index = i;
-                card.innerHTML = `<div class="card-bg-image" style="background-image: url('${p.img}');"></div><div class="card-bg-overlay"></div><div class="card-kanji font-jp">${p.kanji}</div><div class="card-content"><div><div class="card-number">${p.num}</div><h4 class="card-title">${p.title}</h4><div class="card-subtitle">${p.subtitle}</div><p class="card-desc">${p.desc}</p><div class="card-tags">${p.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div></div><div class="card-footer"><span class="card-year">${p.year}</span><span class="card-cta">Analisar <span class="card-cta-arrow"></span></span></div></div>`;
-                card.addEventListener('click', () => { const idx = parseInt(card.dataset.index); if (idx !== activeIndex) goTo(idx); });
-                fragment.appendChild(card);
-                const dot = document.createElement('div');
-                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-                dot.addEventListener('click', () => goTo(i));
-                dotsContainer.appendChild(dot);
-            });
-            stage.appendChild(fragment);
-
-            const cards = stage.querySelectorAll('.project-card');
-            const dots = dotsContainer.querySelectorAll('.carousel-dot');
-
-            function updateCarousel() {
-                const isMobile = window.innerWidth < 768;
-                cards.forEach((card, i) => {
-                    const offset = i - activeIndex, absOff = Math.abs(offset);
-                    if (absOff > 2) {
-                        card.style.visibility = 'hidden'; card.style.transform = 'translate3d(0,0,0) scale(0.5)';
-                        card.style.opacity = 0; card.style.zIndex = 1; card.style.pointerEvents = 'none'; card.classList.remove('active'); return;
-                    } else { card.style.visibility = 'visible'; }
-                    let tx, sc, op, z;
-                    if (isMobile) { tx = offset * Math.min(230, window.innerWidth * 0.68); sc = offset === 0 ? 1 : 0.78; op = offset === 0 ? 1 : 0.35; z = 10 - absOff; } 
-                    else { tx = offset * 340; sc = offset === 0 ? 1 : (absOff === 1 ? 0.82 : 0.68); op = offset === 0 ? 1 : (absOff === 1 ? 0.55 : 0.25); z = 10 - absOff; }
-                    card.style.transform = `translate3d(${tx}px, 0, 0) scale(${sc})`;
-                    card.style.opacity = op; card.style.zIndex = z;
-                    card.style.pointerEvents = absOff === 0 ? 'auto' : 'none';
-                    if (offset === 0) card.classList.add('active'); else card.classList.remove('active');
-                });
-                dots.forEach((d, i) => d.classList.toggle('active', i === activeIndex));
-            }
-
-            function goTo(index) {
-                if (isAnimating || index === activeIndex) return;
-                isAnimating = true; activeIndex = index; updateCarousel();
-                setTimeout(() => { isAnimating = false; }, 700);
-            }
-
-            function next() { goTo((activeIndex + 1) % projects.length); }
-            function prev() { goTo((activeIndex - 1 + projects.length) % projects.length); }
-
-            document.getElementById('carousel-next').addEventListener('click', next);
-            document.getElementById('carousel-prev').addEventListener('click', prev);
-
-            document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey) return;
-                if (e.key === 'ArrowRight') next();
-                if (e.key === 'ArrowLeft') prev();
-            });
-
-            let dragStart = null;
-            const wrapper = document.getElementById('carousel');
-            wrapper.addEventListener('pointerdown', (e) => { dragStart = e.clientX; }, { passive: true });
-            wrapper.addEventListener('pointerup', (e) => {
-                if (dragStart === null) return;
-                const diff = e.clientX - dragStart;
-                if (Math.abs(diff) > 50) { if (diff < 0) next(); else prev(); }
-                dragStart = null;
-            }, { passive: true });
-
-            let wheelCooldown = false;
-            wrapper.addEventListener('wheel', (e) => {
-                if (wheelCooldown) return;
-                if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 30) {
-                    if (e.deltaX > 0) next(); else prev();
-                    wheelCooldown = true; setTimeout(() => { wheelCooldown = false; }, 900);
-                }
-            }, { passive: true });
-
-            updateCarousel();
-            let resizeTimer;
-            window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(updateCarousel, 150); });
-
-            class Centipede {
-                constructor(canvas) {
-                    this.canvas = canvas; this.ctx = canvas.getContext('2d', { alpha: true });
-                    this.segments = []; this.numSegments = isTouchDevice ? 28 : 35; this.segmentSpacing = 10;
-                    this.running = false; this.path = []; this.distanceTraveled = 0; this.time = 0;
-                    this.rafId = null; this.lastTimestamp = 0; this.speed = 0; this.totalPathLength = 0;
-                    this.pathLengths = []; this.exitThreshold = 0; this.resize();
-                    window.addEventListener('resize', () => this.resize(), { passive: true });
-                }
-                resize() {
-                    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-                    this.canvas.width = window.innerWidth * dpr; this.canvas.height = window.innerHeight * dpr;
-                    this.canvas.style.width = window.innerWidth + 'px'; this.canvas.style.height = window.innerHeight + 'px';
-                    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-                }
-                generatePath() {
-                    this.path = []; this.pathLengths = [];
-                    const w = window.innerWidth, h = window.innerHeight, exitX = w + 500;
-                    const points = [ { x: -150, y: h * 0.4 }, { x: w * 0.15, y: h * 0.35 }, { x: w * 0.3, y: h * 0.6 }, { x: w * 0.45, y: h * 0.25 }, { x: w * 0.6, y: h * 0.55 }, { x: w * 0.75, y: h * 0.3 }, { x: w * 0.9, y: h * 0.6 }, { x: exitX, y: h * 0.4 } ];
-                    for (let i = 0; i < points.length - 1; i++) {
-                        const steps = 100;
-                        for (let j = 0; j < steps; j++) {
-                            const t = j / steps;
-                            const p0 = points[Math.max(0, i - 1)], p1 = points[i], p2 = points[Math.min(points.length - 1, i + 1)], p3 = points[Math.min(points.length - 1, i + 2)];
-                            const x = 0.5 * ((2 * p1.x) + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t * t + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t * t * t);
-                            const y = 0.5 * ((2 * p1.y) + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t * t + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t * t * t);
-                            this.path.push({ x, y });
-                        }
-                    }
-                    this.path.push(points[points.length - 1]);
-                    let acc = 0; this.pathLengths.push(0);
-                    for (let i = 1; i < this.path.length; i++) {
-                        const dx = this.path[i].x - this.path[i-1].x, dy = this.path[i].y - this.path[i-1].y;
-                        acc += Math.sqrt(dx * dx + dy * dy); this.pathLengths.push(acc);
-                    }
-                    this.totalPathLength = acc; this.speed = this.totalPathLength / 5500;
-                    this.exitThreshold = this.totalPathLength - (this.numSegments * this.segmentSpacing) - 50;
-                }
-                getPositionAtDistance(dist) {
-                    if (dist <= 0) return { x: this.path[0].x, y: this.path[0].y };
-                    if (dist >= this.totalPathLength) return this.path[this.path.length - 1];
-                    let lo = 0, hi = this.pathLengths.length - 1;
-                    while (lo < hi - 1) { const mid = (lo + hi) >> 1; if (this.pathLengths[mid] <= dist) lo = mid; else hi = mid; }
-                    const segStart = this.pathLengths[lo], segEnd = this.pathLengths[hi], t = (dist - segStart) / (segEnd - segStart);
-                    const p1 = this.path[lo], p2 = this.path[hi];
-                    return { x: p1.x + (p2.x - p1.x) * t, y: p1.y + (p2.y - p1.y) * t };
-                }
-                start() {
-                    this.generatePath(); this.distanceTraveled = 0; this.time = 0; this.lastTimestamp = 0; this.segments = [];
-                    for (let i = 0; i < this.numSegments; i++) {
-                        const pos = this.getPositionAtDistance(-i * this.segmentSpacing);
-                        this.segments.push({ x: pos.x, y: pos.y, angle: 0 });
-                    }
-                    this.running = true; this.canvas.classList.add('active');
-                    this.rafId = requestAnimationFrame((t) => this.animate(t));
-                }
-                stop() {
-                    this.running = false;
-                    if (this.rafId) { cancelAnimationFrame(this.rafId); this.rafId = null; }
-                    this.canvas.classList.remove('active');
-                }
-                animate(timestamp) {
-                    if (!this.running) return;
-                    if (!this.lastTimestamp) this.lastTimestamp = timestamp;
-                    const deltaTime = Math.min(timestamp - this.lastTimestamp, 50); this.lastTimestamp = timestamp;
-                    this.time += deltaTime * 0.005; this.distanceTraveled += this.speed * deltaTime;
-                    const tailPos = this.getPositionAtDistance(this.distanceTraveled - (this.numSegments - 1) * this.segmentSpacing);
-                    if (tailPos.x > window.innerWidth + 50) { this.stop(); return; }
-                    const headPos = this.getPositionAtDistance(this.distanceTraveled);
-                    this.segments[0].x = headPos.x; this.segments[0].y = headPos.y;
-                    const smoothing = 1 - Math.pow(1 - 0.72, deltaTime / 16);
-                    for (let i = 1; i < this.segments.length; i++) {
-                        const pos = this.getPositionAtDistance(this.distanceTraveled - i * this.segmentSpacing);
-                        const curr = this.segments[i];
-                        curr.x += (pos.x - curr.x) * smoothing; curr.y += (pos.y - curr.y) * smoothing;
-                        const prev = this.segments[i - 1]; curr.angle = Math.atan2(prev.y - curr.y, prev.x - curr.x);
-                    }
-                    if (this.segments.length > 1) this.segments[0].angle = Math.atan2(this.segments[1].y - this.segments[0].y, this.segments[1].x - this.segments[0].x) + Math.PI;
-                    this.draw(); this.rafId = requestAnimationFrame((t) => this.animate(t));
-                }
-                draw() {
-                    const ctx = this.ctx, w = window.innerWidth, h = window.innerHeight;
-                    ctx.clearRect(0, 0, w, h); this.drawLegs();
-                    for (let i = this.segments.length - 1; i >= 1; i--) this.drawSegment(i);
-                    this.drawHead();
-                }
-                drawSegment(i) {
-                    const seg = this.segments[i], ctx = this.ctx, progress = i / this.segments.length;
-                    const width = 13 - progress * 7, length = 9 - progress * 4;
-                    ctx.save(); ctx.translate(seg.x, seg.y); ctx.rotate(seg.angle);
-                    if (!isTouchDevice) { ctx.shadowColor = 'rgba(0, 0, 0, 0.9)'; ctx.shadowBlur = 6; ctx.shadowOffsetY = 3; }
-                    ctx.beginPath(); ctx.moveTo(length, 0);
-                    ctx.bezierCurveTo(length, width * 0.8, length * 0.5, width, -length * 0.5, width * 0.9);
-                    ctx.bezierCurveTo(-length, width * 0.5, -length, -width * 0.5, -length * 0.5, -width * 0.9);
-                    ctx.bezierCurveTo(length * 0.5, -width, length, -width * 0.8, length, 0); ctx.closePath();
-                    const grad = ctx.createLinearGradient(0, -width, 0, width);
-                    grad.addColorStop(0, '#0a0000'); grad.addColorStop(0.3, '#4a0000'); grad.addColorStop(0.5, '#7a0303'); grad.addColorStop(0.7, '#4a0000'); grad.addColorStop(1, '#0a0000');
-                    ctx.fillStyle = grad; ctx.fill();
-                    
-                    ctx.strokeStyle = 'rgba(180, 0, 0, 0.3)'; ctx.lineWidth = 0.8;
-                    ctx.beginPath(); ctx.moveTo(length * 0.7, 0); ctx.lineTo(-length * 0.7, 0); ctx.stroke();
-                    
-                    ctx.shadowBlur = 0;
-                    ctx.strokeStyle = '#000'; ctx.lineWidth = 1.2; ctx.stroke();
-                    ctx.restore();
-                }
-                drawHead() {
-                    const head = this.segments[0], ctx = this.ctx;
-                    ctx.save(); ctx.translate(head.x, head.y); ctx.rotate(head.angle);
-                    
-                    if (!isTouchDevice) { ctx.shadowColor = 'rgba(0, 0, 0, 0.9)'; ctx.shadowBlur = 10; }
-                    
-                    ctx.beginPath(); ctx.moveTo(14, 0);
-                    ctx.bezierCurveTo(16, 11, 4, 15, -14, 12);
-                    ctx.bezierCurveTo(-18, 8, -18, -8, -14, -12);
-                    ctx.bezierCurveTo(4, -15, 16, -11, 14, 0); ctx.closePath();
-                    const headGrad = ctx.createRadialGradient(2, 0, 0, 0, 0, 18);
-                    headGrad.addColorStop(0, '#c41e1e'); headGrad.addColorStop(0.3, '#8a0000'); headGrad.addColorStop(1, '#050000');
-                    ctx.fillStyle = headGrad; ctx.fill();
-                    ctx.strokeStyle = '#000'; ctx.lineWidth = 1.5; ctx.stroke();
-                    ctx.shadowBlur = 0;
-                    
-                    if (!isTouchDevice) { ctx.shadowColor = '#ff0000'; ctx.shadowBlur = 8; }
-                    ctx.fillStyle = '#ff2222';
-                    ctx.beginPath(); ctx.ellipse(8, -5, 3, 2, -0.3, 0, Math.PI * 2); ctx.fill();
-                    ctx.beginPath(); ctx.ellipse(8, 5, 3, 2, 0.3, 0, Math.PI * 2); ctx.fill();
-                    ctx.fillStyle = '#ffffff'; ctx.shadowBlur = 0;
-                    ctx.beginPath(); ctx.ellipse(9.5, -5, 1, 0.8, 0, 0, Math.PI * 2); ctx.fill();
-                    ctx.beginPath(); ctx.ellipse(9.5, 5, 1, 0.8, 0, 0, Math.PI * 2); ctx.fill();
-                    
-                    ctx.strokeStyle = '#1a0000'; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
-                    ctx.beginPath(); ctx.moveTo(14, -4);
-                    ctx.quadraticCurveTo(22, -8, 26, -12);
-                    ctx.quadraticCurveTo(28, -8, 24, -6); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(14, -2);
-                    ctx.quadraticCurveTo(24, -4, 30, -2);
-                    ctx.quadraticCurveTo(28, 2, 22, 2); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(14, 4);
-                    ctx.quadraticCurveTo(22, 8, 26, 12);
-                    ctx.quadraticCurveTo(28, 8, 24, 6); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(14, 2);
-                    ctx.quadraticCurveTo(24, 4, 30, 2);
-                    ctx.quadraticCurveTo(28, -2, 22, -2); ctx.stroke();
-                    
-                    ctx.strokeStyle = 'rgba(180, 0, 0, 0.5)'; ctx.lineWidth = 1;
-                    ctx.beginPath(); ctx.moveTo(10, -10); ctx.quadraticCurveTo(5, -14, -5, -11); ctx.stroke();
-                    
-                    ctx.restore();
-                }
-                drawLegs() {
-                    const ctx = this.ctx; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-                    for (let i = 1; i < this.segments.length - 1; i++) {
-                        const seg = this.segments[i], progress = i / this.segments.length;
-                        const legLen1 = 9, legLen2 = 14 - progress * 6, perpAngle = seg.angle + Math.PI / 2;
-                        const phase = this.time * 3 + i * 0.7, wave = Math.sin(phase) * 0.5, wave2 = Math.cos(phase) * 0.4;
-                        for (let side = -1; side <= 1; side += 2) {
-                            const baseAngle = perpAngle * side;
-                            const j1X = seg.x + Math.cos(baseAngle) * 7, j1Y = seg.y + Math.sin(baseAngle) * 7;
-                            const j2X = j1X + Math.cos(baseAngle + wave * side) * legLen1, j2Y = j1Y + Math.sin(baseAngle + wave * side) * legLen1;
-                            const eX = j2X + Math.cos(baseAngle + wave * side + 0.9 * side + wave2) * legLen2, eY = j2Y + Math.sin(baseAngle + wave * side + 0.9 * side + wave2) * legLen2;
-                            ctx.strokeStyle = '#0a0000'; ctx.lineWidth = 2.2;
-                            ctx.beginPath(); ctx.moveTo(seg.x, seg.y); ctx.lineTo(j1X, j1Y); ctx.lineTo(j2X, j2Y); ctx.lineTo(eX, eY); ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            const rizeCount = document.getElementById('rize-count');
-            const kanekiContainer = document.getElementById('kaneki-container');
-            const glitchOverlay = document.getElementById('glitch-overlay');
-            const darkenOverlay = document.getElementById('darken-overlay');
-            const chainsOverlay = document.getElementById('chains-overlay');
-            const centipedeCanvas = document.getElementById('centipede-canvas');
-            const centipede = new Centipede(centipedeCanvas);
-            
-            let longPressTimer = null, kanekiActive = false, kanekiCooldown = false;
-
-            function triggerKaneki() {
-                if (kanekiActive || kanekiCooldown) return;
-                kanekiActive = true; kanekiCooldown = true;
-                darkenOverlay.classList.add('active'); chainsOverlay.classList.add('active'); glitchOverlay.classList.add('active');
-                setTimeout(() => centipede.start(), 200);
-                setTimeout(() => { kanekiContainer.classList.remove('exiting'); kanekiContainer.classList.add('entering'); }, 600);
-                setTimeout(() => glitchOverlay.classList.remove('active'), 800);
-                setTimeout(() => { glitchOverlay.classList.add('active'); setTimeout(() => glitchOverlay.classList.remove('active'), 400); }, 3500);
-                setTimeout(() => {
-                    glitchOverlay.classList.add('active'); setTimeout(() => glitchOverlay.classList.remove('active'), 300);
-                    kanekiContainer.classList.remove('entering'); kanekiContainer.classList.add('exiting');
-                    setTimeout(() => chainsOverlay.classList.remove('active'), 400);
-                    setTimeout(() => darkenOverlay.classList.remove('active'), 800);
-                    kanekiActive = false;
-                }, 6000);
-                setTimeout(() => { if (centipede.running) centipede.stop(); kanekiCooldown = false; }, 9500);
-                if (navigator.vibrate) navigator.vibrate([50, 100, 50]);
-            }
-
-            if (isTouchDevice) {
-                rizeCount.addEventListener('touchstart', (e) => { longPressTimer = setTimeout(triggerKaneki, 500); }, { passive: true });
-                rizeCount.addEventListener('touchend', () => clearTimeout(longPressTimer), { passive: true });
-                rizeCount.addEventListener('touchmove', () => clearTimeout(longPressTimer), { passive: true });
-                rizeCount.addEventListener('touchcancel', () => clearTimeout(longPressTimer), { passive: true });
-                rizeCount.addEventListener('click', (e) => { e.preventDefault(); triggerKaneki(); });
-            } else {
-                rizeCount.addEventListener('click', triggerKaneki);
-            }
-
-            /* ============================================
-               SISTEMA DA FLOR INTERATIVA (HIGANBANA)
-               ============================================ */
-            (function initHiganbanaSystem() {
-                // Banco de frases icônicas de Tokyo Ghoul
-                // Apenas frases canonicamente verificadas
-                const QUOTES = [
-                    // ============ KANEKI KEN (vermelho) ============
-                    { character: 'Ken Kaneki', color: '#ff2e2e', glow: 'rgba(255, 46, 46, 0.55)', glowSoft: 'rgba(255, 46, 46, 0.25)', quote: 'Se você fosse escrever uma história comigo como protagonista, com certeza seria… uma tragédia.' },
-                    { character: 'Ken Kaneki', color: '#ff2e2e', glow: 'rgba(255, 46, 46, 0.55)', glowSoft: 'rgba(255, 46, 46, 0.25)', quote: 'Eu não vou recuar. Eu vou seguir em frente. Como uma centopeia.' },
-                    { character: 'Ken Kaneki', color: '#ff2e2e', glow: 'rgba(255, 46, 46, 0.55)', glowSoft: 'rgba(255, 46, 46, 0.25)', quote: 'Você foi meu professor e meu pai. Eu estava tão feliz...' },
-                    { character: 'Ken Kaneki', color: '#ff2e2e', glow: 'rgba(255, 46, 46, 0.55)', glowSoft: 'rgba(255, 46, 46, 0.25)', quote: 'Não posso proteger ninguém. Nem mesmo eu mesmo.' },
-                    { character: 'Ken Kaneki', color: '#ff2e2e', glow: 'rgba(255, 46, 46, 0.55)', glowSoft: 'rgba(255, 46, 46, 0.25)', quote: 'Quanto mais eu aprendia, menos eu entendia.' },
-
-                    // ============ RIZE KAMISHIRO (roxo) ============
-                    { character: 'Rize Kamishiro', color: '#a855f7', glow: 'rgba(168, 85, 247, 0.55)', glowSoft: 'rgba(168, 85, 247, 0.25)', quote: 'Você tá começando a entender agora? Você fica sentado aí culpando a si mesmo o tempo todo, mas fazer isso não vai mudar nada. Você não faz nada pra mudar, é tudo culpa sua.' },
-                    { character: 'Rize Kamishiro', color: '#a855f7', glow: 'rgba(168, 85, 247, 0.55)', glowSoft: 'rgba(168, 85, 247, 0.25)', quote: 'Quando você é fraco, tudo parece difícil.' },
-
-                    // ============ TOUKA KIRISHIMA (azul) ============
-                    { character: 'Touka Kirishima', color: '#3b82f6', glow: 'rgba(59, 130, 246, 0.55)', glowSoft: 'rgba(59, 130, 246, 0.25)', quote: 'Depois de engolir, você fica coberto de sangue e vísceras. Esse é o nosso destino como ghouls.' },
-                    { character: 'Touka Kirishima', color: '#3b82f6', glow: 'rgba(59, 130, 246, 0.55)', glowSoft: 'rgba(59, 130, 246, 0.25)', quote: 'Você vai morrer rápido desse jeito. Seja mais cuidadoso.' },
-
-                    // ============ KISHOU ARIMA (branco/cinza) ============
-                    { character: 'Kishou Arima', color: '#e5e7eb', glow: 'rgba(229, 231, 235, 0.45)', glowSoft: 'rgba(229, 231, 235, 0.2)', quote: '645 vezes eu poderia ter te ferido fatalmente. E 645 vezes decidi não fazer isso.' },
-                    { character: 'Kishou Arima', color: '#e5e7eb', glow: 'rgba(229, 231, 235, 0.45)', glowSoft: 'rgba(229, 231, 235, 0.2)', quote: 'Já estou cansado de fingir.' },
-
-                    // ============ THE BLACK REAPER (marrom claro — Kaneki versão Ceifador) ============
-                    { character: 'The Black Reaper', color: '#A0826D', glow: 'rgba(160, 130, 109, 0.7)', glowSoft: 'rgba(160, 130, 109, 0.3)', quote: 'Boa noite, Haise.' },
-                    { character: 'The Black Reaper', color: '#A0826D', glow: 'rgba(160, 130, 109, 0.7)', glowSoft: 'rgba(160, 130, 109, 0.3)', quote: 'Você sempre foi fraco.' },
-                    { character: 'The Black Reaper', color: '#A0826D', glow: 'rgba(160, 130, 109, 0.7)', glowSoft: 'rgba(160, 130, 109, 0.3)', quote: 'Eu sou você. E você é eu.' },
-
-                    // ============ HAISE SASAKI (ciano) ============
-                    { character: 'Haise Sasaki', color: '#06b6d4', glow: 'rgba(6, 182, 212, 0.55)', glowSoft: 'rgba(6, 182, 212, 0.25)', quote: 'Estou realmente feliz vivendo assim.' },
-                    { character: 'Haise Sasaki', color: '#06b6d4', glow: 'rgba(6, 182, 212, 0.55)', glowSoft: 'rgba(6, 182, 212, 0.25)', quote: 'Não me pergunte quem eu sou.' },
-
-                    // ============ HIDEYOSHI NAGACHIKA (amarelo suave) ============
-                    { character: 'Hide', color: '#fbbf24', glow: 'rgba(251, 191, 36, 0.55)', glowSoft: 'rgba(251, 191, 36, 0.25)', quote: 'Você é meu melhor amigo. Por isso vou estar sempre ao seu lado.' },
-
-                    // ============ SHUU TSUKIYAMA (magenta) ============
-                    { character: 'Shuu Tsukiyama', color: '#ec4899', glow: 'rgba(236, 72, 153, 0.55)', glowSoft: 'rgba(236, 72, 153, 0.25)', quote: 'Você é um verdadeiro gourmet, Kaneki.' },
-
-                    // ============ AMON KOUTAROU (âmbar) ============
-                    { character: 'Amon Koutarou', color: '#f59e0b', glow: 'rgba(245, 158, 11, 0.55)', glowSoft: 'rgba(245, 158, 11, 0.25)', quote: 'Investigadores como eu existem para proteger os humanos.' },
-
-                    // ============ URIE (cinza ardósia) ============
-                    { character: 'Urie', color: '#94a3b8', glow: 'rgba(148, 163, 184, 0.5)', glowSoft: 'rgba(148, 163, 184, 0.22)', quote: 'Vamos nos tornar terroristas, beleza?' },
-
-                    // ============ ETO YOSHIMURA (verde) ============
-                    { character: 'Eto Yoshimura', color: '#22c55e', glow: 'rgba(34, 197, 94, 0.5)', glowSoft: 'rgba(34, 197, 94, 0.22)', quote: 'O pássaro sai do ovo. O ovo é o mundo. Para nascer, deve-se primeiro destruir um mundo.' },
-
-                    // ============ YOSHIMURA (bege) ============
-                    { character: 'Yoshimura', color: '#a8a29e', glow: 'rgba(168, 162, 158, 0.45)', glowSoft: 'rgba(168, 162, 158, 0.2)', quote: 'Os fortes devoram os fracos. É a lei absoluta do mundo.' }
-                ];
-
-                const flowerEl = document.getElementById('higanbana-flower');
-                const quoteTextEl = document.getElementById('quote-text');
-                const quoteAuthorEl = document.getElementById('quote-author');
-                const root = document.documentElement;
-
-                if (!flowerEl || !quoteTextEl || !quoteAuthorEl) return;
-
-                let currentIndex = -1;
-                let isTransitioning = false;
-                let characterQueue = [];
-                let lastCharacter = null;
-
-                // Função: embaralhar array
-                function shuffleArray(arr) {
-                    return arr.sort(() => Math.random() - 0.5);
-                }
-
-                // Função: gerar fila de personagens únicos
-                function generateCharacterQueue() {
-                    const uniqueCharacters = [...new Set(QUOTES.map(q => q.character))];
-                    return shuffleArray(uniqueCharacters);
-                }
-
-                // Função: escolher próxima frase garantindo que todos apareçam
-                function pickNextQuote(forceKaneki = false) {
-                    if (forceKaneki) {
-                        // Apenas frases do Kaneki, aleatória entre elas
-                        const kanekiQuotes = QUOTES.filter(q => q.character === 'Ken Kaneki');
-                        const rand = Math.floor(Math.random() * kanekiQuotes.length);
-                        const picked = kanekiQuotes[rand];
-                        currentIndex = QUOTES.indexOf(picked);
-                        lastCharacter = 'Ken Kaneki';
-                        return picked;
-                    }
-
-                    // Gerar fila se vazia
-                    if (characterQueue.length === 0) {
-                        characterQueue = generateCharacterQueue();
-                    }
-
-                    // Pegar próximo personagem (garantido não repetir o anterior)
-                    let nextCharacter = characterQueue.shift();
-                    
-                    // Se o próximo é igual ao anterior, recoloca na fila e tira outro
-                    while (nextCharacter === lastCharacter && characterQueue.length > 0) {
-                        characterQueue.push(nextCharacter);
-                        nextCharacter = characterQueue.shift();
-                    }
-
-                    // Pegar uma frase aleatória desse personagem
-                    const quotesOfCharacter = QUOTES.filter(q => q.character === nextCharacter);
-                    const rand = Math.floor(Math.random() * quotesOfCharacter.length);
-                    const picked = quotesOfCharacter[rand];
-                    currentIndex = QUOTES.indexOf(picked);
-                    lastCharacter = nextCharacter;
-                    return picked;
-                }
-
-                // Função: aplicar cores dinâmicas (CSS variables)
-                function applyThemeColors(quote) {
-                    root.style.setProperty('--flower-color', quote.color);
-                    root.style.setProperty('--flower-glow', quote.glow);
-                    root.style.setProperty('--flower-glow-soft', quote.glowSoft);
-                    root.style.setProperty('--text-accent', quote.color);
-                }
-
-                // Função: animar a troca cinematográfica
-                function transitionToQuote(newQuote) {
-                    if (isTransitioning) return;
-                    isTransitioning = true;
-
-                    const tl = gsap.timeline({
-                        onComplete: () => {
-                            isTransitioning = false;
-                            flowerEl.classList.remove('is-transitioning');
-                        }
-                    });
-
-                    // Ativa a animação bloom da flor
-                    flowerEl.classList.add('is-transitioning');
-
-                    // 1. Saída do texto atual (fade + blur + movimento)
-                    tl.to([quoteTextEl, quoteAuthorEl], {
-                        opacity: 0,
-                        filter: 'blur(12px)',
-                        y: -12,
-                        duration: 0.55,
-                        ease: 'power2.in'
-                    });
-
-                    // 2. No meio da transição: trocar conteúdo e cores
-                    tl.call(() => {
-                        quoteTextEl.textContent = newQuote.quote;
-                        quoteAuthorEl.textContent = `${newQuote.character}`;
-                        applyThemeColors(newQuote);
-                    }, [], '+=0.05');
-
-                    // 3. Reset posição para entrada
-                    tl.set([quoteTextEl, quoteAuthorEl], {
-                        y: 18,
-                        filter: 'blur(12px)'
-                    });
-
-                    // 4. Entrada do novo texto (fade + blur out + movimento)
-                    tl.to([quoteTextEl, quoteAuthorEl], {
-                        opacity: 1,
-                        filter: 'blur(0px)',
-                        y: 0,
-                        duration: 0.85,
-                        ease: 'power3.out',
-                        stagger: 0.12
-                    });
-
-                    // Feedback háptico (mobile)
-                    if (navigator.vibrate) {
-                        navigator.vibrate(15);
-                    }
-                }
-
-                // Inicialização: primeira frase sempre do Kaneki
-                function initFirstQuote() {
-                    const firstQuote = pickNextQuote(true);
-                    quoteTextEl.textContent = firstQuote.quote;
-                    quoteAuthorEl.textContent = `${firstQuote.character}`;
-                    applyThemeColors(firstQuote);
-
-                    // Animação de entrada suave
-                    gsap.from(quoteTextEl, {
-                        opacity: 0,
-                        filter: 'blur(15px)',
-                        y: 20,
-                        duration: 1.4,
-                        ease: 'power3.out',
-                        delay: 0.2
-                    });
-                    gsap.from(quoteAuthorEl, {
-                        opacity: 0,
-                        filter: 'blur(15px)',
-                        y: 20,
-                        duration: 1.4,
-                        ease: 'power3.out',
-                        delay: 0.45
-                    });
-                    gsap.from(flowerEl, {
-                        scale: 0.7,
-                        opacity: 0,
-                        filter: 'blur(20px)',
-                        duration: 1.6,
-                        ease: 'power3.out',
-                        delay: 0.1
-                    });
-                }
-
-                // Event: click/touch na flor
-                function handleFlowerInteraction(e) {
-                    if (e) e.preventDefault();
-                    const nextQuote = pickNextQuote(false);
-                    transitionToQuote(nextQuote);
-                }
-
-                flowerEl.addEventListener('click', handleFlowerInteraction);
-                flowerEl.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleFlowerInteraction();
-                    }
-                });
-
-                // Touch feedback para mobile
-                if (isTouchDevice) {
-                    flowerEl.addEventListener('touchstart', () => {
-                        flowerEl.classList.add('touch-active');
-                    }, { passive: true });
-                    flowerEl.addEventListener('touchend', () => {
-                        setTimeout(() => flowerEl.classList.remove('touch-active'), 150);
-                    }, { passive: true });
-                    flowerEl.addEventListener('touchcancel', () => {
-                        flowerEl.classList.remove('touch-active');
-                    }, { passive: true });
-                }
-
-                // Inicia o sistema
-                initFirstQuote();
-            })();
-        })();
-    </script>
+    <!-- SCRIPTS -->
+    <script src="script.js"></script>
 </body>
 </html>
