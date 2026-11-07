@@ -1,526 +1,843 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>João Vitor Alves Rodrigues | Desenvolvedor de Tecnologia</title>
-    <meta name="description" content="Portfólio de João Vitor Alves Rodrigues - Desenvolvedor de Tecnologia especialista em software e manutenção de sistemas">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="author" content="João Vitor Alves Rodrigues">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000000' width='100' height='100'/><rect fill='%23ffffff' x='15' y='15' width='70' height='70' rx='10'/><text x='50' y='70' font-size='50' font-weight='900' fill='%23000000' text-anchor='middle'>V</text></svg>">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>João Vitor Alves Rodrigues | Profissional de TI — Desenvolvimento, Tasy &amp; Oracle SQL</title>
+  <meta name="description" content="Portfólio e currículo de João Vitor Alves Rodrigues — Profissional de TI com experiência em desenvolvimento de software, sistema Tasy, Oracle 12g e SQL. Belo Horizonte, MG.">
+  <meta name="author" content="João Vitor Alves Rodrigues">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://lebot007.github.io/site-joao/">
+  <meta name="theme-color" content="#060a13">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://lebot007.github.io/site-joao/">
+  <meta property="og:title" content="João Vitor Alves Rodrigues | Profissional de TI">
+  <meta property="og:description" content="Desenvolvimento de Software · Tasy · Oracle 12g · SQL. Confira experiência, projetos, formação e certificações.">
+  <meta property="og:image" content="https://lebot007.github.io/site-joao/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="João Vitor Alves Rodrigues | Profissional de TI">
+  <meta name="twitter:description" content="Desenvolvimento de Software · Tasy · Oracle 12g · SQL — portfólio e currículo profissional.">
+  <meta name="twitter:image" content="https://lebot007.github.io/site-joao/og.png">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Dados estruturados -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "João Vitor Alves Rodrigues",
+    "jobTitle": "Profissional de TI — Desenvolvimento de Software",
+    "email": "mailto:joaovitoralvesrodrigues891@gmail.com",
+    "telephone": "+55-31-98204-3087",
+    "address": { "@type": "PostalAddress", "addressLocality": "Belo Horizonte", "addressRegion": "MG", "addressCountry": "BR" },
+    "url": "https://lebot007.github.io/site-joao/",
+    "sameAs": [
+      "https://github.com/lebot007",
+      "https://www.linkedin.com/in/joão-vitor-alves-rodrigues-15534830a"
+    ],
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Instituto Una Barreiro" },
+    "knowsAbout": ["PHP", "Python", "JavaScript", "C", "SQL", "Oracle 12g", "MySQL", "Tasy", "HTML5", "CSS3", "REST APIs", "Programação Orientada a Objetos"]
+  }
+  </script>
 </head>
 <body>
-    <!-- NAVEGAÇÃO -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <div class="navbar-logo">
-                <span class="logo-icon">J</span>
-                <span class="logo-text">João Vitor</span>
-            </div>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-menu" id="navMenu">
-                <li class="nav-item"><a href="#home" class="nav-link">Início</a></li>
-                <li class="nav-item"><a href="#sobre" class="nav-link">Sobre</a></li>
-                <li class="nav-item"><a href="#formacao" class="nav-link">Formação</a></li>
-                <li class="nav-item"><a href="#projetos" class="nav-link">Projetos</a></li>
-                <li class="nav-item"><a href="#experiencia" class="nav-link">Experiência</a></li>
-                <li class="nav-item"><a href="#contato" class="nav-link">Contato</a></li>
-            </ul>
-        </div>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div class="progress-bar" id="progress-bar" aria-hidden="true"></div>
+
+  <!-- ===================== NAVEGAÇÃO ===================== -->
+  <header class="navbar" id="navbar">
+    <nav class="nav-container" aria-label="Navegação principal">
+      <a href="#inicio" class="brand" aria-label="João Vitor — voltar ao início">
+        <span class="brand-mark" aria-hidden="true">JV</span>
+        <span class="brand-name">João&nbsp;Vitor</span>
+      </a>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a class="nav-link" href="#inicio">Início</a></li>
+        <li><a class="nav-link" href="#sobre">Sobre</a></li>
+        <li><a class="nav-link" href="#competencias">Competências</a></li>
+        <li><a class="nav-link" href="#experiencia">Experiência</a></li>
+        <li><a class="nav-link" href="#projetos">Projetos</a></li>
+        <li><a class="nav-link" href="#formacao">Formação</a></li>
+        <li><a class="nav-link" href="#contato">Contato</a></li>
+        <li class="nav-cta-mobile">
+          <a class="btn btn-primary btn-sm" href="cv-joao-vitor.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Baixar CV
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm nav-cta" href="cv-joao-vitor.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Baixar CV
+        </a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </nav>
+  </header>
 
-    <!-- SEÇÃO HOME/HERO -->
-    <section id="home" class="hero">
-        <div class="matrix-background"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">Olá, sou <span class="highlight">João Vitor</span></h1>
-                <p class="hero-subtitle">Desenvolvedor de Tecnologia</p>
-                <p class="hero-description">Especialista em desenvolvimento de software e manutenção de sistemas com foco em soluções inovadoras e eficientes</p>
-                <div class="hero-buttons">
-                    <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
-                    <a href="https://wa.me/5531982043087" target="_blank" class="btn btn-secondary">Entrar em Contato</a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="avatar-placeholder">
-                    <img src="joao.png" alt="João Vitor Alves Rodrigues" class="profile-image">
-                </div>
-            </div>
+  <main id="conteudo">
+
+    <!-- ===================== HERO ===================== -->
+    <section id="inicio" class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="hero-status reveal">
+            <span class="status-dot" aria-hidden="true"></span>
+            Disponível para oportunidades
+          </p>
+
+          <p class="hero-greeting reveal">// Olá, eu sou</p>
+
+          <h1 class="hero-title reveal">
+            João Vitor<br>
+            <span class="grad-text">Alves Rodrigues</span>
+          </h1>
+
+          <p class="hero-role reveal" aria-label="Profissional de TI, Desenvolvedor de Software, especialista em Tasy, Oracle e SQL">
+            <span class="role-arrow" aria-hidden="true">›</span>
+            <span id="typewriter"></span><span class="type-cursor" aria-hidden="true">|</span>
+          </p>
+
+          <p class="hero-desc reveal">
+            Profissional de TI com experiência prática em desenvolvimento de software, sistemas
+            hospitalares e banco de dados — do levantamento de requisitos à homologação e ao
+            treinamento de usuários. Cursando Ciência da Computação.
+          </p>
+
+          <div class="hero-cta reveal">
+            <a class="btn btn-whats" href="https://wa.me/5531982043087?text=Ol%C3%A1%2C%20Jo%C3%A3o%20Vitor!%20Vim%20pelo%20seu%20site%20profissional." target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+              Chamar no WhatsApp
+            </a>
+            <a class="btn btn-primary" href="cv-joao-vitor.pdf" download>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Baixar CV (PDF)
+            </a>
+            <a class="btn btn-ghost" href="#projetos">
+              Ver projetos
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+
+          <ul class="hero-meta reveal" aria-label="Informações rápidas">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Belo Horizonte — MG
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+              Ciência da Computação (cursando)
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Inglês intermediário
+            </li>
+          </ul>
+
+          <div class="hero-social reveal">
+            <a href="https://github.com/lebot007" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub de João Vitor" title="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-alves-rodrigues-15534830a" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn de João Vitor" title="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="mailto:joaovitoralvesrodrigues891@gmail.com" class="social-btn" aria-label="Enviar e-mail para João Vitor" title="E-mail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+            <a href="https://wa.me/5531982043087" target="_blank" rel="noopener" class="social-btn" aria-label="WhatsApp de João Vitor" title="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="scroll-indicator">
-            <span>Scroll para explorar</span>
-            <div class="arrow-down"></div>
+
+        <div class="hero-photo reveal">
+          <div class="photo-glow" aria-hidden="true"></div>
+          <div class="photo-frame">
+            <img src="joao.webp" alt="Foto de João Vitor Alves Rodrigues" width="587" height="524">
+          </div>
+          <div class="float-badge badge-1" aria-hidden="true">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </span>
+            Oracle 12g
+          </div>
+          <div class="float-badge badge-2" aria-hidden="true">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </span>
+            Tasy
+          </div>
+          <div class="float-badge badge-3" aria-hidden="true">
+            <span class="badge-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
+            PHP 8 · SQL
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- SEÇÃO SOBRE -->
-    <section id="sobre" class="about">
-        <div class="section-container">
-            <h2 class="section-title">Sobre Mim</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p class="about-description">
-                        Técnico em Manutenção de Impressoras com sólida experiência na manutenção preventiva e corretiva de impressoras, atuando no diagnóstico, reparo e configuração de equipamentos diversos.
-                    </p>
-                    <p class="about-description">
-                        Amplo conhecimento técnico abrangendo desde impressoras de pequeno porte (laser) para uso doméstico ou corporativo, até equipamentos de grande porte e multifuncionais industriais. Experiência prática, garantindo soluções eficientes e otimização do desempenho dos equipamentos.
-                    </p>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <span class="skill-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="16 18 22 12 16 6"></polyline>
-                                    <polyline points="8 6 2 12 8 18"></polyline>
-                                </svg>
-                            </span>
-                            <h4>Desenvolvimento</h4>
-                            <p>Aplicações Web, PHP 8, Linguagens Modernas</p>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 0-8.94-8.94l-3.77 3.77a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77z"></path>
-                                    <path d="M9.3 17.7a1 1 0 0 0 0-1.4L7.7 14.7a1 1 0 0 0-1.4 0l-3.77 3.77a6 6 0 0 0 8.94 8.94l3.77-3.77a1 1 0 0 0 0-1.4l-1.6-1.6a1 1 0 0 0-1.4 0l-3.77 3.77z"></path>
-                                </svg>
-                            </span>
-                            <h4>Manutenção de Sistemas</h4>
-                            <p>Impressoras, Diagnóstico e Reparo</p>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                                    <path d="M3 5v14a9 3 0 0 0 18 0V5"></path>
-                                    <path d="M3 12a9 3 0 0 0 18 0"></path>
-                                </svg>
-                            </span>
-                            <h4>Banco de Dados</h4>
-                            <p>MySQL, SQL, Sistemas</p>
-                        </div>
-                        <div class="skill-item">
-                            <span class="skill-icon">
-                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                </svg>
-                            </span>
-                            <h4>Segurança</h4>
-                            <p>Cibernética, Endpoint Protection</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-stats">
-                    <div class="stat">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Certificações</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Dedicação</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">4+</div>
-                        <div class="stat-label">Projetos</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">7+</div>
-                        <div class="stat-label">Tecnologias</div>
-                    </div>
-                </div>
-            </div>
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span>PHP 8</span><span class="sep">✦</span><span>Python</span><span class="sep">✦</span><span>JavaScript</span><span class="sep">✦</span><span>C</span><span class="sep">✦</span><span>HTML5</span><span class="sep">✦</span><span>CSS3</span><span class="sep">✦</span><span>Oracle 12g</span><span class="sep">✦</span><span>MySQL</span><span class="sep">✦</span><span>SQL</span><span class="sep">✦</span><span>REST APIs</span><span class="sep">✦</span><span>POO</span><span class="sep">✦</span><span>Tasy</span><span class="sep">✦</span><span>Windows</span><span class="sep">✦</span><span>Linux</span><span class="sep">✦</span><span>Cisco</span><span class="sep">✦</span>
         </div>
+        <div class="marquee-group">
+          <span>PHP 8</span><span class="sep">✦</span><span>Python</span><span class="sep">✦</span><span>JavaScript</span><span class="sep">✦</span><span>C</span><span class="sep">✦</span><span>HTML5</span><span class="sep">✦</span><span>CSS3</span><span class="sep">✦</span><span>Oracle 12g</span><span class="sep">✦</span><span>MySQL</span><span class="sep">✦</span><span>SQL</span><span class="sep">✦</span><span>REST APIs</span><span class="sep">✦</span><span>POO</span><span class="sep">✦</span><span>Tasy</span><span class="sep">✦</span><span>Windows</span><span class="sep">✦</span><span>Linux</span><span class="sep">✦</span><span>Cisco</span><span class="sep">✦</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== NÚMEROS ===================== -->
+    <section class="stats" aria-label="Números resumidos">
+      <div class="container stats-grid">
+        <div class="stat reveal">
+          <span class="stat-number"><span class="counter" data-target="7">7</span></span>
+          <span class="stat-label">Certificações e cursos</span>
+        </div>
+        <div class="stat reveal" data-delay="80">
+          <span class="stat-number"><span class="counter" data-target="4">4</span><span class="stat-plus">+</span></span>
+          <span class="stat-label">Projetos publicados</span>
+        </div>
+        <div class="stat reveal" data-delay="160">
+          <span class="stat-number"><span class="counter" data-target="10">10</span><span class="stat-plus">+</span></span>
+          <span class="stat-label">Tecnologias e ferramentas</span>
+        </div>
+        <div class="stat reveal" data-delay="240">
+          <span class="stat-number"><span class="counter" data-target="2">2</span></span>
+          <span class="stat-label">Áreas de atuação</span>
+        </div>
+      </div>
     </section>
 
-    <!-- SEÇÃO FORMAÇÃO -->
-    <section id="formacao" class="education">
-        <div class="section-container">
-            <h2 class="section-title">Formação Acadêmica</h2>
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H17.5A2.5 2.5 0 0 1 20 19.5v.5A2.5 2.5 0 0 1 17.5 22h-11A2.5 2.5 0 0 1 4 19.5v-.5z"></path>
-                            <path d="M6.5 2h11a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1H5.5a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2z"></path>
-                        </svg>
-                    </div>
-                    <h3>Ciência da Computação</h3>
-                    <p class="education-institution">Instituto Una Barreiro</p>
-                    <p class="education-date">Cursando</p>
-                    <p class="education-description">
-                        Desenvolvimento de Software e Aplicações, Programação em Linguagens Modernas, 
-                        Banco de Dados e Sistemas, Análise e Projeto de Sistemas.
-                    </p>
+    <!-- ===================== SOBRE ===================== -->
+    <section id="sobre" class="section sobre">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">// sobre-mim</p>
+          <h2 class="section-title">Quem sou eu</h2>
+          <p class="section-sub">Um profissional de TI em ascensão, com experiência real em ambiente hospitalar.</p>
+        </header>
+
+        <div class="sobre-grid">
+          <div class="sobre-text reveal">
+            <p>
+              Sou um profissional de Tecnologia da Informação cursando Ciência da Computação, com
+              experiência prática em <strong>desenvolvimento de software, sistemas hospitalares e banco
+              de dados</strong>. No Hospital Metropolitano Doutor Célio de Castro, atuei diretamente com o
+              sistema de gestão hospitalar <strong>Tasy</strong> e com <strong>Oracle 12g</strong>: levantamento de
+              requisitos, fluxos de negócio, criação de objetos de banco, consultas SQL, testes,
+              homologação e treinamento de usuários.
+            </p>
+            <p>
+              Antes disso, construí uma base sólida de atendimento e resolução de problemas como
+              <strong>técnico de manutenção de impressoras</strong>, atendendo clientes corporativos e domésticos.
+              Essa trajetória me ensinou algo que levo para todo projeto: <strong>entregar com qualidade,
+              documentar com clareza e pensar sempre em quem vai usar</strong>.
+            </p>
+
+            <div class="sobre-highlights">
+              <div class="hl">
+                <span class="hl-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </span>
+                <div>
+                  <strong>Experiência hospitalar real</strong>
+                  <small>Suporte, treinamento e homologação do Tasy em ambiente clínico.</small>
                 </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                        </svg>
-                    </div>
-                    <h3>Ensino Médio Completo</h3>
-                    <p class="education-institution">Escola Estadual Cecília Meireles</p>
-                    <p class="education-date">2021 - 2024</p>
-                    <p class="education-description">
-                        Formação Geral Completa, Base Sólida em Ciências Exatas, 
-                        Desenvolvimento de Habilidades Analíticas e Preparação para Ensino Superior.
-                    </p>
+              </div>
+              <div class="hl">
+                <span class="hl-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                </span>
+                <div>
+                  <strong>Oracle 12g &amp; SQL</strong>
+                  <small>Procedures, functions, triggers, views e relatórios otimizados.</small>
                 </div>
-                <div class="education-card">
-                    <div class="education-icon">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
-                            <polyline points="13 2 13 9 20 9"></polyline>
-                            <path d="M9 12h6"></path>
-                            <path d="M9 16h6"></path>
-                        </svg>
-                    </div>
-                    <h3>Certificações em Tecnologia</h3>
-                    <p class="education-institution">Diversos</p>
-                    <p class="education-date">2024 - 2025</p>
-                    <p class="education-description">
-                        PHP 8, Inglês, Ciência da Computação Harvard (CC50), 
-                        Segurança de Endpoint Cisco.
-                    </p>
+              </div>
+              <div class="hl">
+                <span class="hl-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <div>
+                  <strong>Documentação &amp; qualidade</strong>
+                  <small>Manuais técnicos, testes com usuários e processos bem definidos.</small>
                 </div>
+              </div>
+              <div class="hl">
+                <span class="hl-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                </span>
+                <div>
+                  <strong>Hardware &amp; atendimento</strong>
+                  <small>Manutenção especializada de impressoras com foco total no cliente.</small>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <aside class="sobre-card reveal" aria-label="Informações pessoais">
+            <h3>Informações</h3>
+            <dl class="info-list">
+              <div class="info-row">
+                <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Localização</dt>
+                <dd>Belo Horizonte, MG — Brasil</dd>
+              </div>
+              <div class="info-row">
+                <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>E-mail</dt>
+                <dd><a href="mailto:joaovitoralvesrodrigues891@gmail.com">joaovitoralvesrodrigues891@gmail.com</a></dd>
+              </div>
+              <div class="info-row">
+                <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Telefone</dt>
+                <dd><a href="https://wa.me/5531982043087" target="_blank" rel="noopener">(31) 98204-3087</a></dd>
+              </div>
+              <div class="info-row">
+                <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Idiomas</dt>
+                <dd>Português (nativo) · Inglês (intermediário)</dd>
+              </div>
+              <div class="info-row">
+                <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="6" width="15" height="12" rx="2" ry="2"/><path d="M16 8h2l3 3v5a2 2 0 0 1-2 2h-3"/></svg>CNH</dt>
+                <dd>Categoria B</dd>
+              </div>
+              <div class="info-row">
+                <dt><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>Formação</dt>
+                <dd>Ciência da Computação (cursando)</dd>
+              </div>
+            </dl>
+
+            <p class="availability"><span class="status-dot" aria-hidden="true"></span>Disponível para oportunidades</p>
+
+            <h4 class="soft-title">Soft skills</h4>
+            <ul class="soft-skills">
+              <li>Trabalho em equipe</li>
+              <li>Comunicação</li>
+              <li>Organização</li>
+              <li>Atenção aos detalhes</li>
+              <li>Proatividade</li>
+              <li>Resolução de problemas</li>
+              <li>Aprendizado rápido</li>
+              <li>Pensamento analítico</li>
+              <li>Cumprimento de prazos</li>
+              <li>Ética profissional</li>
+            </ul>
+          </aside>
         </div>
+      </div>
     </section>
 
-    <!-- SEÇÃO CURSOS E CERTIFICAÇÕES -->
-    <section id="cursos" class="courses">
-        <div class="waves-background-courses">
-            <img src="ondas2.gif" alt="Animação de fundo" class="waves-gif">
-        </div>
-        <div class="section-container">
-            <h2 class="section-title">Cursos e Certificações</h2>
-            <div class="courses-list">
-                <div class="course-item">
-                    <div class="course-header">
-                        <h4>PHP 8 - Desenvolvimento Web</h4>
-                        <span class="course-date">Dezembro 2024</span>
-                    </div>
-                    <p class="course-provider">Udemy</p>
-                    <p class="course-skills">Skills: Desenvolvimento web dinâmico, OOP PHP, MySQL, Sistemas web responsivos</p>
-                </div>
-                <div class="course-item">
-                    <div class="course-header">
-                        <h4>Ciência da Computação de Harvard (CC50)</h4>
-                        <span class="course-date">2025</span>
-                    </div>
-                    <p class="course-provider">Fundação Estudar - Emitido eletronicamente</p>
-                    <p class="course-skills">Skills: C, Python, SQL, JavaScript, HTML & CSS, Algoritmos, Estruturas de dados</p>
-                </div>
-                <div class="course-item">
-                    <div class="course-header">
-                        <h4>Segurança de Endpoint</h4>
-                        <span class="course-date">2024/2025</span>
-                    </div>
-                    <p class="course-provider">Cisco</p>
-                    <p class="course-skills">Skills: Fundamentos de segurança cibernética, Proteção de dispositivos e redes corporativas</p>
-                </div>
-                <div class="course-item">
-                    <div class="course-header">
-                        <h4>Inglês Intermediário</h4>
-                        <span class="course-date">2024</span>
-                    </div>
-                    <p class="course-provider">Achieve Languages</p>
-                    <p class="course-skills">Skills: Conversação, pronúncia, Inglês técnico para tecnologia</p>
-                </div>
-                <div class="course-item">
-                    <div class="course-header">
-                        <h4>Inglês Intermediário</h4>
-                        <span class="course-date">2017-2019</span>
-                    </div>
-                    <p class="course-provider">Academia de Inglês Washington</p>
-                    <p class="course-skills">Skills: Oral, escrita, Gramática técnica, Preparação profissional</p>
-                </div>
+    <!-- ===================== COMPETÊNCIAS ===================== -->
+    <section id="competencias" class="section competencias">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">// competências</p>
+          <h2 class="section-title">O que eu faço bem</h2>
+          <p class="section-sub">Ferramentas e tecnologias que uso no dia a dia — do código ao banco de dados.</p>
+        </header>
+
+        <div class="skills-grid">
+          <article class="skill-card reveal">
+            <span class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
+            <h3>Desenvolvimento de Software</h3>
+            <p>Criação de aplicações web dinâmicas e responsivas, com código limpo e orientado a objetos.</p>
+            <div class="tags">
+              <span class="tag">PHP 8</span><span class="tag">Python</span><span class="tag">JavaScript</span>
+              <span class="tag">C</span><span class="tag">HTML5</span><span class="tag">CSS3</span>
+              <span class="tag">REST APIs</span><span class="tag">POO</span><span class="tag">Web Responsiva</span>
             </div>
+          </article>
+
+          <article class="skill-card reveal" data-delay="100">
+            <span class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </span>
+            <h3>Banco de Dados</h3>
+            <p>Modelagem, criação e manipulação de objetos, consultas e relatórios otimizados.</p>
+            <div class="tags">
+              <span class="tag">Oracle 12g</span><span class="tag">MySQL</span><span class="tag">SQL</span>
+              <span class="tag">Views</span><span class="tag">Procedures</span><span class="tag">Functions</span>
+              <span class="tag">Triggers</span>
+            </div>
+          </article>
+
+          <article class="skill-card reveal" data-delay="200">
+            <span class="skill-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            </span>
+            <h3>Sistemas &amp; Infraestrutura</h3>
+            <p>Suporte a sistemas corporativos, segurança de endpoints e manutenção de hardware.</p>
+            <div class="tags">
+              <span class="tag">Tasy — Gestão Hospitalar</span><span class="tag">Windows</span>
+              <span class="tag">Linux</span><span class="tag">Endpoint Security (Cisco)</span>
+              <span class="tag">Manutenção de Impressoras</span>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- SEÇÃO PROJETOS -->
-    <section id="projetos" class="projects">
-        <div class="section-container">
-            <h2 class="section-title">Projetos Destacados</h2>
-            <p class="section-subtitle">Explore meus trabalhos mais relevantes</p>
-            
-            <div class="carousel-elegante">
-                <button class="carousel-arrow carousel-prev" aria-label="Projeto anterior">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                </button>
+    <!-- ===================== EXPERIÊNCIA ===================== -->
+    <section id="experiencia" class="section experiencia">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">// experiência</p>
+          <h2 class="section-title">Trajetória profissional</h2>
+          <p class="section-sub">Onde já atuei e o que entreguei em cada experiência.</p>
+        </header>
 
-                <div class="carousel-content">
-                    <!-- Projeto 1 - SiteSupplies -->
-                    <div class="carousel-card card-with-bg" data-project="1" style="background-image: url('Projeto1.png');">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <h3>SiteSupplies</h3>
-                            <p>Site comercial focado em locação de impressoras. Interface intuitiva e profissional.</p>
-                            <div class="card-tech">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>JavaScript</span>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://lebot007.github.io/SiteSupplies/" class="card-btn primary" target="_blank">Ver Projeto</a>
-                            <a href="https://github.com/Lebot007/SiteSupplies" class="card-btn secondary" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 2 - Hacker Game Site -->
-                    <div class="carousel-card card-with-bg" data-project="2" style="background-image: url('Projeto2.png');">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <h3>Hacker Game Site</h3>
-                            <p>Jogo interativo temático de hacker com desafios de programação, interface dinâmica e sistema de pontuação. Experiência imersiva e educativa para aprendizado de segurança.</p>
-                            <div class="card-tech">
-                                <span>JavaScript</span>
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://lebot007.github.io/hacker_game_site/" class="card-btn primary" target="_blank">Ver Projeto</a>
-                            <a href="https://github.com/Lebot007/hacker_game_site" class="card-btn secondary" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 3 - Controle Financeiro 2.0 -->
-                    <div class="carousel-card card-with-bg" data-project="3" style="background-image: url('Projeto3.png');">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <h3>Controle Financeiro 2.0</h3>
-                            <p>Sistema de gestão financeira completo com controle de despesas, receitas e análise de gastos. Interface intuitiva e relatórios detalhados em tempo real.</p>
-                            <div class="card-tech">
-                                <span>PHP 8</span>
-                                <span>MySQL</span>
-                                <span>JavaScript</span>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://lebot007.github.io/ControleFinanceiro2.0/" class="card-btn primary" target="_blank">Ver Projeto</a>
-                            <a href="https://github.com/Lebot007/ControleFinanceiro2.0" class="card-btn secondary" target="_blank">GitHub</a>
-                        </div>
-                    </div>
-
-                    <!-- Projeto 4 - Tattoo -->
-                    <div class="carousel-card card-with-bg" data-project="4" style="background-image: url('projeto4.jpg');">
-                        <div class="card-overlay"></div>
-                        <div class="card-content">
-                            <h3>Alisson Alves Tattoo</h3>
-                            <p>Portfólio para estúdio de tatuagem com galeria de estilos (realismo, fine line, old school) e integração direta com WhatsApp.</p>
-                            <div class="card-tech">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>Responsive</span>
-                                <span>UI/UX</span>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://lebot007.github.io/site-tattoo-alisson/" class="card-btn primary" target="_blank">Ver Projeto</a>
-                            <a href="https://github.com/Lebot007/site-tattoo-alisson" class="card-btn secondary" target="_blank">GitHub</a>
-                        </div>
-                    </div>
+        <div class="timeline">
+          <article class="t-item reveal">
+            <span class="t-dot" aria-hidden="true"></span>
+            <div class="t-card">
+              <div class="t-head">
+                <div>
+                  <h3>Estagiário de Tecnologia da Informação</h3>
+                  <p class="t-org">Hospital Metropolitano Doutor Célio de Castro</p>
                 </div>
-
-                <button class="carousel-arrow carousel-next" aria-label="Próximo projeto">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                </button>
+                <span class="t-badge badge-blue">Estágio</span>
+              </div>
+              <div class="tags">
+                <span class="tag">Tasy</span><span class="tag">Oracle 12g</span>
+                <span class="tag">SQL</span><span class="tag">Requisitos</span><span class="tag">Treinamento</span>
+              </div>
+              <ul class="bullets">
+                <li>Treinamento e suporte no sistema de gestão hospitalar Tasy, com levantamento de requisitos e definição de fluxos de negócio.</li>
+                <li>Criação e manipulação de objetos de banco de dados Oracle 12g: tabelas, views, functions, procedures e triggers.</li>
+                <li>Desenvolvimento e otimização de consultas SQL para relatórios clínicos e administrativos.</li>
+                <li>Elaboração de manuais técnicos, documentação de processos e execução de testes com usuários finais.</li>
+                <li>Homologação de funcionalidades e treinamento de usuários do sistema hospitalar.</li>
+                <li>Trabalho colaborativo com supervisores e equipe clínica para validação de dados e regras de negócio.</li>
+              </ul>
             </div>
+          </article>
 
-            <!-- Indicadores de slides -->
-            <div class="carousel-indicators-custom">
-                <button class="indicator-dot active" data-slide="1"></button>
-                <button class="indicator-dot" data-slide="2"></button>
-                <button class="indicator-dot" data-slide="3"></button>
-                <button class="indicator-dot" data-slide="4"></button>
+          <article class="t-item reveal">
+            <span class="t-dot" aria-hidden="true"></span>
+            <div class="t-card">
+              <div class="t-head">
+                <div>
+                  <h3>Técnico em Manutenção de Impressoras</h3>
+                  <p class="t-org">Atuação Autônoma · Prestação de Serviços</p>
+                </div>
+                <span class="t-badge badge-violet">Autônomo</span>
+              </div>
+              <div class="tags">
+                <span class="tag">Hardware</span><span class="tag">Atendimento</span>
+                <span class="tag">Diagnóstico</span><span class="tag">Corporativo</span>
+              </div>
+              <ul class="bullets">
+                <li>Diagnóstico, reparo e manutenção preventiva e corretiva de impressoras laser de pequeno, médio e grande porte.</li>
+                <li>Atendimento a clientes corporativos e domésticos, com foco em agilidade, qualidade e solução de problemas.</li>
+                <li>Configuração e otimização de equipamentos multifuncionais industriais.</li>
+                <li>Organização de atendimentos, cumprimento de prazos e comunicação clara com clientes.</li>
+              </ul>
             </div>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- SEÇÃO EXPERIÊNCIA -->
-    <section id="experiencia" class="experience">
-        <div class="section-container">
-            <h2 class="section-title">Experiência Profissional</h2>
-            <div class="experience-timeline">
-                <div class="experience-item">
-                    <div class="experience-marker"></div>
-                    <div class="experience-content">
-                        <h3>Técnico em Manutenção de Impressoras</h3>
-                        <p class="experience-company">Profissional Experiente</p>
-                        <p class="experience-period">Experiência Profissional Consolidada</p>
-                        <p class="experience-description">
-                            Profissional com sólida experiência na manutenção preventiva e corretiva de impressoras, atuando no diagnóstico, reparo e configuração de equipamentos diversos. Amplo conhecimento técnico abrangendo desde impressoras de pequeno porte (laser) para uso doméstico e corporativo, até equipamentos de grande porte e multifuncionais industriais. Experiência prática, garantindo soluções eficientes e otimização do desempenho dos equipamentos.
-                        </p>
-                        <div class="experience-achievements">
-                            <span>✓ Diagnóstico e reparo de impressoras</span>
-                            <span>✓ Manutenção preventiva e corretiva</span>
-                            <span>✓ Otimização de desempenho</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- ===================== PROJETOS ===================== -->
+    <section id="projetos" class="section projetos">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">// projetos</p>
+          <h2 class="section-title">Projetos publicados</h2>
+          <p class="section-sub">Projetos pessoais desenvolvidos e publicados — do backend com PHP e MySQL ao front-end responsivo. Todos estão no ar e podem ser visitados.</p>
+        </header>
 
-                <div class="experience-item">
-                    <div class="experience-marker"></div>
-                    <div class="experience-content">
-                        <h3>Estagiário</h3>
-                        <p class="experience-company">Hospital Metropolitano Doutor Célio de Castro</p>
-                        <p class="experience-period">Experiência em Gestão Hospitalar</p>
-                        <p class="experience-description">
-                            Treinamento no sistema de gestão hospitalar Tasy, levantamento de requisitos e definição de fluxos de negócio. Criar e manipular objetos de banco de dados Oracle 12g (tabelas, views, functions, procedures, triggers). Elaboração de relatórios, manuais técnicos e testes com usuários finais. Realização de treinamentos e homologação de funcionalidades.
-                        </p>
-                        <div class="experience-achievements">
-                            <span>✓ Banco de dados Oracle 12g</span>
-                            <span>✓ Sistema Tasy - gestão hospitalar</span>
-                            <span>✓ Treinamento de usuários finais</span>
-                        </div>
-                    </div>
-                </div>
+        <div class="projects-grid">
+          <article class="project-card reveal">
+            <div class="project-media">
+              <img src="projeto3.webp" alt="Captura de tela do sistema Fluxo — Controle Financeiro 2.0" loading="lazy">
             </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Fluxo — Controle Financeiro 2.0</h3>
+                <div class="tags">
+                  <span class="tag">PHP 8</span><span class="tag">MySQL</span><span class="tag">JavaScript</span>
+                </div>
+              </div>
+              <p>Sistema web completo de finanças pessoais: controle de despesas, receitas e relatórios detalhados em tempo real.</p>
+            </div>
+            <div class="project-footer">
+              <a class="link-primary" href="https://lebot007.github.io/ControleFinanceiro2.0/" target="_blank" rel="noopener">Ver projeto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a class="link-ghost" href="https://github.com/Lebot007/ControleFinanceiro2.0" target="_blank" rel="noopener">Código-fonte</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-delay="100">
+            <div class="project-media">
+              <img src="projeto1.webp" alt="Captura de tela do site SiteSupplies — locação de impressoras" loading="lazy">
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>SiteSupplies</h3>
+                <div class="tags">
+                  <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+                </div>
+              </div>
+              <p>Site comercial para locação de impressoras, com interface profissional, intuitiva e focada em conversão de clientes.</p>
+            </div>
+            <div class="project-footer">
+              <a class="link-primary" href="https://lebot007.github.io/SiteSupplies/" target="_blank" rel="noopener">Ver projeto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a class="link-ghost" href="https://github.com/Lebot007/SiteSupplies" target="_blank" rel="noopener">Código-fonte</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-media">
+              <img src="projeto4.webp" alt="Captura de tela do portfólio Alisson Alves Tattoo" loading="lazy">
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Alisson Alves Tattoo</h3>
+                <div class="tags">
+                  <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">UI/UX</span><span class="tag">Responsivo</span>
+                </div>
+              </div>
+              <p>Portfólio para estúdio de tatuagem com galeria de estilos (realismo, fine line, old school) e integração direta com WhatsApp.</p>
+            </div>
+            <div class="project-footer">
+              <a class="link-primary" href="https://lebot007.github.io/site-tattoo-alisson/" target="_blank" rel="noopener">Ver projeto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a class="link-ghost" href="https://github.com/Lebot007/site-tattoo-alisson" target="_blank" rel="noopener">Código-fonte</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-delay="100">
+            <div class="project-media">
+              <img src="projeto2.webp" alt="Captura de tela do jogo interativo Hacker Game" loading="lazy">
+            </div>
+            <div class="project-body">
+              <div class="project-top">
+                <h3>Hacker Game</h3>
+                <div class="tags">
+                  <span class="tag">JavaScript</span><span class="tag">HTML5</span><span class="tag">CSS3</span>
+                </div>
+              </div>
+              <p>Jogo interativo temático de hacker, com desafios de programação, interface dinâmica e sistema de pontuação.</p>
+            </div>
+            <div class="project-footer">
+              <a class="link-primary" href="https://lebot007.github.io/hacker_game_site/" target="_blank" rel="noopener">Ver projeto
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a class="link-ghost" href="https://github.com/Lebot007/hacker_game_site" target="_blank" rel="noopener">Código-fonte</a>
+            </div>
+          </article>
         </div>
+
+        <p class="projects-more reveal">
+          Mais projetos e experimentos no meu
+          <a href="https://github.com/lebot007" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+        </p>
+      </div>
     </section>
 
-    <!-- SEÇÃO TECNOLOGIAS -->
-    <section id="tecnologias" class="technologies">
-        <div class="waves-background-tech">
-            <img src="ondas3.gif" alt="Animação de fundo" class="waves-gif">
-        </div>
-        <div class="section-container">
-            <h2 class="section-title">Habilidades Técnicas</h2>
-            <div class="tech-categories">
-                <div class="tech-category">
-                    <h4>Programação</h4>
-                    <div class="tech-tags">
-                        <span class="tech-tag">PHP 8</span>
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">SQL</span>
-                        <span class="tech-tag">HTML5</span>
-                        <span class="tech-tag">CSS3</span>
-                    </div>
-                </div>
-                <div class="tech-category">
-                    <h4>Manutenção & Hardware</h4>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Manutenção de Impressoras</span>
-                        <span class="tech-tag">Diagnóstico</span>
-                        <span class="tech-tag">Reparo</span>
-                        <span class="tech-tag">Configuração</span>
-                        <span class="tech-tag">Impressoras Laser</span>
-                        <span class="tech-tag">Equipamentos Multifuncionais</span>
-                    </div>
-                </div>
-                <div class="tech-category">
-                    <h4>Desenvolvimento Web</h4>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Aplicações Dinâmicas</span>
-                        <span class="tech-tag">Banco de Dados</span>
-                        <span class="tech-tag">Orientação a Objetos</span>
-                        <span class="tech-tag">Sistemas Responsivos</span>
-                        <span class="tech-tag">MySQL</span>
-                        <span class="tech-tag">REST APIs</span>
-                    </div>
-                </div>
-                <div class="tech-category">
-                    <h4>Soft Skills</h4>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Trabalho em Equipe</span>
-                        <span class="tech-tag">Liderança</span>
-                        <span class="tech-tag">Pensamento Criativo</span>
-                        <span class="tech-tag">Resolução de Problemas</span>
-                        <span class="tech-tag">Comunicação</span>
-                        <span class="tech-tag">Planejamento</span>
-                    </div>
-                </div>
+    <!-- ===================== FORMAÇÃO ===================== -->
+    <section id="formacao" class="section formacao">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">// formação</p>
+          <h2 class="section-title">Formação acadêmica</h2>
+          <p class="section-sub">Base acadêmica em construção, com foco em ciência e tecnologia.</p>
+        </header>
+
+        <div class="educ-grid">
+          <article class="edu-card reveal">
+            <span class="edu-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+            </span>
+            <div class="edu-info">
+              <div class="edu-top">
+                <h3>Ciência da Computação</h3>
+                <span class="edu-badge badge-live"><span class="status-dot" aria-hidden="true"></span>Cursando</span>
+              </div>
+              <p class="edu-inst">Instituto Una Barreiro — Belo Horizonte, MG</p>
+              <p class="edu-desc">Desenvolvimento de software e aplicações, programação, banco de dados, análise e projeto de sistemas.</p>
             </div>
+          </article>
+
+          <article class="edu-card reveal" data-delay="100">
+            <span class="edu-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </span>
+            <div class="edu-info">
+              <div class="edu-top">
+                <h3>Ensino Médio</h3>
+                <span class="edu-badge">Concluído</span>
+              </div>
+              <p class="edu-inst">Escola Estadual Cecília Meireles</p>
+              <p class="edu-desc">Formação geral completa, com base sólida em ciências exatas e desenvolvimento do raciocínio analítico.</p>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- SEÇÃO CONTATO -->
-    <section id="contato" class="contact">
-        <div class="section-container">
-            <h2 class="section-title">Entre em Contato</h2>
-            <p class="section-subtitle">Vamos trabalhar juntos! Escolha o melhor canal para se comunicar</p>
-            
-            <div class="contact-channels">
-                <!-- WhatsApp -->
-                <a href="https://wa.me/5531982043087" target="_blank" class="contact-channel">
-                    <div class="channel-icon">💬</div>
-                    <h3>WhatsApp</h3>
-                    <p>Chat direto e rápido</p>
-                    <span class="channel-link">(31) 98204-3087</span>
-                </a>
+    <!-- ===================== CERTIFICAÇÕES ===================== -->
+    <section id="certificacoes" class="section certificacoes">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">// certificações</p>
+          <h2 class="section-title">Cursos e certificações</h2>
+          <p class="section-sub">Formação contínua em tecnologia e idiomas.</p>
+        </header>
 
-                <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/in/joão-vitor-alves-rodrigues-15534830a" target="_blank" class="contact-channel">
-                    <div class="channel-icon">💼</div>
-                    <h3>LinkedIn</h3>
-                    <p>Conecte-se profissionalmente</p>
-                    <span class="channel-link">João Vitor Alves</span>
-                </a>
-
-                <!-- Instagram -->
-                <a href="https://www.instagram.com/https.jvalves/" target="_blank" class="contact-channel">
-                    <div class="channel-icon">📸</div>
-                    <h3>Instagram</h3>
-                    <p>Acompanhe meus projetos</p>
-                    <span class="channel-link">@https.jvalves</span>
-                </a>
-
-                <!-- Email -->
-                <a href="mailto:joaovitoralvesrodrigues891@gmail.com" class="contact-channel">
-                    <div class="channel-icon">✉️</div>
-                    <h3>Email</h3>
-                    <p>Envie uma mensagem</p>
-                    <span class="channel-link">joaovitoralvesrodrigues891@gmail.com</span>
-                </a>
+        <div class="certs-grid">
+          <article class="cert-card reveal">
+            <span class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <div class="cert-info">
+              <p class="cert-issuer">Cisco Networking Academy</p>
+              <h3>Endpoint Security</h3>
             </div>
+            <span class="cert-year">2024–2025</span>
+          </article>
+
+          <article class="cert-card reveal" data-delay="60">
+            <span class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <div class="cert-info">
+              <p class="cert-issuer">Cisco Networking Academy</p>
+              <h3>Introdução à IoT e Transformação Digital</h3>
+            </div>
+            <span class="cert-year">2025</span>
+          </article>
+
+          <article class="cert-card reveal" data-delay="120">
+            <span class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+            </span>
+            <div class="cert-info">
+              <p class="cert-issuer">Cisco Networking Academy</p>
+              <h3>Conceitos Básicos de Hardware</h3>
+            </div>
+            <span class="cert-year">2025</span>
+          </article>
+
+          <article class="cert-card reveal">
+            <span class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            </span>
+            <div class="cert-info">
+              <p class="cert-issuer">Fundação Estudar · Harvard</p>
+              <h3>CC50 — Ciência da Computação</h3>
+            </div>
+            <span class="cert-year">2025</span>
+          </article>
+
+          <article class="cert-card reveal" data-delay="60">
+            <span class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </span>
+            <div class="cert-info">
+              <p class="cert-issuer">Udemy</p>
+              <h3>PHP 8 — Desenvolvimento Web</h3>
+            </div>
+            <span class="cert-year">Dez/2024</span>
+          </article>
+
+          <article class="cert-card reveal" data-delay="120">
+            <span class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <div class="cert-info">
+              <p class="cert-issuer">Achieve Languages</p>
+              <h3>Inglês — Nível Intermediário</h3>
+            </div>
+            <span class="cert-year">2024</span>
+          </article>
+
+          <article class="cert-card reveal">
+            <span class="cert-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <div class="cert-info">
+              <p class="cert-issuer">Academia Washington</p>
+              <h3>Inglês — Nível Intermediário</h3>
+            </div>
+            <span class="cert-year">2017–2019</span>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- RODAPÉ -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Sobre João Vitor</h4>
-                <p>Desenvolvedor de Tecnologia especialista em software e manutenção de sistemas. Comprometido com soluções inovadoras e eficientes.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Links Rápidos</h4>
-                <ul>
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#formacao">Formação</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Conecte-se</h4>
-                <div class="footer-social">
-                    <a href="https://www.linkedin.com/in/joão-vitor-alves-rodrigues-15534830a" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/lebot007" target="_blank">GitHub</a>
-                    <a href="https://lebot007.github.io/site-joao" target="_blank">Website</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; <span id="year-current">2025</span> João Vitor Alves Rodrigues - Todos os direitos reservados. Desenvolvido com ❤️</p>
-        </div>
-    </footer>
+    <!-- ===================== CONTATO ===================== -->
+    <section id="contato" class="section contato">
+      <div class="container">
+        <header class="section-head section-head-center reveal">
+          <p class="eyebrow">// contato</p>
+          <h2 class="section-title">Vamos conversar?</h2>
+          <p class="section-sub">Estou disponível para oportunidades em desenvolvimento, suporte técnico e banco de dados. Escolha o canal preferido:</p>
+        </header>
 
-    <!-- SCRIPTS -->
-    <script src="script.js"></script>
+        <div class="contact-grid">
+          <a class="contact-card reveal" href="https://wa.me/5531982043087?text=Ol%C3%A1%2C%20Jo%C3%A3o%20Vitor!%20Vim%20pelo%20seu%20site%20profissional." target="_blank" rel="noopener">
+            <span class="cc-icon cc-whats">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+            </span>
+            <div>
+              <p class="cc-label">WhatsApp</p>
+              <p class="cc-value">(31) 98204-3087</p>
+              <p class="cc-sub">A resposta mais rápida é por aqui</p>
+            </div>
+          </a>
+
+          <a class="contact-card reveal" data-delay="60" href="mailto:joaovitoralvesrodrigues891@gmail.com">
+            <span class="cc-icon cc-mail">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+            <div>
+              <p class="cc-label">E-mail</p>
+              <p class="cc-value cc-email">joaovitoralvesrodrigues891@gmail.com</p>
+              <p class="cc-sub">Para propostas e currículo formal</p>
+            </div>
+          </a>
+
+          <a class="contact-card reveal" data-delay="120" href="https://www.linkedin.com/in/jo%C3%A3o-vitor-alves-rodrigues-15534830a" target="_blank" rel="noopener">
+            <span class="cc-icon cc-linkedin">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </span>
+            <div>
+              <p class="cc-label">LinkedIn</p>
+              <p class="cc-value">João Vitor Alves Rodrigues</p>
+              <p class="cc-sub">Perfil profissional completo</p>
+            </div>
+          </a>
+
+          <a class="contact-card reveal" href="https://github.com/lebot007" target="_blank" rel="noopener">
+            <span class="cc-icon cc-github">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </span>
+            <div>
+              <p class="cc-label">GitHub</p>
+              <p class="cc-value">github.com/lebot007</p>
+              <p class="cc-sub">Código, projetos e contribuições</p>
+            </div>
+          </a>
+
+          <div class="contact-card contact-static reveal" data-delay="60">
+            <span class="cc-icon cc-pin">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
+            <div>
+              <p class="cc-label">Localização</p>
+              <p class="cc-value">Belo Horizonte — MG</p>
+              <p class="cc-sub">Minas Gerais, Brasil</p>
+            </div>
+          </div>
+
+          <a class="contact-card reveal" data-delay="120" href="cv-joao-vitor.pdf" download>
+            <span class="cc-icon cc-cv">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </span>
+            <div>
+              <p class="cc-label">Currículo</p>
+              <p class="cc-value">Baixar CV em PDF</p>
+              <p class="cc-sub">Versão completa para candidaturas</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="contact-cta reveal">
+          <a class="btn btn-whats btn-lg" href="https://wa.me/5531982043087?text=Ol%C3%A1%2C%20Jo%C3%A3o%20Vitor!%20Vim%20pelo%20seu%20site%20profissional." target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+            Iniciar conversa agora
+          </a>
+          <p class="contact-note">Prefere e-mail? <a href="mailto:joaovitoralvesrodrigues891@gmail.com">joaovitoralvesrodrigues891@gmail.com</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#inicio" class="brand" aria-label="Voltar ao início">
+            <span class="brand-mark" aria-hidden="true">JV</span>
+            <span class="brand-name">João&nbsp;Vitor</span>
+          </a>
+          <p class="footer-tagline">Profissional de TI — Desenvolvimento de Software · Tasy · Oracle 12g · SQL</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Links do rodapé">
+          <p class="footer-title">Navegação</p>
+          <ul>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#competencias">Competências</a></li>
+            <li><a href="#experiencia">Experiência</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#formacao">Formação</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-social">
+          <p class="footer-title">Redes</p>
+          <div class="hero-social">
+            <a href="https://github.com/lebot007" target="_blank" rel="noopener" class="social-btn" aria-label="GitHub de João Vitor">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/jo%C3%A3o-vitor-alves-rodrigues-15534830a" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn de João Vitor">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://wa.me/5531982043087" target="_blank" rel="noopener" class="social-btn" aria-label="WhatsApp de João Vitor">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413"/></svg>
+            </a>
+            <a href="mailto:joaovitoralvesrodrigues891@gmail.com" class="social-btn" aria-label="E-mail de João Vitor">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="ano">2026</span> João Vitor Alves Rodrigues · Belo Horizonte, MG</p>
+        <p>Feito à mão com HTML, CSS e JavaScript · Hospedado no GitHub Pages</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </button>
+
+  <script src="script.js"></script>
 </body>
 </html>
