@@ -169,7 +169,7 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
   position: relative;
   min-height: 100svh;
   display: flex; align-items: center;
-  padding: calc(var(--nav-height) + 56px) 0 90px;
+  padding: calc(var(--nav-height) + 36px) 0 56px;
   overflow: hidden;
 }
 
@@ -207,7 +207,7 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
   background: rgba(52, 211, 153, 0.07);
   border: 1px solid rgba(52, 211, 153, 0.28);
   padding: 8px 15px; border-radius: 999px;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
 }
 
 .status-dot {
@@ -258,9 +258,9 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 }
 .hero-desc strong { color: var(--text); font-weight: 600; }
 
-.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 30px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 26px; }
 
-.hero-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-bottom: 30px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-bottom: 26px; }
 .hero-meta li {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 0.86rem; color: var(--text-muted);
@@ -335,6 +335,24 @@ button { font: inherit; background: none; border: none; cursor: pointer; color: 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-11px); }
+}
+
+/* Indicador de scroll */
+.scroll-hint {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  z-index: 2; display: none;
+  color: var(--text-faint);
+  animation: bob 2.4s ease-in-out infinite;
+  transition: color 0.25s ease;
+}
+.scroll-hint svg { width: 26px; height: 26px; }
+.scroll-hint:hover { color: var(--sky); }
+@keyframes bob {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, 9px); }
+}
+@media (min-width: 1025px) {
+  .scroll-hint { display: block; }
 }
 
 /* ---------- Marquee ---------- */
